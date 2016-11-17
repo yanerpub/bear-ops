@@ -14,11 +14,11 @@ module.exports = {
         loaders: [
             {
                 test: /\.vue$/,
-                loader: 'vue-loader'
+                loader: 'vue'
             },
             {
                 test: /\.js$/,
-                loader: 'babel?presets=es2015',
+                loader: 'babel',
                 exclude: /node_modules/
             }
         ]
