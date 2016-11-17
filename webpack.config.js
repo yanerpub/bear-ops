@@ -1,10 +1,13 @@
 const webpack = require('webpack');
 const path = require('path');
 
+var package = require('./package.json')
+var vendor = Object.keys(package.dependencies)
+
 module.exports = {
     entry: {
         app: './src/app.js',
-        vendor: ['vue', 'vuex', 'vue-router', 'vue-resource']
+        vendor: vendor
     },
     output: {
         path: path.resolve(__dirname, './dist'),

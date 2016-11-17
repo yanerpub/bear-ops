@@ -15,7 +15,13 @@ import supplierList from '../views/supplier/list.vue';
 export default new Router({
     mode: 'history',
     routes: [
-        {
+        {path: '/', component: index},
+        {path: '/supplier', component: supplierIndex},
+        {path: '/supplier/add', component: supplierAdd},
+        {path: '/supplier/:id', component: supplierDetail},
+        {path: '/supplier/:id/edit', component: supplierEdit},
+        {path: '/supplier/list', component: supplierList},
+        /*{
             path: '/', component: index,
             children: [
                 {
@@ -53,7 +59,7 @@ export default new Router({
                     ]
                 }
             ]
-        },
+        },*/
         {path: '*', redirect: '/'}
     ]
 })
