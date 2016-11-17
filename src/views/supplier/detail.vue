@@ -1,5 +1,5 @@
 <template>
-  <div>{{supplier | json}}</div>
+  <div>{{supplier}}</div>
 </template>
 
 <script>

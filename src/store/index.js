@@ -7,6 +7,11 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     list:[]
+  },
+  mutations: {
+    set: function(state, data) {
+      state.list = data;
+    }
   }
 })
 

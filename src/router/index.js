@@ -13,14 +13,15 @@ import supplierList from '../views/supplier/list.vue';
 
 
 export default new Router({
-    mode: 'history',
+    mode: 'hash',
+    saveScrollPosition: true,
     routes: [
         {path: '/', component: index},
         {path: '/supplier', component: supplierIndex},
         {path: '/supplier/add', component: supplierAdd},
+        {path: '/supplier/list', component: supplierList},
         {path: '/supplier/:id', component: supplierDetail},
         {path: '/supplier/:id/edit', component: supplierEdit},
-        {path: '/supplier/list', component: supplierList},
         /*{
             path: '/', component: index,
             children: [
