@@ -1,11 +1,10 @@
 {
-  "name": "webpack-test",
+  "name": "webpackvue",
   "version": "1.0.0",
-  "description": "",
+  "description": "hello world",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cross-env NODE_ENV=production webpack --config build/webpack.config.js --progress"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "yaner",
   "license": "MIT",
