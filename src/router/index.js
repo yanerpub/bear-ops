@@ -7,7 +7,7 @@ import index from '../views/index.vue';
 
 import supplierIndex from '../views/supplier/index.vue';
 import supplierAdd from '../views/supplier/add.vue';
-import supplierDetail from '../views/supplier/detail.vue';
+import supplierView from '../views/supplier/view.vue';
 import supplierEdit from '../views/supplier/edit.vue';
 
 
@@ -18,7 +18,7 @@ export default new Router({
         {path: '/', component: index},
         {path: '/supplier', component: supplierIndex},
         {path: '/supplier/add', component: supplierAdd},
-        {path: '/supplier/:id', component: supplierDetail},
+        {path: '/supplier/:id', component: supplierView},
         {path: '/supplier/:id/edit', component: supplierEdit},
         /*{
             path: '/', component: index,

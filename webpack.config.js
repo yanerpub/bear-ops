@@ -55,11 +55,14 @@ module.exports = {
             {test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery'}
         ]
     },
+    devServer: {
+        inline: true
+    },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
             name: ['app', 'vendor']
         }),
-        new ExtractTextPlugin({ filename: 'app.css', allChunks: true }),
+        new ExtractTextPlugin({filename: 'app.css', allChunks: true}),
         new webpack.LoaderOptionsPlugin({
             postcss: [autoprefixer],
         }),

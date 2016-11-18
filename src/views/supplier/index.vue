@@ -1,25 +1,55 @@
 <template>
-  <div>
-    <input v-model="query.sid"/>
-    <input v-model="query.name"/>
-    <button v-on:click="queryData">查询</button>
-    <router-link to="/supplier/add">添加</router-link>
-    <table>
-      <tr v-for="item in list">
-        <td><router-link :to="{path: item.sid}">{{item.id}}</router-link></td>
-        <td>{{item.sid}}</td>
-        <td>{{item.psid}}</td>
-        <td>{{item.qualificationId}}</td>
-        <td>{{item.name}}</td>
-        <td>{{item.local}}</td>
-        <td>{{item.userId}}</td>
-        <td>{{item.createUid}}</td>
-        <td>{{item.createTime | timeAgo}}</td>
-        <td>{{item.modifyTime | timeAgo}}</td>
-        <td><router-link :to="{path: item.sid + '/edit'}">修改</router-link></td>
-      </tr>
-    </table>
-  </div>
+    <div>
+        <form class="form-inline">
+            <div class="form-group">
+                <label class="sr-only" for="sid">SID</label>
+                <input type="text" v-model="query.sid" class="form-control" id="sid" placeholder="SID">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="name">Name</label>
+                <input type="text" v-model="query.name" class="form-control" id="name" placeholder="Name">
+            </div>
+            <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
+            <router-link class="btn btn-secondary" role="button" to="/supplier/add" aria-pressed="true">添加</router-link>
+        </form>
+        <div v-show="list">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>SID</th>
+                <th>QID</th>
+                <th>name</th>
+                <th>local</th>
+                <th>userId</th>
+                <th>city</th>
+                <th>source</th>
+                <th>createTime</th>
+                <th>modifyTime</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="item in list">
+                <td>
+                    <router-link :to="{path: item.sid}">{{item.sid}}</router-link>
+                </td>
+                <td>{{item.qid}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.local}}</td>
+                <td>{{item.userId}}</td>
+                <td>{{item.city}}</td>
+                <td>{{item.sourceText}}</td>
+                <td>{{item.createTime | timeAgo}}</td>
+                <td>{{item.modifyTime | timeAgo}}</td>
+                <td>
+                    <router-link :to="{path: item.sid + '/edit'}">修改</router-link>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        {{totalPage}}
+        </div>
+    </div>
 </template>
 
 <script>
@@ -29,18 +59,26 @@ export default {
   name: 'supplier-list-view',
   data() {
     return {
-        query: {}
+        query: {pageNow: 1, pageSize: 10, sortKey: ''}
     }
   },
   computed: {
-    list: function() {
+    list () {
       return this.$store.state.list
+    },
+    totalPage () {
+        return parseInt(this.$store.state.count / this.query.pageSize) + 1
     }
   },
   methods: {
     queryData () {
-      listSupplier(this.query, (body) => this.$store.commit("set", body.data.list));
+      listSupplier(this.query, (body) => {
+        this.$store.commit("setList", body.data.list);
+        this.$store.commit("setCount", body.data.total);
+      });
     }
   }
 }
+
+
 </script>
