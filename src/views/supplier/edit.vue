@@ -11,7 +11,7 @@
 </template>
 
 <script>
-
+import { detail, updateSupplier } from './api'
 export default {
   name: 'supplier-edit-view',
   data: function () {
@@ -30,14 +30,10 @@ export default {
   },
   methods: {
     fetchData: function () {
-      this.$http.get('/supplier/' + this.$route.params.id).then(function ({body}) {
-        this.supplier = body.data;
-      });
+      detail(this.$route.params.id, (body) => this.supplier = body.data);
     },
     updateData: function () {
-      this.$http.put('/supplier/', this.supplier).then(function ({body}) {
-        router.push('/');
-      });
+      updateSupplier(this.supplier, (body) => this.$router.push('/supplier/'))
     }
   }
 }

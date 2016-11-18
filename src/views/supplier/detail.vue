@@ -1,17 +1,19 @@
 <template>
-  <div>{{supplier}}</div>
+    <div>{{supplier}}</div>
 </template>
 
 <script>
 
+import { detail } from './api'
+
 export default {
   name: 'supplier-detail-view',
-  data: function () {
+  data () {
     return {
       supplier: {}
     }
   },
-  created: function () {
+  created () {
     // 组件创建完后获取数据，
     // 此时 data 已经被 observed 了
     this.fetchData()
@@ -21,11 +23,10 @@ export default {
     '$route': 'fetchData'
   },
   methods: {
-    fetchData: function () {
-      this.$http.get('/supplier/' + this.$route.params.id).then(function ({body}) {
-        this.supplier = body.data;
-      });
+    fetchData () {
+      detail(this.$route.params.id, (body) => this.supplier = body.data);
     }
   }
 }
+
 </script>
