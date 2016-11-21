@@ -19,12 +19,6 @@
                     <input class="form-control" type="text" id="city" v-model="supplier.city">
                 </div>
             </div>
-            <!--<div class="form-group row">
-                <label for="telephone" class="col-xs-2 col-form-label">Telephone</label>
-                <div class="col-xs-10">
-                    <input class="form-control" type="tel" id="telephone" v-model="supplier.telephone">
-                </div>
-            </div>-->
             <button type="button" class="btn btn-primary" @click="addData">添加</button>
         </form>
     </div>

@@ -10,12 +10,13 @@
                 <input type="text" v-model="query.name" class="form-control" id="name" placeholder="Name">
             </div>
             <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
-            <router-link class="btn btn-secondary" role="button" to="/supplier/add" aria-pressed="true">添加</router-link>
+            <router-link class="btn btn-secondary" role="button" to="/product/add" aria-pressed="true">添加</router-link>
         </form>
         <table class="table">
             <thead>
             <tr>
                 <th>SID</th>
+                <th>QID</th>
                 <th>name</th>
                 <th>local</th>
                 <th>userId</th>
@@ -29,8 +30,9 @@
             <tbody>
             <tr v-for="item in list">
                 <td>
-                    <router-link :to="{path: item.sid}">{{item.sid}}</router-link>
+                    <router-link :to="{path: item.id}">{{item.id}}</router-link>
                 </td>
+                <td>{{item.qid}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.local}}</td>
                 <td>{{item.userId}}</td>
@@ -49,10 +51,10 @@
 </template>
 
 <script>
-import {listSupplier} from './api'
+import {listProduct} from './api'
 
 export default {
-  name: 'supplier-list-view',
+  name: 'hotel-product-list-view',
   data() {
     return {
         query: {pageNow: 1, pageSize: 10, sortKey: ''}
@@ -75,6 +77,4 @@ export default {
     }
   }
 }
-
-
 </script>

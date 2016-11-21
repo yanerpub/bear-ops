@@ -12,21 +12,12 @@
         </div>
         <div class="col-sm-9">
             <h3 class="text-center">{{supplier.name}}</h3>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="card card-block">
-                        <h4 class="card-title">酒店业务</h4>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <router-link class="btn btn-secondary" :to="{path: '/hotel/' + supplier.sid + '/add'}">添加产品</router-link>
-                        <router-link class="btn btn-secondary" :to="{path: '/hotel/' + supplier.sid}">查看产品</router-link>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card card-block">
-                        <h3 class="card-title">Special title treatment</h3>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
+            <div class="container">
+                <div class="card card-block">
+                    <h4 class="card-title">酒店业务</h4>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
                 </div>
             </div>
             <form>
@@ -92,7 +83,7 @@
 import { detail } from './api'
 
 export default {
-  name: 'supplier-view',
+  name: 'hotel-product-view',
   data () {
     return {
       supplier: {}

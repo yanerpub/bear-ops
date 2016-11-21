@@ -34,7 +34,7 @@ export default {
       if (this.isFolder) {
         this.open = !this.open
       }
-      this.$emit('choose', this.model.id)
+      this.$emit('choose', {id: this.model.id, name: this.model.name})
     },
     changeType () {
       if (!this.isFolder) {
@@ -48,11 +48,12 @@ export default {
         name: 'new stuff'
       })
     },
-    choose (id) {
-      this.$emit('choose', id)
+    choose (node) {
+      this.$emit('choose', node)
     }
   }
 }
+
 </script>
 
 <style scoped>

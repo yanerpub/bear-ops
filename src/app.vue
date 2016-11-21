@@ -10,7 +10,10 @@
           <router-link to="/supplier/" class="nav-link">供应商</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/productTree/" class="nav-link">产品树</router-link>
+          <router-link to="/tree/" class="nav-link">产品树</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/hotel/" class="nav-link">酒店产品</router-link>
         </li>
       </ul>
     </nav>

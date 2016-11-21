@@ -33,7 +33,7 @@
 <script>
 import { detail, updateSupplier } from './api'
 export default {
-  name: 'supplier-edit-view',
+  name: 'hotel-product-edit-view',
   data: function () {
     return {
       supplier: {}

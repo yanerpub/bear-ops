@@ -10,19 +10,29 @@ import supplierAdd from '../views/supplier/add.vue';
 import supplierView from '../views/supplier/view.vue';
 import supplierEdit from '../views/supplier/edit.vue';
 
-import productTree from '../views/tree/ptree.vue';
+import tree from '../views/tree/index.vue';
 
+import hotelIndex from '../views/hotel/index.vue';
+import hotelSupplier from '../views/hotel/supplier.vue';
+import hotelProductAdd from '../views/hotel/add.vue';
+import hotelProductView from '../views/hotel/view.vue';
+import hotelProductEdit from '../views/hotel/edit.vue';
 
 export default new Router({
     mode: 'hash',
     saveScrollPosition: true,
     routes: [
         {path: '/', component: index},
-        {path: '/productTree', component: productTree},
+        {path: '/tree', component: tree},
         {path: '/supplier', component: supplierIndex},
         {path: '/supplier/add', component: supplierAdd},
         {path: '/supplier/:id', component: supplierView},
         {path: '/supplier/:id/edit', component: supplierEdit},
+        {path: '/hotel', component: hotelIndex},
+        {path: '/hotel/:sid', component: hotelSupplier},
+        {path: '/hotel/:sid/add', component: hotelProductAdd},
+        {path: '/hotel/:sid/:id', component: hotelProductView},
+        {path: '/hotel/:sid/:id/edit', component: hotelProductEdit},
         /*{
             path: '/', component: index,
             children: [
@@ -44,7 +54,7 @@ export default new Router({
                     ]
                 },
                 {
-                    path: 'product', component: supplierIndex,
+                    path: 'hotel', component: supplierIndex,
                     children: [
                         {
                             path: 'list', component: supplierList
