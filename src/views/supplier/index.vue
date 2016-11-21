@@ -12,7 +12,6 @@
             <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
             <router-link class="btn btn-secondary" role="button" to="/supplier/add" aria-pressed="true">添加</router-link>
         </form>
-        <div v-show="list">
         <table class="table">
             <thead>
             <tr>
@@ -48,7 +47,6 @@
             </tbody>
         </table>
         {{totalPage}}
-        </div>
     </div>
 </template>
 

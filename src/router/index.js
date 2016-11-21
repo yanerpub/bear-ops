@@ -10,12 +10,15 @@ import supplierAdd from '../views/supplier/add.vue';
 import supplierView from '../views/supplier/view.vue';
 import supplierEdit from '../views/supplier/edit.vue';
 
+import productTree from '../views/tree/ptree.vue';
+
 
 export default new Router({
     mode: 'hash',
     saveScrollPosition: true,
     routes: [
         {path: '/', component: index},
+        {path: '/productTree', component: productTree},
         {path: '/supplier', component: supplierIndex},
         {path: '/supplier/add', component: supplierAdd},
         {path: '/supplier/:id', component: supplierView},
