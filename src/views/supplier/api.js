@@ -14,7 +14,7 @@ export function addSupplier(supplier, callback) {
     });
 }
 
-export function detail(sid, callback) {
+export function fetchSupplier(sid, callback) {
     Vue.http.get(API_ROOT + '/supplier/' + sid).then(function ({body}) {
         callback(body);
     });

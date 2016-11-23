@@ -12,7 +12,7 @@ export default {
   name: 'index-view',
   data () {
     return {
-      data: 'index'
+      data: 'Welcome'
     }
   }
 }

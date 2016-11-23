@@ -119,8 +119,9 @@
 
 <script>
 import Vue from 'vue'
-import node from "./node.vue";
-import {queryTree, listField, addField, updateField} from './api'
+import node from "./node.vue"
+import {queryTree} from '../api'
+import {listField, addField, updateField} from './api'
 
 export default {
     name: 'tree',
@@ -138,7 +139,7 @@ export default {
             list:[]
         }
     },
-    created: function () {
+    created () {
       this.fetchData()
     },
     computed: {

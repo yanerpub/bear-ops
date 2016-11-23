@@ -17,8 +17,8 @@
                     <div class="card card-block">
                         <h4 class="card-title">酒店业务</h4>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <router-link class="btn btn-secondary" :to="{path: '/hotel/' + supplier.sid + '/add'}">添加产品</router-link>
-                        <router-link class="btn btn-secondary" :to="{path: '/hotel/' + supplier.sid}">查看产品</router-link>
+                        <router-link class="btn btn-secondary" :to="{ name: 'hotelProductAdd', params: { sid: supplier.sid }}">添加产品</router-link>
+                        <router-link class="btn btn-secondary" :to="{ name: 'hotelSupplier', params: { sid: supplier.sid }}">查看产品</router-link>
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -89,7 +89,7 @@
 
 <script>
 
-import { detail } from './api'
+import { fetchSupplier } from './api'
 
 export default {
   name: 'supplier-view',
@@ -109,7 +109,7 @@ export default {
   },
   methods: {
     fetchData () {
-      detail(this.$route.params.id, (body) => this.supplier = body.data);
+      fetchSupplier(this.$route.params.id, (body) => this.supplier = body.data);
     }
   }
 }

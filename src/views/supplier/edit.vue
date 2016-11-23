@@ -31,15 +31,15 @@
 </template>
 
 <script>
-import { detail, updateSupplier } from './api'
+import { fetchSupplier, updateSupplier } from './api'
 export default {
   name: 'supplier-edit-view',
-  data: function () {
+  data () {
     return {
       supplier: {}
     }
   },
-  created: function () {
+  created () {
     // 组件创建完后获取数据，
     // 此时 data 已经被 observed 了
     this.fetchData()
@@ -49,10 +49,10 @@ export default {
     '$route': 'fetchData'
   },
   methods: {
-    fetchData: function () {
-      detail(this.$route.params.id, (body) => this.supplier = body.data);
+    fetchData () {
+      fetchSupplier(this.$route.params.id, (body) => this.supplier = body.data);
     },
-    updateData: function () {
+    updateData () {
       updateSupplier(this.supplier, (body) => this.$router.push('/supplier/'))
     }
   }
