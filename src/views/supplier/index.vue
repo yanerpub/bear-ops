@@ -27,7 +27,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="item in list">
+            <tr v-for="item in supplierList">
                 <td>
                     <router-link :to="{path: item.sid}">{{item.sid}}</router-link>
                 </td>
@@ -55,22 +55,24 @@ export default {
   name: 'supplier-list-view',
   data() {
     return {
-        query: {pageNow: 1, pageSize: 10, sortKey: ''}
+        query: {pageNow: 1, pageSize: 10, sortKey: ''},
+        list: [],
+        count: 0
     }
   },
   computed: {
-    list () {
-      return this.$store.state.list
+    supplierList () {
+      return this.list
     },
     totalPage () {
-        return parseInt(this.$store.state.count / this.query.pageSize) + 1
+        return parseInt(this.count / this.query.pageSize) + 1
     }
   },
   methods: {
     queryData () {
       listSupplier(this.query, (body) => {
-        this.$store.commit("setList", body.data.list);
-        this.$store.commit("setCount", body.data.total);
+        this.list = body.data.list
+        this.count = body.data.total
       });
     }
   }

@@ -1,7 +1,7 @@
 <template>
     <div>
         <label class="form-check-inline" v-for="op in optionalValues">
-            <input class="form-check-input" type="checkbox" :value="op.value" v-model="checkedValues"> {{op.name}}
+            <input class="form-check-input" type="checkbox" :value="op.value" v-model="checkedValues" :disabled="disabled"> {{op.name}}
         </label>
     </div>
 </template>
@@ -20,6 +20,11 @@ export default {
     optionalValues: {
       type: Array,
       required: true
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {

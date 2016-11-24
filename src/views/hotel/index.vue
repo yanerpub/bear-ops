@@ -10,38 +10,39 @@
                 <input type="text" v-model="query.name" class="form-control" id="name" placeholder="Name">
             </div>
             <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
-            <router-link class="btn btn-secondary" role="button" to="/product/add" aria-pressed="true">添加</router-link>
         </form>
         <table class="table">
             <thead>
             <tr>
-                <th>SID</th>
-                <th>QID</th>
+                <th>id</th>
+                <th>sid</th>
+                <th>treeId</th>
                 <th>name</th>
-                <th>local</th>
+                <th>state</th>
                 <th>userId</th>
-                <th>city</th>
-                <th>source</th>
+                <th>effectDate</th>
+                <th>expireDate</th>
                 <th>createTime</th>
                 <th>modifyTime</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="item in list">
+            <tr v-for="item in productList">
                 <td>
-                    <router-link :to="{path: item.id}">{{item.id}}</router-link>
+                    <router-link :to="{ name: 'hotelProduct', params: { sid: item.sid, id: item.id }}">{{item.id}}</router-link>
                 </td>
-                <td>{{item.qid}}</td>
+                <td>{{item.sid}}</td>
+                <td>{{item.treeId}}</td>
                 <td>{{item.name}}</td>
-                <td>{{item.local}}</td>
+                <td>{{item.stateText}}</td>
                 <td>{{item.userId}}</td>
-                <td>{{item.city}}</td>
-                <td>{{item.sourceText}}</td>
+                <td>{{item.effectDateFmt}}</td>
+                <td>{{item.expireDateFmt}}</td>
                 <td>{{item.createTime | timeAgo}}</td>
                 <td>{{item.modifyTime | timeAgo}}</td>
                 <td>
-                    <router-link :to="{path: item.sid + '/edit'}">修改</router-link>
+                    <router-link :to="{ name: 'hotelProductEdit', params: { sid: item.sid, id: item.id }}">修改</router-link>
                 </td>
             </tr>
             </tbody>
@@ -57,23 +58,25 @@ export default {
   name: 'hotel-product-list-view',
   data() {
     return {
-        query: {pageNow: 1, pageSize: 10, sortKey: ''}
+        query: {pageNow: 1, pageSize: 10, sortKey: ''},
+        list: [],
+        count: 0
     }
   },
   computed: {
-    list () {
-      return this.$store.state.list
+    productList () {
+      return this.list
     },
     totalPage () {
-        return parseInt(this.$store.state.count / this.query.pageSize) + 1
+        return parseInt(this.count / this.query.pageSize) + 1
     }
   },
   methods: {
     queryData () {
-      listSupplier(this.query, (body) => {
-        this.$store.commit("setList", body.data.list);
-        this.$store.commit("setCount", body.data.total);
-      });
+      listProduct(this.query, (body) => {
+        this.list = body.data.list
+        this.count = body.data.total
+      })
     }
   }
 }

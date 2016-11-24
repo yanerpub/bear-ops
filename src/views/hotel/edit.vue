@@ -11,13 +11,13 @@
       <div class="form-group row">
         <label class="col-xs-2 col-form-label">effectDate</label>
         <div class="col-xs-10">
-          <input class="form-control" type="text" id="effectDate" v-model="product.effectDate">
+          <input class="form-control" type="text" id="effectDate" v-model="product.effectDateFmt">
         </div>
       </div>
       <div class="form-group row">
         <label class="col-xs-2 col-form-label">expireDate</label>
         <div class="col-xs-10">
-          <input class="form-control" type="text" id="expireDate" v-model="product.expireDate">
+          <input class="form-control" type="text" id="expireDate" v-model="product.expireDateFmt">
         </div>
       </div>
       <div class="form-group row">
@@ -53,7 +53,7 @@
           <div class="form-check" v-for="contract in contracts">
             <label class="form-check-label">
               <input class="form-check-input" type="checkbox" v-model="product.contractArray" :value="contract.id">
-              <a href="/contract/#">《{{contract.name}}》</a>
+              <a target="new" href="/contract/#">《{{contract.name}}》</a>
               <span v-if="contract.treeId == product.treeId" class="alert alert-warning alert-dismissible fade in" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
@@ -85,7 +85,7 @@ export default {
     }
   },
   components: {
-    'checkbox': checkbox
+    checkbox
   },
   created () {
     // 组件创建完后获取数据，
@@ -107,7 +107,7 @@ export default {
           this.contracts = body.data.contractList
           this.show = true
         })
-      });
+      })
     },
     joinValue (data) {
       this.product.fieldMap[data.key] = data.value

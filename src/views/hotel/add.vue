@@ -3,18 +3,20 @@
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
+                <div class="modal-content" :model="treeData">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 class="modal-title" id="myModalLabel">选择产品</h4>
+                        <h4 class="modal-title" id="myModalLabel">{{treeData.name}}</h4>
                     </div>
                     <div class="modal-body">
                         <ul>
-                            <li v-for="model in treeData.children" :model="treeData">
+                            <li v-for="model in treeData.children">
                                 <div>
                                     {{model.name}}
+                                    <span v-if="isFolder(model)"></span>
+                                    <span v-else><button type="button" class="btn btn-primary btn-sm" @click="choose(model)">确认</button></span>
                                 </div>
                                 <ul v-if="isFolder">
                                     <li v-for="model in model.children">
@@ -54,13 +56,15 @@
             <div class="form-group row">
                 <label class="col-xs-2 col-form-label">effectDate</label>
                 <div class="col-xs-10">
-                    <input class="form-control" type="text" id="effectDate" v-model="product.effectDate">
+                    <!--<datepicker v-model="product.effectDateFmt"></datepicker>-->
+                    <input class="form-control" type="text" id="effectDate" v-model="product.effectDateFmt">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-xs-2 col-form-label">expireDate</label>
                 <div class="col-xs-10">
-                    <input class="form-control" type="text" id="expireDate" v-model="product.expireDate">
+                    <!--<datepicker v-model="product.expireDateFmt"></datepicker>-->
+                    <input class="form-control" type="text" id="expireDate" v-model="product.expireDateFmt">
                 </div>
             </div>
             <div class="form-group row">
@@ -96,7 +100,7 @@
                     <div class="form-check" v-for="contract in contracts">
                         <label class="form-check-label">
                             <input class="form-check-input" type="checkbox" v-model="product.contractArray" :value="contract.id">
-                            <a href="/contract/#">《{{contract.name}}》</a>
+                            <a target="new" href="/contract/#">《{{contract.name}}》</a>
                             <span v-if="contract.treeId == template.id" class="alert alert-warning alert-dismissible fade in" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -116,23 +120,24 @@
 <script>
 import Vue from 'vue'
 import checkbox from "./checkbox.vue"
-import { queryTree } from '../api'
-import { fetchTemplate, addProduct } from './api'
+import { queryTree, fetchTemplate, addProduct } from './api'
 
 export default {
   name: 'hotel-product-add-view',
   data () {
     return {
+      format: 'yyyy-MM-dd',
       product: {fieldMap: {}, contractArray: []},
       treeData: {},
       template: {},
       fields: [],
       contracts: [],
+      disabled: {},
       show: false
     }
   },
   components: {
-    'checkbox': checkbox
+    checkbox
   },
   created () {
     // 组件创建完后获取数据，
