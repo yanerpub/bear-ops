@@ -66,7 +66,11 @@ module.exports = {
         watchContentBase: true,
         port: 8080,
         proxy: {
-            "/api": "http://localhost:3000"
+            "/template": "http://localhost:8088",
+            "/product": "http://localhost:8088",
+            "/supplier": "http://localhost:8088",
+            "/tree": "http://localhost:8088",
+            "/field": "http://localhost:8088",
         }
     },
     plugins: [
