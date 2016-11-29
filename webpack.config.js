@@ -10,7 +10,7 @@ module.exports = {
         vendor: './src/vendor.js'
     },
     output: {
-        path: path.resolve(__dirname, './dist'),
+        path: path.resolve(__dirname, 'dist'),
         filename: '[name].js'
     },
     resolve: {
@@ -61,7 +61,13 @@ module.exports = {
         ]
     },
     devServer: {
-        inline: true
+        contentBase: path.join(__dirname, "dist"),
+        inline: true,
+        watchContentBase: true,
+        port: 8080,
+        proxy: {
+            "/api": "http://localhost:3000"
+        }
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
