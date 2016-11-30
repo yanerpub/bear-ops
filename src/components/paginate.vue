@@ -280,6 +280,7 @@
       }
     }
   }
+
 </script>
 
 <style scoped>
@@ -303,4 +304,5 @@
     margin-top: 8px;
     text-align: center;
   }
+
 </style>

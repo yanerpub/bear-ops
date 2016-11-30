@@ -9,15 +9,15 @@ Vue.use(Resource)
 
 // register global utility filters.
 Object.keys(filters).forEach(key => {
-    Vue.filter(key, filters[key])
+  Vue.filter(key, filters[key])
 })
 
 // create the app instance.
 // here we inject the router and store to all child components,
 // making them available everywhere as `this.$router` and `this.$store`.
 new Vue({
-    el: '#app',
-    router,
-    store,
-    render: h => h(app)
+  el: '#app',
+  router,
+  store,
+  render: h => h(app)
 })

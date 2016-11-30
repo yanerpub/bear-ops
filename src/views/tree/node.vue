@@ -1,14 +1,14 @@
 <template>
-    <li>
-        <div :class="{bold: isFolder, node: true}" @click="toggle"><!-- @dblclick="changeType">-->
-            {{model.name}}
-            <span v-if="isFolder">[{{open ? '-' : '+'}}]</span>
-        </div>
-        <ul v-show="open" v-if="isFolder">
-            <node class="node" v-for="model in model.children" v-on:choose="choose" :model="model"></node>
-            <!--<li class="add" @click="addChild">+</li>-->
-        </ul>
-    </li>
+  <li>
+    <div :class="{bold: isFolder, node: true}" @click="toggle"><!-- @dblclick="changeType">-->
+      {{model.name}}
+      <span v-if="isFolder">[{{open ? '-' : '+'}}]</span>
+    </div>
+    <ul v-show="open" v-if="isFolder">
+      <node class="node" v-for="model in model.children" v-on:choose="choose" :model="model"></node>
+      <!--<li class="add" @click="addChild">+</li>-->
+    </ul>
+  </li>
 </template>
 <script>
 import Vue from 'vue'
@@ -54,6 +54,7 @@ export default {
   }
 }
 
+
 </script>
 
 <style scoped>
@@ -68,4 +69,5 @@ ul {
   line-height: 1.5em;
   list-style-type: dot;
 }
+
 </style>

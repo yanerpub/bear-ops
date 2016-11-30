@@ -1,51 +1,53 @@
 <template>
-    <div>
-        <form class="form-inline">
-            <div class="form-group">
-                <label class="sr-only" for="name">Name</label>
-                <input type="text" v-model="query.name" class="form-control" id="name" placeholder="Name">
-            </div>
-            <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
-            <router-link class="btn btn-secondary" role="button" :to="{ name: 'hotelProductAdd', params: { sid: $route.params.sid }}" aria-pressed="true">添加</router-link>
-        </form>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>id</th>
-                <th>sid</th>
-                <th>treeId</th>
-                <th>name</th>
-                <th>state</th>
-                <th>userId</th>
-                <th>effectDate</th>
-                <th>expireDate</th>
-                <th>createTime</th>
-                <th>modifyTime</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="item in productList">
-                <td>
-                    <router-link :to="{ name: 'hotelProduct', params: { sid: item.sid, id: item.id }}">{{item.id}}</router-link>
-                </td>
-                <td>{{item.sid}}</td>
-                <td>{{item.treeId}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.stateText}}</td>
-                <td>{{item.userId}}</td>
-                <td>{{item.effectDateFmt}}</td>
-                <td>{{item.expireDateFmt}}</td>
-                <td>{{item.createTime | timeAgo}}</td>
-                <td>{{item.modifyTime | timeAgo}}</td>
-                <td>
-                    <router-link :to="{ name: 'hotelProductEdit', params: { sid: item.sid, id: item.id }}">修改</router-link>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        {{totalPage}}
-    </div>
+  <div>
+    <form class="form-inline">
+      <div class="form-group">
+        <label class="sr-only" for="name">Name</label>
+        <input type="text" v-model="query.name" class="form-control" id="name" placeholder="Name">
+      </div>
+      <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
+      <router-link class="btn btn-secondary" role="button"
+                   :to="{ name: 'hotelProductAdd', params: { sid: $route.params.sid }}" aria-pressed="true">添加
+      </router-link>
+    </form>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>id</th>
+        <th>sid</th>
+        <th>treeId</th>
+        <th>name</th>
+        <th>state</th>
+        <th>userId</th>
+        <th>effectDate</th>
+        <th>expireDate</th>
+        <th>createTime</th>
+        <th>modifyTime</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="item in productList">
+        <td>
+          <router-link :to="{ name: 'hotelProduct', params: { sid: item.sid, id: item.id }}">{{item.id}}</router-link>
+        </td>
+        <td>{{item.sid}}</td>
+        <td>{{item.treeId}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.stateText}}</td>
+        <td>{{item.userId}}</td>
+        <td>{{item.effectDateFmt}}</td>
+        <td>{{item.expireDateFmt}}</td>
+        <td>{{item.createTime | timeAgo}}</td>
+        <td>{{item.modifyTime | timeAgo}}</td>
+        <td>
+          <router-link :to="{ name: 'hotelProductEdit', params: { sid: item.sid, id: item.id }}">修改</router-link>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    {{totalPage}}
+  </div>
 </template>
 
 <script>
@@ -89,4 +91,5 @@ export default {
     }
   }
 }
+
 </script>
