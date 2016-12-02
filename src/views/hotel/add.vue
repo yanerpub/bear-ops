@@ -120,7 +120,7 @@
         </div>
       </div>
       <button type="button" class="btn btn-primary" @click="addData">添加</button>
-      <router-link class="btn btn-secondary" :to="{ name: 'hotelSupplier', params: { sid: $route.params.sid }}">返回
+      <router-link class="btn btn-info" :to="{ name: 'hotelSupplier', params: { sid: $route.params.sid }}">返回
       </router-link>
     </form>
   </div>
