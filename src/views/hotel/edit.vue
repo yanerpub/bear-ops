@@ -1,7 +1,7 @@
 <template>
   <div>
     <form v-show="show">
-      <h3>{{product.id}}</h3>
+      <h3>产品编辑-{{product.id}}</h3>
       <div class="form-group row">
         <label for="name" class="col-xs-2 col-form-label">Name</label>
         <div class="col-xs-10">
@@ -30,18 +30,14 @@
       <div class="form-group row" v-for="field in fields">
         <label class="col-xs-2 col-form-label">{{field.name}}</label>
         <div class="col-xs-10">
-          <input v-if="field.type == 'text'" class="form-control" type="text" v-model="product.fieldMap[field.key]"
-                 :required="field.required">
-          <input v-if="field.type == 'password'" class="form-control" type="password"
-                 v-model="product.fieldMap[field.key]" :required="field.required">
-          <textarea rows="3" v-if="field.type == 'textarea'" class="form-control" v-model="product.fieldMap[field.key]"
-                    :required="field.required"></textarea>
-          <checkbox v-if="field.type == 'checkbox'" :field-key="field.key" :default-value="product.fieldMap[field.key]"
-                    :optional-values="field.optionalValues" v-on:joinValue="joinValue"></checkbox>
+          <input v-if="field.type == 'text'" class="form-control" type="text" v-model="product.fieldMap[field.key]" :required="field.required">
+          <input v-if="field.type == 'date'" class="form-control" type="text" v-model="product.fieldMap[field.key]" :required="field.required">
+          <input v-if="field.type == 'datetime'" class="form-control" type="text" v-model="product.fieldMap[field.key]" :required="field.required">
+          <textarea rows="3" v-if="field.type == 'textarea'" class="form-control" v-model="product.fieldMap[field.key]" :required="field.required"></textarea>
+          <checkbox v-if="field.type == 'checkbox'" :field-key="field.key" :default-value="product.fieldMap[field.key]" :optional-values="field.optionalValues" v-on:joinValue="joinValue"></checkbox>
           <div v-if="field.type == 'radio'">
             <label class="form-check-inline" v-for="op in field.optionalValues">
-              <input class="form-check-input" type="radio" :name="field.key" :value="op.value"
-                     v-model="product.fieldMap[field.key]"> {{op.name}}
+              <input class="form-check-input" type="radio" :name="field.key" :value="op.value" v-model="product.fieldMap[field.key]"> {{op.name}}
             </label>
           </div>
           <div v-if="field.type == 'select'">
@@ -59,13 +55,7 @@
             <label class="form-check-label">
               <input class="form-check-input" type="checkbox" v-model="product.contractArray" :value="contract.id">
               <a target="new" href="/contract/#">《{{contract.name}}》</a>
-              <span v-if="contract.treeId == product.treeId" class="alert alert-warning alert-dismissible fade in"
-                    role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <strong>required!</strong> checked.
-              </span>
+              <span v-if="contract.treeId == product.treeId" class="label label-warning">required</span>
             </label>
           </div>
         </div>

@@ -1,11 +1,11 @@
 <template>
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <ul>
         <node class="item" v-on:choose="choose" :model.sync="treeData"></node>
       </ul>
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-9">
       <h2 class="text-center">{{selectedTreeName}}</h2>
       <div v-show="action == 'list'">
         <!-- Nav tabs -->
@@ -45,15 +45,15 @@
                 <td>{{item.createTime | timeAgo}}</td>
                 <td>{{item.modifyTime | timeAgo}}</td>
                 <td>
-                  <button v-show="selectedTreeId == item.treeId" type="button" class="btn btn-secondary" @click="toEdit(item)">修改属性
+                  <button v-show="selectedTreeId == item.treeId" type="button" class="btn btn-primary" @click="toEdit(item)">修改属性
                   </button>
-                  <span v-show="selectedTreeId != item.treeId">继承属性</span>
+                  <span v-show="selectedTreeId != item.treeId" class="label label-success">继承属性</span>
                 </td>
               </tr>
               </tbody>
             </table>
             <form class="form-inline">
-              <button type="button" class="btn btn-secondary" @click="toAdd">添加属性</button>
+              <button type="button" class="btn btn-primary" @click="toAdd">添加属性</button>
             </form>
           </div>
           <div class="tab-pane" id="contract" role="tabpanel">
@@ -101,7 +101,8 @@
             <div class="col-xs-9">
               <select id="type" class="form-control" v-model="field.type">
                 <option value="text">text</option>
-                <option value="password">password</option>
+                <option value="date">date</option>
+                <option value="datetime">datetime</option>
                 <option value="checkbox">checkbox</option>
                 <option value="radio">radio</option>
                 <option value="select">select</option>

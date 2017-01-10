@@ -78,7 +78,8 @@
         <label class="col-xs-2 col-form-label">{{field.name}}</label>
         <div class="col-xs-10">
           <input v-if="field.type == 'text'" class="form-control" type="text" v-model="product.fieldMap[field.key]" :required="field.required">
-          <input v-if="field.type == 'password'" class="form-control" type="password" v-model="product.fieldMap[field.key]" :required="field.required">
+          <input v-if="field.type == 'date'" class="form-control" type="text" v-model="product.fieldMap[field.key]" :required="field.required">
+          <input v-if="field.type == 'datetime'" class="form-control" type="text" v-model="product.fieldMap[field.key]" :required="field.required">
           <textarea rows="3" v-if="field.type == 'textarea'" class="form-control" v-model="product.fieldMap[field.key]" :required="field.required"></textarea>
           <checkbox v-if="field.type == 'checkbox'" :field-key="field.key" :default-value="product.fieldMap[field.key]" :optional-values="field.optionalValues" v-on:joinValue="joinValue"></checkbox>
           <div v-if="field.type == 'radio'">
@@ -101,12 +102,7 @@
             <label class="form-check-label">
               <input class="form-check-input" type="checkbox" v-model="product.contractArray" :value="contract.id">
               <a target="new" href="/contract/#">《{{contract.name}}》</a>
-              <!--<span v-if="contract.treeId == template.id" class="alert alert-warning alert-dismissible fade in" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <strong>required!</strong> checked.
-              </span>-->
+              <span v-if="contract.treeId == product.treeId" class="label label-warning">required</span>
             </label>
           </div>
         </div>
