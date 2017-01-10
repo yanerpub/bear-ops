@@ -16,24 +16,21 @@
                 <div>
                   {{model.name}}
                   <span v-if="isFolder(model)"></span>
-                  <span v-else><button type="button" class="btn btn-primary btn-sm"
-                                       @click="choose(model)">确认</button></span>
+                  <span v-else><button type="button" class="btn btn-primary btn-sm" @click="choose(model)">确认</button></span>
                 </div>
                 <ul v-if="isFolder">
                   <li v-for="model in model.children">
                     <div>
                       {{model.name}}
                       <span v-if="isFolder(model)"></span>
-                      <span v-else><button type="button" class="btn btn-primary btn-sm"
-                                           @click="choose(model)">确认</button></span>
+                      <span v-else><button type="button" class="btn btn-primary btn-sm" @click="choose(model)">确认</button></span>
                     </div>
                     <ul v-if="isFolder">
                       <li v-for="model in model.children" :model="treeData">
                         <div>
                           {{model.name}}
                           <span v-if="isFolder(model)"></span>
-                          <span v-else><button type="button" class="btn btn-primary btn-sm"
-                                               @click="choose(model)">确认</button></span>
+                          <span v-else><button type="button" class="btn btn-primary btn-sm" @click="choose(model)">确认</button></span>
                         </div>
                       </li>
                     </ul>
@@ -80,18 +77,13 @@
       <div class="form-group row" v-for="field in fields">
         <label class="col-xs-2 col-form-label">{{field.name}}</label>
         <div class="col-xs-10">
-          <input v-if="field.type == 'text'" class="form-control" type="text" v-model="product.fieldMap[field.key]"
-                 :required="field.required">
-          <input v-if="field.type == 'password'" class="form-control" type="password"
-                 v-model="product.fieldMap[field.key]" :required="field.required">
-          <textarea rows="3" v-if="field.type == 'textarea'" class="form-control" v-model="product.fieldMap[field.key]"
-                    :required="field.required"></textarea>
-          <checkbox v-if="field.type == 'checkbox'" :field-key="field.key" :default-value="product.fieldMap[field.key]"
-                    :optional-values="field.optionalValues" v-on:joinValue="joinValue"></checkbox>
+          <input v-if="field.type == 'text'" class="form-control" type="text" v-model="product.fieldMap[field.key]" :required="field.required">
+          <input v-if="field.type == 'password'" class="form-control" type="password" v-model="product.fieldMap[field.key]" :required="field.required">
+          <textarea rows="3" v-if="field.type == 'textarea'" class="form-control" v-model="product.fieldMap[field.key]" :required="field.required"></textarea>
+          <checkbox v-if="field.type == 'checkbox'" :field-key="field.key" :default-value="product.fieldMap[field.key]" :optional-values="field.optionalValues" v-on:joinValue="joinValue"></checkbox>
           <div v-if="field.type == 'radio'">
             <label class="form-check-inline" v-for="op in field.optionalValues">
-              <input class="form-check-input" type="radio" :name="field.key" :value="op.value"
-                     v-model="product.fieldMap[field.key]"> {{op.name}}
+              <input class="form-check-input" type="radio" :name="field.key" :value="op.value" v-model="product.fieldMap[field.key]"> {{op.name}}
             </label>
           </div>
           <div v-if="field.type == 'select'">
@@ -103,18 +95,18 @@
       </div>
       <hr>
       <div class="form-group row">
-        <label class="col-xs-2 col-form-label">服务合同协议</label>
+        <label class="col-xs-2 col-form-label">服务合同</label>
         <div class="col-xs-10">
           <div class="form-check" v-for="contract in contracts">
             <label class="form-check-label">
               <input class="form-check-input" type="checkbox" v-model="product.contractArray" :value="contract.id">
               <a target="new" href="/contract/#">《{{contract.name}}》</a>
-              <span v-if="contract.treeId == template.id" class="alert alert-warning alert-dismissible fade in" role="alert">
+              <!--<span v-if="contract.treeId == template.id" class="alert alert-warning alert-dismissible fade in" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
                 <strong>required!</strong> checked.
-              </span>
+              </span>-->
             </label>
           </div>
         </div>

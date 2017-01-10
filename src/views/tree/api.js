@@ -6,8 +6,8 @@ export function queryTree(callback) {
   });
 }
 
-export function listField(treeId, callback) {
-  Vue.http.get('/field/' + treeId).then(function ({body}) {
+export function getTemplate(treeId, callback) {
+  Vue.http.get('/template/' + treeId).then(function ({body}) {
     callback(body);
   });
 }

@@ -1,6 +1,6 @@
 <template>
   <li>
-    <div :class="{bold: isFolder, node: true}" @click="toggle"><!-- @dblclick="changeType">-->
+    <div :class="{bold: isFolder, node: true}" @click="click" @dblclick="toggle">
       {{model.name}}
       <span v-if="isFolder">[{{open ? '-' : '+'}}]</span>
     </div>
@@ -30,23 +30,13 @@ export default {
     }
   },
   methods: {
+    click () {
+      this.$emit('choose', {id: this.model.id, name: this.model.name})
+    },
     toggle () {
       if (this.isFolder) {
         this.open = !this.open
       }
-      this.$emit('choose', {id: this.model.id, name: this.model.name})
-    },
-    changeType () {
-      if (!this.isFolder) {
-        Vue.set(this.model, 'children', [])
-        this.addChild()
-        this.open = true
-      }
-    },
-    addChild () {
-      this.model.children.push({
-        name: 'new stuff'
-      })
     },
     choose (node) {
       this.$emit('choose', node)

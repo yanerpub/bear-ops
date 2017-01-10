@@ -10,7 +10,7 @@ import supplierAdd from '../views/supplier/add.vue';
 import supplierView from '../views/supplier/view.vue';
 import supplierEdit from '../views/supplier/edit.vue';
 
-import tree from '../views/tree/index.vue';
+import treeIndex from '../views/tree/index.vue';
 
 import hotelIndex from '../views/hotel/index.vue';
 import hotelSupplier from '../views/hotel/supplier.vue';
@@ -23,7 +23,7 @@ export default new Router({
   saveScrollPosition: true,
   routes: [
     {path: '/', name: 'home', component: index},
-    {path: '/tree', name: 'tree', component: tree},
+    {path: '/tree', name: 'tree', component: treeIndex},
     {path: '/supplier', name: 'supplier', component: supplierIndex},
     {path: '/supplier/add', name: 'supplierAdd', component: supplierAdd},
     {path: '/supplier/:id', name: 'supplierView', component: supplierView},
