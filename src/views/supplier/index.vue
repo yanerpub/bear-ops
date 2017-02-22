@@ -60,6 +60,9 @@ export default {
         count: 0
     }
   },
+  created () {
+    this.queryData()
+  },
   computed: {
     supplierList () {
       return this.list

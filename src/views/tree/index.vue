@@ -11,15 +11,24 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item active">
-            <a class="nav-link active" data-toggle="tab" href="#field" role="tab">域</a>
+            <a class="nav-link active" data-toggle="tab" href="#field" role="tab">生产</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#contract" role="tab">合同</a>
+            <a class="nav-link" data-toggle="tab" href="#contract" role="tab">采购</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#delivery" role="tab">配送</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#return" role="tab">退货</a>
           </li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
           <div class="tab-pane active" id="field" role="tabpanel">
+            <blockquote>
+              <p>产品的<mark>属性、报价、库存、包装、流程</mark></p>
+            </blockquote>
             <table class="table">
               <thead>
               <tr>
@@ -57,6 +66,59 @@
             </form>
           </div>
           <div class="tab-pane" id="contract" role="tabpanel">
+            <blockquote>
+              <p>产品可选的<mark>采购协议</mark></p>
+            </blockquote>
+            <table class="table">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>name</th>
+                <th>version</th>
+                <th>createTime</th>
+                <th>modifyTime</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="item in contractList">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.version}}</td>
+                <td>{{item.createTime | timeAgo}}</td>
+                <td>{{item.modifyTime | timeAgo}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane" id="delivery" role="tabpanel">
+            <blockquote>
+              <p>对下游系统输出即<mark>配送</mark></p>
+            </blockquote>
+            <table class="table">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>name</th>
+                <th>version</th>
+                <th>createTime</th>
+                <th>modifyTime</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="item in contractList">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.version}}</td>
+                <td>{{item.createTime | timeAgo}}</td>
+                <td>{{item.modifyTime | timeAgo}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane" id="return" role="tabpanel">
+            <blockquote>
+              <p><mark>退货</mark>的规则、流程</p>
+            </blockquote>
             <table class="table">
               <thead>
               <tr>
