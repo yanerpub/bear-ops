@@ -221,7 +221,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import node from "./node.vue"
 import {queryTree, getTemplate, addField, updateField} from './api'
 

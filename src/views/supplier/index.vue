@@ -17,10 +17,9 @@
       <tr>
         <th>SID</th>
         <th>name</th>
-        <th>local</th>
-        <th>userId</th>
-        <th>city</th>
-        <th>source</th>
+        <th>cellphone</th>
+        <th>telephone</th>
+        <th>owner</th>
         <th>createTime</th>
         <th>modifyTime</th>
         <th>操作</th>
@@ -32,10 +31,9 @@
           <router-link :to="{path: item.sid}">{{item.sid}}</router-link>
         </td>
         <td>{{item.name}}</td>
-        <td>{{item.local}}</td>
-        <td>{{item.userId}}</td>
-        <td>{{item.city}}</td>
-        <td>{{item.sourceText}}</td>
+        <td>{{item.cellphone}}</td>
+        <td>{{item.telephone}}</td>
+        <td>{{item.owner}}</td>
         <td>{{item.createTime | timeAgo}}</td>
         <td>{{item.modifyTime | timeAgo}}</td>
         <td>

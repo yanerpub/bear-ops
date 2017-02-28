@@ -11,8 +11,7 @@ import supplierIndex from '../views/supplier/index.vue';
 import supplierAdd from '../views/supplier/add.vue';
 import supplierView from '../views/supplier/view.vue';
 import supplierEdit from '../views/supplier/edit.vue';
-
-import workflowIndex from '../views/workflow/index.vue';
+import supplierAptitudeView from '../views/supplier/aptitude.vue';
 
 import hotelIndex from '../views/hotel/index.vue';
 import hotelSupplier from '../views/hotel/supplier.vue';
@@ -28,9 +27,9 @@ export default new Router({
     {path: '/tree', name: 'tree', component: treeIndex},
     {path: '/supplier', name: 'supplier', component: supplierIndex},
     {path: '/supplier/add', name: 'supplierAdd', component: supplierAdd},
-    {path: '/supplier/:id', name: 'supplierView', component: supplierView},
-    {path: '/supplier/:id/edit', name: 'supplierEdit', component: supplierEdit},
-    {path: '/workflow', name: 'workflow', component: workflowIndex},
+    {path: '/supplier/:sid', name: 'supplierView', component: supplierView},
+    {path: '/supplier/:sid/edit', name: 'supplierEdit', component: supplierEdit},
+    {path: '/supplier/:sid/aptitude', name: 'supplierAptitudeView', component: supplierAptitudeView},
     {path: '/hotel', name: 'hotel', component: hotelIndex},
     {path: '/hotel/:sid', name: 'hotelSupplier', component: hotelSupplier},
     {path: '/hotel/:sid/add', name: 'hotelProductAdd', component: hotelProductAdd},
