@@ -7,7 +7,7 @@
         <table class="table">
           <thead>
           <tr>
-            <th>电话</th>
+            <th>电话/邮箱</th>
             <th>资质</th>
             <th>网址</th>
             <th>Owner</th>
@@ -15,10 +15,14 @@
           </thead>
           <tbody>
           <tr>
-            <td>{{supplier.cellphone}}</td>
             <td>
-              <span v-if="supplier.aid > 0">{{supplier.aptitude.number}}</span>
-              <span v-else><router-link class="btn btn-secondary" :to="{ name: 'supplierAptitudeView', params: { sid: $route.params.sid }}">补充资质</router-link></span>
+              {{supplier.cellphone}}<br>{{supplier.email}}
+            </td>
+            <td>
+              <router-link :to="{ name: 'supplierAptitudeView', params: { sid: $route.params.sid }}">
+                <span v-if="supplier.aid > 0">{{supplier.aptitudeVo.number}}</span>
+                <span v-else>补充资质</span>
+              </router-link>
             </td>
             <td>{{supplier.website}}</td>
             <td>{{supplier.owner}}</td>
@@ -94,6 +98,12 @@
               <label class="col-sm-2 col-form-label">telephone</label>
               <div class="col-sm-10">
                 <p class="form-control-static">{{supplier.telephone}}</p>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">email</label>
+              <div class="col-sm-10">
+                <p class="form-control-static">{{supplier.email}}</p>
               </div>
             </div>
             <div class="form-group row">

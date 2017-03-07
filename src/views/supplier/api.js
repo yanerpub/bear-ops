@@ -24,20 +24,20 @@ export function updateSupplier(supplier, callback) {
   });
 }
 
+export function fetchAptitude(sid, callback) {
+  Vue.http.get('/supplier/' + sid + '/aptitude').then(function ({body}) {
+    callback(body);
+  });
+}
+
 export function fetchAptitudeEnums(callback) {
   Vue.http.get('/aptitude/enums').then(function ({body}) {
     callback(body);
   });
 }
 
-export function fetchAptitude(sid, callback) {
-  Vue.http.get('/aptitude/' + sid).then(function ({body}) {
-    callback(body);
-  });
-}
-
 export function updateAptitude(aptitude, callback) {
-  Vue.http.put('/aptitude/', aptitude).then(function ({body}) {
+  Vue.http.post('/aptitude/', aptitude).then(function ({body}) {
     callback(body);
   });
 }

@@ -2,20 +2,20 @@
   <div>
     <form class="form-inline">
       <div class="form-group">
-        <label class="sr-only" for="sid">SID</label>
-        <input type="text" v-model="query.sid" class="form-control" id="sid" placeholder="SID">
+        <label class="sr-only" for="owner">owner</label>
+        <input type="text" v-model="query.owner" class="form-control" id="owner" placeholder="owner">
       </div>
       <div class="form-group">
         <label class="sr-only" for="name">Name</label>
         <input type="text" v-model="query.name" class="form-control" id="name" placeholder="Name">
       </div>
       <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
-      <router-link class="btn btn-secondary" role="button" to="/supplier/add" aria-pressed="true">添加</router-link>
+      <router-link class="btn btn-secondary" role="button" to="/potential/add" aria-pressed="true">添加</router-link>
     </form>
     <table class="table">
       <thead>
       <tr>
-        <th>SID</th>
+        <th>id</th>
         <th>name</th>
         <th>cellphone</th>
         <th>telephone</th>
@@ -27,9 +27,10 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="item in supplierList">
+      <tr v-for="item in potentialList">
         <td>
-          <router-link :to="{path: item.sid}">{{item.sid}}</router-link>
+
+          <router-link :to="{ name: 'potentialView', params: { id: item.id }}">{{item.id}}</router-link>
         </td>
         <td>{{item.name}}</td>
         <td>{{item.cellphone}}</td>
@@ -39,7 +40,7 @@
         <td>{{item.createTime | timeAgo}}</td>
         <td>{{item.modifyTime | timeAgo}}</td>
         <td>
-          <router-link :to="{path: item.sid + '/edit'}">修改</router-link>
+          <router-link :to="{path: item.id + '/edit'}">修改</router-link>
         </td>
       </tr>
       </tbody>
@@ -49,10 +50,10 @@
 </template>
 
 <script>
-import {listSupplier} from './api'
+import {listPotential} from './api'
 
 export default {
-  name: 'supplier-list-view',
+  name: 'potential-list-view',
   data() {
     return {
         query: {pageNow: 1, pageSize: 10, sortKey: ''},
@@ -64,7 +65,7 @@ export default {
     this.queryData()
   },
   computed: {
-    supplierList () {
+    potentialList () {
       return this.list
     },
     totalPage () {
@@ -73,7 +74,7 @@ export default {
   },
   methods: {
     queryData () {
-      listSupplier(this.query, (body) => {
+      listPotential(this.query, (body) => {
         this.list = body.data.list
         this.count = body.data.total
       });

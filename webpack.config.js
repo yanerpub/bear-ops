@@ -40,6 +40,7 @@ module.exports = {
     proxy: {
       "/template": "http://localhost:8088",
       "/product": "http://localhost:8088",
+      "/potential": "http://localhost:8088",
       "/supplier": "http://localhost:8088",
       "/aptitude": "http://localhost:8088",
       "/tree": "http://localhost:8088",

@@ -10,8 +10,8 @@
       <div class="form-group row">
         <label for="type" class="col-xs-2 col-form-label">type</label>
         <div class="col-xs-10">
-          <select id="type" class="form-control" v-model="aptitude.type">
-            <option v-for="op in types" :value="op.code">{{op.name}}</option>
+          <select id="type" class="form-control" v-model="aptitude.typeCode">
+            <option v-for="op in aptitudeTypes" :value="op.code">{{op.name}}</option>
           </select>
         </div>
       </div>
@@ -24,7 +24,7 @@
       <div class="form-group row">
         <label for="expireType" class="col-xs-2 col-form-label">expireType</label>
         <div class="col-xs-10">
-          <select id="expireType" class="form-control" v-model="aptitude.expireType">
+          <select id="expireType" class="form-control" v-model="aptitude.expireTypeCode">
             <option v-for="op in expireTypes" :value="op.code">{{op.name}}</option>
           </select>
         </div>
@@ -32,7 +32,7 @@
       <div class="form-group row" v-show="hasExpireDate">
         <label for="expireDate" class="col-xs-2 col-form-label">expireDate</label>
         <div class="col-xs-10">
-          <input class="form-control" type="text" id="expireDate" v-model="aptitude.expireDate">
+          <input class="form-control" type="text" id="expireDate" v-model="aptitude.expireDateText">
         </div>
       </div>
       <div class="form-group row">
@@ -42,8 +42,8 @@
         </div>
       </div>
       <button type="button" class="btn btn-primary" @click="updateData">更新</button>
+      <router-link class="btn btn-info" :to="{ name: 'supplierView', params: { sid: $route.params.sid }}">返回</router-link>
     </form>
-    {{aptitude}}
   </div>
 </template>
 
@@ -53,9 +53,9 @@ export default {
   name: 'supplier-aptitude-view',
   data () {
     return {
-      types:{},
-      expireTypes: {},
-      aptitude: {type:"1", expireType:"1"}
+      aptitudeTypes:[],
+      expireTypes: [],
+      aptitude: {sid: this.$route.params.sid, typeCode:"1", expireTypeCode:"1"}
     }
   },
   created () {
@@ -63,17 +63,16 @@ export default {
   },
   computed: {
     hasExpireDate () {
-      return this.aptitude.expireType == '2'
+      return this.aptitude.expireTypeCode == '2'
     }
   },
   watch: {
-    // 如果路由有变化，会再次执行该方法
     '$route': 'fetchData'
   },
   methods: {
     fetchData () {
       fetchAptitudeEnums((body) => {
-        this.types = body.data.types
+        this.aptitudeTypes = body.data.aptitudeTypes
         this.expireTypes = body.data.expireTypes
       });
       fetchAptitude(this.$route.params.sid, (body) => {
@@ -83,8 +82,7 @@ export default {
       });
     },
     updateData () {
-      var para = {aptitude: this.aptitude, sid: this.$route.params.sid}
-      updateAptitude(para, (body) => this.$router.push('/supplier/' + this.$route.params.sid))
+      updateAptitude(this.aptitude, (body) => this.$router.push('/supplier/' + this.$route.params.sid))
     }
   }
 }

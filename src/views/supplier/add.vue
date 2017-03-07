@@ -26,6 +26,12 @@
         </div>
       </div>
       <div class="form-group row">
+        <label for="email" class="col-xs-2 col-form-label">Email</label>
+        <div class="col-xs-10">
+          <input class="form-control" type="text" id="email" v-model="supplier.email">
+        </div>
+      </div>
+      <div class="form-group row">
         <label for="description" class="col-xs-2 col-form-label">Description</label>
         <div class="col-xs-10">
           <input class="form-control" type="text" id="description" v-model="supplier.description">
@@ -38,6 +44,7 @@
         </div>
       </div>
       <button type="button" class="btn btn-primary" @click="addData">添加</button>
+      <router-link class="btn btn-info" :to="{ name: 'supplierIndex'}">返回</router-link>
     </form>
   </div>
 </template>
