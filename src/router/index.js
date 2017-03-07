@@ -14,7 +14,7 @@ import supplierIndex from '../views/supplier/index.vue';
 import supplierAdd from '../views/supplier/add.vue';
 import supplierView from '../views/supplier/view.vue';
 import supplierEdit from '../views/supplier/edit.vue';
-import supplierAptitudeView from '../views/supplier/aptitude.vue';
+import supplierAptitude from '../views/supplier/aptitude.vue';
 import supplierContact from '../views/supplier/contact.vue';
 import supplierAccount from '../views/supplier/account.vue';
 import supplierUser from '../views/supplier/user.vue';
@@ -41,7 +41,8 @@ export default new Router({
     {path: '/supplier/add', name: 'supplierAdd', component: supplierAdd},
     {path: '/supplier/:sid', name: 'supplierView', component: supplierView},
     {path: '/supplier/:sid/edit', name: 'supplierEdit', component: supplierEdit},
-    {path: '/supplier/:sid/aptitude', name: 'supplierAptitudeView', component: supplierAptitudeView},
+    {path: '/supplier/:sid/aptitude', name: 'supplierAptitudeAdd', component: supplierAptitude},
+    {path: '/supplier/:sid/aptitude/:id', name: 'supplierAptitudeEdit', component: supplierAptitude},
     {path: '/supplier/:sid/contact', name: 'supplierContactAdd', component: supplierContact},
     {path: '/supplier/:sid/contact/:id', name: 'supplierContactEdit', component: supplierContact},
     {path: '/supplier/:sid/account', name: 'supplierAccountAdd', component: supplierAccount},

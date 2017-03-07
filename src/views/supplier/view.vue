@@ -22,9 +22,11 @@
               {{supplier.cellphone}}<br>{{supplier.email}}
             </td>
             <td>
-              <router-link :to="{ name: 'supplierAptitudeView', params: { sid: $route.params.sid }}">
-                <span v-if="supplier.aid > 0">{{supplier.aptitudeVo.number}}</span>
-                <span v-else>补充资质</span>
+              <router-link :to="{ name: 'supplierAptitudeEdit', params: { sid: $route.params.sid, id: supplier.aid }}" v-if="supplier.aid > 0">
+                {{supplier.aptitudeVo.number}}
+              </router-link>
+              <router-link :to="{ name: 'supplierAptitudeAdd', params: { sid: $route.params.sid }}" v-else>
+                补充资质
               </router-link>
             </td>
             <td>{{supplier.website}}</td>

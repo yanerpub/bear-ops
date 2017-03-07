@@ -41,21 +41,24 @@
           <input class="form-control" type="text" id="attachment" v-model="aptitude.attachment">
         </div>
       </div>
-      <button type="button" class="btn btn-primary" @click="updateData">更新</button>
+      <button type="button" class="btn btn-primary" @click="updateData" v-show="$route.params.id">更新</button>
+      <button type="button" class="btn btn-primary" @click="addData" v-show="!$route.params.id">添加</button>
       <router-link class="btn btn-info" :to="{ name: 'supplierView', params: { sid: $route.params.sid }}">返回</router-link>
     </form>
   </div>
 </template>
 
 <script>
-import { fetchEnums, fetchAptitude, updateAptitude } from './api'
+
+import { fetchEnums, fetchAptitude, addAptitude, updateAptitude } from './api'
+
 export default {
   name: 'supplier-aptitude-view',
   data () {
     return {
       aptitudeTypes:[],
       expireTypes: [],
-      aptitude: {sid: this.$route.params.sid, typeCode:"1", expireTypeCode:"1"}
+      aptitude: {}
     }
   },
   created () {
@@ -75,14 +78,21 @@ export default {
         this.aptitudeTypes = body.data.aptitudeTypes
         this.expireTypes = body.data.expireTypes
       });
-      fetchAptitude(this.$route.params.sid, (body) => {
-        if (!!body.data) {
-          this.aptitude = body.data
-        }
-      });
+      if (!!this.$route.params.id) {
+        fetchAptitude(this.$route.params.sid, this.$route.params.id, (body) => {
+          if (!!body.data) {
+            this.aptitude = body.data
+          }
+        });
+      } else {
+        this.aptitude = {typeCode: 1, expireTypeCode: 1}
+      }
+    },
+    addData () {
+      addAptitude(this.$route.params.sid, this.aptitude, (body) => this.$router.push('/supplier/' + this.$route.params.sid))
     },
     updateData () {
-      updateAptitude(this.aptitude, (body) => this.$router.push('/supplier/' + this.$route.params.sid))
+      updateAptitude(this.$route.params.sid, this.aptitude, (body) => this.$router.push('/supplier/' + this.$route.params.sid))
     }
   }
 }

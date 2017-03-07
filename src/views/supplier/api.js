@@ -30,14 +30,20 @@ export function updateSupplier(supplier, callback) {
   });
 }
 
-export function fetchAptitude(sid, callback) {
-  Vue.http.get('/supplier/' + sid + '/aptitude').then(function ({body}) {
+export function fetchAptitude(sid, id, callback) {
+  Vue.http.get('/supplier/' + sid + '/aptitude/' + id).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function addAptitude(sid, aptitude, callback) {
+  Vue.http.post('/supplier/' + sid + '/aptitude', aptitude).then(function ({body}) {
     callback(body);
   });
 }
 
 export function updateAptitude(sid, aptitude, callback) {
-  Vue.http.post('/supplier/' + sid + '/aptitude', aptitude).then(function ({body}) {
+  Vue.http.put('/supplier/' + sid + '/aptitude', aptitude).then(function ({body}) {
     callback(body);
   });
 }
