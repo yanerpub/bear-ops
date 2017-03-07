@@ -50,7 +50,7 @@
         </div>
       </div>
       <button type="button" class="btn btn-primary" @click="updateData">更新</button>
-      <router-link class="btn btn-info" :to="{ name: 'supplierIndex'}">返回</router-link>
+      <router-link class="btn btn-info" :to="{ name: 'supplierView', params: { sid: $route.params.sid }}">返回</router-link>
     </form>
   </div>
 </template>
@@ -78,7 +78,7 @@ export default {
       fetchSupplier(this.$route.params.sid, (body) => this.supplier = body.data);
     },
     updateData () {
-      updateSupplier(this.supplier, (body) => this.$router.push('/supplier/'))
+      updateSupplier(this.supplier, (body) => this.$router.push('/supplier/' + this.$route.params.sid))
     }
   }
 }

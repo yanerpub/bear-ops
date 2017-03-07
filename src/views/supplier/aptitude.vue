@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { fetchAptitudeEnums, fetchAptitude, updateAptitude } from './api'
+import { fetchEnums, fetchAptitude, updateAptitude } from './api'
 export default {
   name: 'supplier-aptitude-view',
   data () {
@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     fetchData () {
-      fetchAptitudeEnums((body) => {
+      fetchEnums('aptitude', (body) => {
         this.aptitudeTypes = body.data.aptitudeTypes
         this.expireTypes = body.data.expireTypes
       });

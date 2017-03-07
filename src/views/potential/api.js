@@ -7,7 +7,7 @@ export function listPotential(queryParams, callback) {
 }
 
 export function fetchPotentialEnums(callback) {
-  Vue.http.get('/potential/enums').then(function ({body}) {
+  Vue.http.get('/enums/potential').then(function ({body}) {
     callback(body);
   });
 }

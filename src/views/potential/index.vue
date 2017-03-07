@@ -23,7 +23,6 @@
         <th>owner</th>
         <th>createTime</th>
         <th>modifyTime</th>
-        <th>操作</th>
       </tr>
       </thead>
       <tbody>
@@ -39,9 +38,6 @@
         <td>{{item.owner}}</td>
         <td>{{item.createTime | timeAgo}}</td>
         <td>{{item.modifyTime | timeAgo}}</td>
-        <td>
-          <router-link :to="{path: item.id + '/edit'}">修改</router-link>
-        </td>
       </tr>
       </tbody>
     </table>

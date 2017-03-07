@@ -23,13 +23,12 @@
         <th>owner</th>
         <th>createTime</th>
         <th>modifyTime</th>
-        <th>操作</th>
       </tr>
       </thead>
       <tbody>
       <tr v-for="item in supplierList">
         <td>
-          <router-link :to="{path: item.sid}">{{item.sid}}</router-link>
+          <router-link :to="{ name: 'supplierView', params: { sid: item.sid }}">{{item.sid}}</router-link>
         </td>
         <td>{{item.name}}</td>
         <td>{{item.cellphone}}</td>
@@ -38,9 +37,6 @@
         <td>{{item.owner}}</td>
         <td>{{item.createTime | timeAgo}}</td>
         <td>{{item.modifyTime | timeAgo}}</td>
-        <td>
-          <router-link :to="{path: item.sid + '/edit'}">修改</router-link>
-        </td>
       </tr>
       </tbody>
     </table>

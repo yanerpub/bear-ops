@@ -3,7 +3,9 @@
     <div class="col-sm-9">
       <div class="panel panel-primary">
         <!-- Default panel contents -->
-        <div class="panel-heading"><h4><span class="glyphicon glyphicon-apple" aria-hidden="true"></span>{{supplier.name}}</h4></div>
+        <div class="panel-heading">
+          <h4><span class="glyphicon glyphicon-apple" aria-hidden="true"></span>{{supplier.name}}</h4>
+        </div>
         <table class="table">
           <thead>
           <tr>
@@ -11,6 +13,7 @@
             <th>资质</th>
             <th>网址</th>
             <th>Owner</th>
+            <th>操作</th>
           </tr>
           </thead>
           <tbody>
@@ -26,6 +29,7 @@
             </td>
             <td>{{supplier.website}}</td>
             <td>{{supplier.owner}}</td>
+            <td><router-link :to="{ name: 'supplierEdit', params: { sid: $route.params.sid }}">修改</router-link></td>
           </tr>
           </tbody>
         </table>
@@ -66,7 +70,144 @@
       <!-- Tab panes -->
       <div class="tab-content">
         <div class="tab-pane active" id="refer" role="tabpanel">
-          联系人、业务机会、产品、文件
+          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingContact">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseContact" aria-expanded="true" aria-controls="collapseContact">
+                    联系人{{stat.contact}}
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseContact" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingContact">
+                <div class="panel-body">
+                  <button type="button" class="btn btn-secondary" @click="fetchContact">查询</button>
+                  <router-link :to="{ name: 'supplierContactAdd', params: { sid: $route.params.sid }}">添加</router-link>
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>name</th>
+                      <th>cellphone</th>
+                      <th>telephone</th>
+                      <th>email</th>
+                      <th>position</th>
+                      <th>createTime</th>
+                      <th>modifyTime</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="item in contacts">
+                      <td><router-link :to="{ name: 'supplierContactEdit', params: { sid: $route.params.sid, id: item.id }}">{{item.id}}</router-link></td>
+                      <td>{{item.name}}</td>
+                      <td>{{item.cellphone}}</td>
+                      <td>{{item.telephone}}</td>
+                      <td>{{item.email}}</td>
+                      <td>{{item.position}}</td>
+                      <td>{{item.createTime | timeAgo}}</td>
+                      <td>{{item.modifyTime | timeAgo}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingAccount">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseAccount" aria-expanded="false" aria-controls="collapseAccount">
+                    结算{{stat.account}}
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseAccount" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAccount">
+                <div class="panel-body">
+                  <button type="button" class="btn btn-secondary" @click="fetchAccount">查询</button>
+                  <router-link :to="{ name: 'supplierAccountAdd', params: { sid: $route.params.sid }}">添加</router-link>
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>bank</th>
+                      <th>name</th>
+                      <th>number</th>
+                      <th>currency</th>
+                      <th>state</th>
+                      <th>createTime</th>
+                      <th>modifyTime</th>
+                      <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="item in accounts">
+                      <td><router-link :to="{ name: 'supplierAccountEdit', params: { sid: $route.params.sid, id: item.id }}">{{item.id}}</router-link></td>
+                      <td>{{item.bank}}</td>
+                      <td>{{item.name}}</td>
+                      <td>{{item.number}}</td>
+                      <td>{{item.currencyText}}</td>
+                      <td>{{item.stateText}}</td>
+                      <td>{{item.createTime | timeAgo}}</td>
+                      <td>{{item.modifyTime | timeAgo}}</td>
+                      <td>
+                        <button type="button" class="btn btn-default" @click="freezeAccount(item)" v-show="item.state == 'UNFREEZE'">冻结</button>
+                        <button type="button" class="btn btn-default" @click="unfreezeAccount(item)" v-show="item.state == 'FREEZE'">解冻</button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingUser">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseUser" aria-expanded="false" aria-controls="collapseUser">
+                    用户{{stat.user}}
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseUser" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingUser">
+                <div class="panel-body">
+                  <button type="button" class="btn btn-secondary" @click="fetchUser">查询</button>
+                  <router-link :to="{ name: 'supplierUserAdd', params: { sid: $route.params.sid }}">添加</router-link>
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>type</th>
+                      <th>value</th>
+                      <th>createTime</th>
+                      <th>modifyTime</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="item in users">
+                      <td><router-link :to="{ name: 'supplierUserEdit', params: { sid: $route.params.sid, id: item.id }}">{{item.id}}</router-link></td>
+                      <td>{{item.typeText}}</td>
+                      <td>{{item.value}}</td>
+                      <td>{{item.createTime | timeAgo}}</td>
+                      <td>{{item.modifyTime | timeAgo}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingProduct">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseProduct" aria-expanded="false" aria-controls="collapseProduct">
+                    产品
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseProduct" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingProduct">
+                <div class="panel-body">
+                  功能待加
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="tab-pane" id="detail" role="tabpanel">
           <form class="col-sm-offset-1">
@@ -148,27 +289,53 @@
 
 <script>
 
-  import {fetchSupplier} from './api'
+  import {fetchSupplier, fetchStat, listContact, listAccount, updateAccountState, listUser} from './api'
 
   export default {
     name: 'supplier-view',
     data () {
       return {
-        supplier: {}
+        supplier: {},
+        stat: {},
+        contacts: [],
+        accounts: [],
+        users: []
       }
     },
     created () {
-      // 组件创建完后获取数据，
-      // 此时 data 已经被 observed 了
       this.fetchData()
     },
+    computed: {
+      userList () {
+        return this.users
+      }
+    },
     watch: {
-      // 如果路由有变化，会再次执行该方法
       '$route': 'fetchData'
     },
     methods: {
       fetchData () {
         fetchSupplier(this.$route.params.sid, (body) => this.supplier = body.data);
+        fetchStat(this.$route.params.sid, (body) => this.stat = body.data);
+      },
+      fetchContact () {
+        listContact(this.$route.params.sid, (body) => this.contacts = body.data);
+      },
+      fetchAccount () {
+        listAccount(this.$route.params.sid, (body) => this.accounts = body.data);
+      },
+      freezeAccount (item) {
+        updateAccountState(item.sid, item.id, 1, (body) => {
+          this.fetchAccount();
+        });
+      },
+      unfreezeAccount (item) {
+        updateAccountState(item.sid, item.id, 2, (body) => {
+          this.fetchAccount();
+        });
+      },
+      fetchUser () {
+        listUser(this.$route.params.sid, (body) => this.users = body.data);
       }
     }
   }

@@ -1,34 +1,39 @@
 <template>
   <div>
     <div class="row">
+      <div class="col-sm-12" id="console">
+      </div>
       <div class="col-sm-2">
         <label class="form-control">
-          <input type="radio" name="optionsRadios" value="1" v-model="potential.stateCode">
+          <input type="radio" name="optionsRadios" value="1" v-model="potential.stateCode" :disabled="state == 4">
           New<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         </label>
       </div>
       <div class="col-sm-2">
         <label class="form-control">
-          <input type="radio" name="optionsRadios" value="2" v-model="potential.stateCode">
+          <input type="radio" name="optionsRadios" value="2" v-model="potential.stateCode" :disabled="state == 4">
           Working<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         </label>
       </div>
       <div class="col-sm-2">
         <label class="form-control">
-          <input type="radio" name="optionsRadios" value="3" v-model="potential.stateCode">
+          <input type="radio" name="optionsRadios" value="3" v-model="potential.stateCode" :disabled="state == 4">
           Nurturing<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         </label>
       </div>
       <div class="col-sm-2">
         <label class="form-control">
-          <input type="radio" name="optionsRadios" value="4" v-model="potential.stateCode">
+          <input type="radio" name="optionsRadios" value="4" v-model="potential.stateCode" :disabled="state == 4">
           Transferred<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         </label>
       </div>
-      <div class="col-sm-4">
-        <button type="button" class="btn btn-primary form-control" @click="updateState">
+      <div class="col-sm-2">
+        <button type="button" class="btn btn-primary form-control" @click="updateState" :disabled="state == 4">
           标记为已完成<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
         </button>
+      </div>
+      <div class="col-lg-2">
+        <router-link :to="{ name: 'potentialEdit', params: { id: $route.params.id }}">修改</router-link>
       </div>
     </div>
     <ul class="nav nav-tabs" role="tablist">
@@ -125,6 +130,12 @@
             </div>
           </div>
           <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Sid</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{potential.sid}}</p>
+            </div>
+          </div>
+          <div class="form-group row">
             <label class="col-sm-2 col-form-label">owner</label>
             <div class="col-sm-10">
               <p class="form-control-static">{{potential.owner}}</p>
@@ -188,6 +199,7 @@
     name: 'potential-view',
     data () {
       return {
+        state: 0,
         potential: {}
       }
     },
@@ -199,18 +211,35 @@
     },
     methods: {
       fetchData () {
-        fetchPotential(this.$route.params.id, (body) => this.potential = body.data);
+        fetchPotential(this.$route.params.id, (body) => {
+          this.potential = body.data
+          this.state = this.potential.stateCode
+        });
       },
       updateState () {
         if (this.potential.stateCode == '4') {
           $('#potentialModal').modal('show');
         } else {
-          updatePotentialState(this.$route.params.id, this.potential.stateCode, (body) => console.log(body));
+          updatePotentialState(this.$route.params.id, this.potential.stateCode, (body) => {
+            if (body.status == 0) {
+              $('#console').html('<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>提示!</strong> 修改成功</div>');
+            } else {
+              $('#console').html('<div class="alert alert-warning alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>提示!</strong> 修改失败</div>');
+            }
+          });
         }
       },
       transfer () {
         var obj = {owner: this.potential.owner, sid: this.potential.sid};
-        transfer(this.$route.params.id, obj, (body) => console.log(body))
+        transfer(this.$route.params.id, obj, (body) => {
+          $('#potentialModal').modal('hide')
+          if (body.status == 0) {
+            this.state = 4;
+            $('#console').html('<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>提示!</strong> 修改成功</div>');
+          } else {
+            $('#console').html('<div class="alert alert-warning alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>提示!</strong> 修改失败</div>');
+          }
+        })
       }
     }
   }

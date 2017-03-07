@@ -15,6 +15,9 @@ import supplierAdd from '../views/supplier/add.vue';
 import supplierView from '../views/supplier/view.vue';
 import supplierEdit from '../views/supplier/edit.vue';
 import supplierAptitudeView from '../views/supplier/aptitude.vue';
+import supplierContact from '../views/supplier/contact.vue';
+import supplierAccount from '../views/supplier/account.vue';
+import supplierUser from '../views/supplier/user.vue';
 
 import hotelIndex from '../views/hotel/index.vue';
 import hotelSupplier from '../views/hotel/supplier.vue';
@@ -34,11 +37,17 @@ export default new Router({
     {path: '/potential/add', name: 'potentialAdd', component: potentialAdd},
     {path: '/potential/:id', name: 'potentialView', component: potentialView},
     {path: '/potential/:id/edit', name: 'potentialEdit', component: potentialEdit},
-    {path: '/supplier', name: 'supplier', component: supplierIndex},
+    {path: '/supplier', name: 'supplierIndex', component: supplierIndex},
     {path: '/supplier/add', name: 'supplierAdd', component: supplierAdd},
     {path: '/supplier/:sid', name: 'supplierView', component: supplierView},
     {path: '/supplier/:sid/edit', name: 'supplierEdit', component: supplierEdit},
     {path: '/supplier/:sid/aptitude', name: 'supplierAptitudeView', component: supplierAptitudeView},
+    {path: '/supplier/:sid/contact', name: 'supplierContactAdd', component: supplierContact},
+    {path: '/supplier/:sid/contact/:id', name: 'supplierContactEdit', component: supplierContact},
+    {path: '/supplier/:sid/account', name: 'supplierAccountAdd', component: supplierAccount},
+    {path: '/supplier/:sid/account/:id', name: 'supplierAccountEdit', component: supplierAccount},
+    {path: '/supplier/:sid/user', name: 'supplierUserAdd', component: supplierUser},
+    {path: '/supplier/:sid/user/:id', name: 'supplierUserEdit', component: supplierUser},
     {path: '/hotel', name: 'hotel', component: hotelIndex},
     {path: '/hotel/:sid', name: 'hotelSupplier', component: hotelSupplier},
     {path: '/hotel/:sid/add', name: 'hotelProductAdd', component: hotelProductAdd},

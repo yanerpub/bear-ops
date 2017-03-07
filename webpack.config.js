@@ -42,7 +42,7 @@ module.exports = {
       "/product": "http://localhost:8088",
       "/potential": "http://localhost:8088",
       "/supplier": "http://localhost:8088",
-      "/aptitude": "http://localhost:8088",
+      "/enums": "http://localhost:8088",
       "/tree": "http://localhost:8088",
       "/field": "http://localhost:8088",
     }

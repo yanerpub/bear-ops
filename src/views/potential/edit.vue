@@ -82,7 +82,7 @@
         </div>
       </div>
       <button type="button" class="btn btn-primary" @click="updateData">更新</button>
-      <router-link class="btn btn-info" :to="{ name: 'potentialIndex'}">返回</router-link>
+      <router-link class="btn btn-info" :to="{ name: 'potentialView', params: { id: this.$route.params.id }}">返回</router-link>
     </form>
   </div>
 </template>
@@ -117,7 +117,7 @@ export default {
       fetchPotential(this.$route.params.id, (body) => this.potential = body.data);
     },
     updateData () {
-      updatePotential(this.potential, (body) => this.$router.push('/potential/'))
+      updatePotential(this.potential, (body) => this.$router.push('/potential/' + this.$route.params.id))
     }
   }
 }

@@ -1,5 +1,11 @@
 import Vue from 'vue'
 
+export function fetchEnums(resource, callback) {
+  Vue.http.get('/enums/' + resource).then(function ({body}) {
+    callback(body);
+  });
+}
+
 export function listSupplier(queryParams, callback) {
   Vue.http.get('/supplier/', {params: queryParams}).then(function ({body}) {
     callback(body);
@@ -30,14 +36,92 @@ export function fetchAptitude(sid, callback) {
   });
 }
 
-export function fetchAptitudeEnums(callback) {
-  Vue.http.get('/aptitude/enums').then(function ({body}) {
+export function updateAptitude(sid, aptitude, callback) {
+  Vue.http.post('/supplier/' + sid + '/aptitude', aptitude).then(function ({body}) {
     callback(body);
   });
 }
 
-export function updateAptitude(aptitude, callback) {
-  Vue.http.post('/aptitude/', aptitude).then(function ({body}) {
+export function fetchStat(sid, callback) {
+  Vue.http.get('/supplier/' + sid + '/stat').then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function listContact(sid, callback) {
+  Vue.http.get('/supplier/' + sid + '/contact').then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function fetchContact(sid, id, callback) {
+  Vue.http.get('/supplier/' + sid + '/contact/' + id).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function addContact(sid, contact, callback) {
+  Vue.http.post('/supplier/' + sid + '/contact', contact).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function updateContact(sid, contact, callback) {
+  Vue.http.put('/supplier/' + sid + '/contact', contact).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function listAccount(sid, callback) {
+  Vue.http.get('/supplier/' + sid + '/account').then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function fetchAccount(sid, id, callback) {
+  Vue.http.get('/supplier/' + sid + '/account/' + id).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function addAccount(sid, account, callback) {
+  Vue.http.post('/supplier/' + sid + '/account', account).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function updateAccount(sid, account, callback) {
+  Vue.http.put('/supplier/' + sid + '/account', account).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function updateAccountState(sid, id, state, callback) {
+  Vue.http.put('/supplier/' + sid + '/account/' + id + '/state', state).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function listUser(sid, callback) {
+  Vue.http.get('/supplier/' + sid + '/user').then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function fetchUser(sid, id, callback) {
+  Vue.http.get('/supplier/' + sid + '/user/' + id).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function addUser(sid, user, callback) {
+  Vue.http.post('/supplier/' + sid + '/user', user).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function updateUser(sid, user, callback) {
+  Vue.http.put('/supplier/' + sid + '/user', user).then(function ({body}) {
     callback(body);
   });
 }
