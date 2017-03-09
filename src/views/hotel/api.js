@@ -1,13 +1,19 @@
 import Vue from 'vue'
 
-export function queryTree(callback) {
-  Vue.http.get('/template/tree/').then(function ({body}) {
+export function fetchTree(callback) {
+  Vue.http.get('/tree/?tid=2').then(function ({body}) {
     callback(body);
   });
 }
 
-export function fetchTemplate(treeId, callback) {
-  Vue.http.get('/template/' + treeId).then(function ({body}) {
+export function listField(tid, callback) {
+  Vue.http.get('/field/?tid=' + tid).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function listSupplier(query, callback) {
+  Vue.http.get('/supplier/', query).then(function ({body}) {
     callback(body);
   });
 }

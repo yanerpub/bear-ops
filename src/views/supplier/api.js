@@ -6,6 +6,30 @@ export function fetchEnums(resource, callback) {
   });
 }
 
+export function fetchStat(sid, callback) {
+  Vue.http.get('/supplier/' + sid + '/stat').then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function listAllBusiness(callback) {
+  Vue.http.get('/tree/business').then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function listBusiness(sid, callback) {
+  Vue.http.get('/supplier/' + sid + '/business').then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function updateBusiness(sid, array, callback) {
+  Vue.http.put('/supplier/' + sid + '/business', array).then(function ({body}) {
+    callback(body);
+  });
+}
+
 export function listSupplier(queryParams, callback) {
   Vue.http.get('/supplier/', {params: queryParams}).then(function ({body}) {
     callback(body);
@@ -44,12 +68,6 @@ export function addAptitude(sid, aptitude, callback) {
 
 export function updateAptitude(sid, aptitude, callback) {
   Vue.http.put('/supplier/' + sid + '/aptitude', aptitude).then(function ({body}) {
-    callback(body);
-  });
-}
-
-export function fetchStat(sid, callback) {
-  Vue.http.get('/supplier/' + sid + '/stat').then(function ({body}) {
     callback(body);
   });
 }

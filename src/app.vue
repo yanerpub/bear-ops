@@ -26,7 +26,7 @@
               <router-link to="/supplier/">供应商</router-link>
             </li>
             <li>
-              <router-link to="/hotel/">酒店产品</router-link>
+              <router-link to="/hotel/">酒店</router-link>
             </li>
             <li>
               <router-link to="/tree/">品类树</router-link>

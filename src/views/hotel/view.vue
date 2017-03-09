@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import checkbox from "./checkbox.vue"
+import checkbox from "../../components/checkbox.vue"
 import { fetchProduct, fetchTemplate } from './api'
 
 export default {

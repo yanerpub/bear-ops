@@ -10,40 +10,33 @@
         <input type="text" v-model="query.name" class="form-control" id="name" placeholder="Name">
       </div>
       <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
+      <router-link class="btn btn-secondary" role="button" to="/field" aria-pressed="true">配置产品属性</router-link>
     </form>
     <table class="table">
       <thead>
       <tr>
-        <th>id</th>
-        <th>sid</th>
-        <th>treeId</th>
+        <th>SID</th>
         <th>name</th>
-        <th>state</th>
-        <th>userId</th>
-        <th>effectDate</th>
-        <th>expireDate</th>
+        <th>cellphone</th>
+        <th>telephone</th>
+        <th>email</th>
+        <th>owner</th>
         <th>createTime</th>
         <th>modifyTime</th>
-        <th>操作</th>
       </tr>
       </thead>
       <tbody>
-      <tr v-for="item in productList">
+      <tr v-for="item in list">
         <td>
-          <router-link :to="{ name: 'hotelProduct', params: { sid: item.sid, id: item.id }}">{{item.id}}</router-link>
+          <router-link :to="{ name: 'hotelSupplier', params: { sid: item.sid }}">{{item.sid}}</router-link>
         </td>
-        <td>{{item.sid}}</td>
-        <td>{{item.treeId}}</td>
         <td>{{item.name}}</td>
-        <td>{{item.stateText}}</td>
-        <td>{{item.userId}}</td>
-        <td>{{item.effectDateFmt}}</td>
-        <td>{{item.expireDateFmt}}</td>
+        <td>{{item.cellphone}}</td>
+        <td>{{item.telephone}}</td>
+        <td>{{item.email}}</td>
+        <td>{{item.owner}}</td>
         <td>{{item.createTime | timeAgo}}</td>
         <td>{{item.modifyTime | timeAgo}}</td>
-        <td>
-          <router-link :to="{ name: 'hotelProductEdit', params: { sid: item.sid, id: item.id }}">修改</router-link>
-        </td>
       </tr>
       </tbody>
     </table>
@@ -52,33 +45,33 @@
 </template>
 
 <script>
-import {listProduct} from './api'
+  import {listSupplier} from './api'
 
-export default {
-  name: 'hotel-product-list-view',
-  data() {
-    return {
+  export default {
+    name: 'hotel-supplier-list-view',
+    data() {
+      return {
         query: {pageNow: 1, pageSize: 10, sortKey: ''},
         list: [],
         count: 0
-    }
-  },
-  computed: {
-    productList () {
-      return this.list
+      }
     },
-    totalPage () {
+    created () {
+      this.queryData()
+    },
+    computed: {
+      totalPage () {
         return parseInt(this.count / this.query.pageSize) + 1
-    }
-  },
-  methods: {
-    queryData () {
-      listProduct(this.query, (body) => {
-        this.list = body.data.list
-        this.count = body.data.total
-      })
+      }
+    },
+    methods: {
+      queryData () {
+        listSupplier(this.query, (body) => {
+          this.list = body.data.list
+          this.count = body.data.total
+        });
+      }
     }
   }
-}
 
 </script>

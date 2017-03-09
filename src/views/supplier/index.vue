@@ -26,7 +26,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="item in supplierList">
+      <tr v-for="item in list">
         <td>
           <router-link :to="{ name: 'supplierView', params: { sid: item.sid }}">{{item.sid}}</router-link>
         </td>
@@ -60,9 +60,6 @@ export default {
     this.queryData()
   },
   computed: {
-    supplierList () {
-      return this.list
-    },
     totalPage () {
         return parseInt(this.count / this.query.pageSize) + 1
     }

@@ -18,6 +18,9 @@ import supplierAptitude from '../views/supplier/aptitude.vue';
 import supplierContact from '../views/supplier/contact.vue';
 import supplierAccount from '../views/supplier/account.vue';
 import supplierUser from '../views/supplier/user.vue';
+import supplierBusiness from '../views/supplier/business.vue';
+
+import fieldIndex from '../views/field/index.vue';
 
 import hotelIndex from '../views/hotel/index.vue';
 import hotelSupplier from '../views/hotel/supplier.vue';
@@ -49,7 +52,10 @@ export default new Router({
     {path: '/supplier/:sid/account/:id', name: 'supplierAccountEdit', component: supplierAccount},
     {path: '/supplier/:sid/user', name: 'supplierUserAdd', component: supplierUser},
     {path: '/supplier/:sid/user/:id', name: 'supplierUserEdit', component: supplierUser},
-    {path: '/hotel', name: 'hotel', component: hotelIndex},
+    {path: '/supplier/:sid/business', name: 'supplierBusiness', component: supplierBusiness},
+  
+    {path: '/field', name: 'fieldIndex', component: fieldIndex},
+    {path: '/hotel', name: 'hotelIndex', component: hotelIndex},
     {path: '/hotel/:sid', name: 'hotelSupplier', component: hotelSupplier},
     {path: '/hotel/:sid/add', name: 'hotelProductAdd', component: hotelProductAdd},
     {path: '/hotel/:sid/:id', name: 'hotelProduct', component: hotelProductView},

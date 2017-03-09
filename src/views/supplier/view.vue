@@ -36,31 +36,6 @@
           </tbody>
         </table>
       </div>
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="panel panel-primary">
-            <div class="panel-heading">酒店业务</div>
-            <div class="panel-body">
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <router-link class="btn btn-secondary" :to="{ name: 'hotelProductAdd', params: { sid: $route.params.sid }}">
-                添加产品
-              </router-link>
-              <router-link class="btn btn-secondary" :to="{ name: 'hotelSupplier', params: { sid: $route.params.sid }}">
-                查看产品
-              </router-link>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="panel panel-primary">
-            <div class="panel-heading">Special title treatment</div>
-            <div class="panel-body">
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-      </div>
       <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item active">
           <a class="nav-link active" data-toggle="tab" href="#refer" role="tab">相关</a>
@@ -196,16 +171,39 @@
               </div>
             </div>
             <div class="panel panel-default">
-              <div class="panel-heading" role="tab" id="headingProduct">
+              <div class="panel-heading" role="tab" id="headingBusiness">
                 <h4 class="panel-title">
-                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseProduct" aria-expanded="false" aria-controls="collapseProduct">
-                    产品
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseBusiness" aria-expanded="false" aria-controls="collapseBusiness">
+                    业务{{stat.business}}
                   </a>
                 </h4>
               </div>
-              <div id="collapseProduct" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingProduct">
+              <div id="collapseBusiness" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBusiness">
                 <div class="panel-body">
-                  功能待加
+                  <button type="button" class="btn btn-secondary" @click="fetchBusiness">查询</button>
+                  <router-link :to="{ name: 'supplierBusiness', params: { sid: $route.params.sid }}">变更</router-link>
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>name</th>
+                      <th>createTime</th>
+                      <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="item in businesses">
+                      <td><router-link :to="{ name: 'supplierUserEdit', params: { sid: $route.params.sid, id: item.id }}">{{item.id}}</router-link></td>
+                      <td>{{item.name}}</td>
+                      <td>{{item.createTime | timeAgo}}</td>
+                      <td>
+                        <router-link :to="{ name: 'hotelSupplier', params: { sid: $route.params.sid }}">
+                          查看产品
+                        </router-link>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
@@ -291,7 +289,7 @@
 
 <script>
 
-  import {fetchSupplier, fetchStat, listContact, listAccount, updateAccountState, listUser} from './api'
+  import {fetchSupplier, fetchStat, listBusiness, listContact, listAccount, updateAccountState, listUser} from './api'
 
   export default {
     name: 'supplier-view',
@@ -301,7 +299,8 @@
         stat: {},
         contacts: [],
         accounts: [],
-        users: []
+        users: [],
+        businesses: []
       }
     },
     created () {
@@ -338,6 +337,9 @@
       },
       fetchUser () {
         listUser(this.$route.params.sid, (body) => this.users = body.data);
+      },
+      fetchBusiness () {
+        listBusiness(this.$route.params.sid, (body) => this.businesses = body.data);
       }
     }
   }

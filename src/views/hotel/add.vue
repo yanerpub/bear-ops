@@ -115,9 +115,8 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import checkbox from "./checkbox.vue"
-import { queryTree, fetchTemplate, addProduct } from './api'
+import checkbox from "../../components/checkbox.vue"
+import { fetchTree, listField, addProduct } from './api'
 
 export default {
   name: 'hotel-product-add-view',
@@ -149,22 +148,20 @@ export default {
   },
   methods: {
     fetchData () {
-      queryTree((body) => {
+      fetchTree((body) => {
         this.treeData = body.data
         $('#myModal').modal('show')
       });
     },
     isFolder (model) {
-      return model.children &&
-        model.children.length
+      return model.children && model.children.length
     },
     choose (model) {
       this.template = {'id': model.id, 'name': model.name}
       $('#myModal').modal('hide')
       // 异步取数据然后show
-      fetchTemplate(this.template.id, (body) => {
-        this.fields = body.data.fieldList
-        this.contracts = body.data.contractList
+      listField(this.template.id, (body) => {
+        this.fields = body.data
         // 域初始值
         for (let item of this.fields) {
           this.product.fieldMap[item.key] = item.defaultValue

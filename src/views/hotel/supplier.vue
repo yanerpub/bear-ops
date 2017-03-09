@@ -6,8 +6,7 @@
         <input type="text" v-model="query.name" class="form-control" id="name" placeholder="Name">
       </div>
       <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
-      <router-link class="btn btn-secondary" role="button"
-                   :to="{ name: 'hotelProductAdd', params: { sid: $route.params.sid }}" aria-pressed="true">添加
+      <router-link :to="{ name: 'hotelProductAdd', params: { sid: $route.params.sid }}" aria-pressed="true">添加
       </router-link>
     </form>
     <table class="table">
@@ -27,7 +26,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="item in productList">
+      <tr v-for="item in products">
         <td>
           <router-link :to="{ name: 'hotelProduct', params: { sid: item.sid, id: item.id }}">{{item.id}}</router-link>
         </td>
@@ -51,45 +50,40 @@
 </template>
 
 <script>
-import {listProduct} from './api'
+  import {listProduct} from './api'
 
-export default {
-  name: 'hotel-product-supplier-view',
-  data() {
-    return {
+  export default {
+    name: 'hotel-supplier-product-list-view',
+    data() {
+      return {
         query: {pageNow: 1, pageSize: 10, sortKey: ''},
-        list: [],
+        products: [],
         count: 0
-    }
-  },
-  computed: {
-    productList () {
-      return this.list
+      }
     },
-    totalPage () {
+    computed: {
+      totalPage () {
         return parseInt(this.count / this.query.pageSize) + 1
-    }
-  },
-  created () {
-    // 组件创建完后获取数据，
-    // 此时 data 已经被 observed 了
-    this.fetchData()
-  },
-  methods: {
-    fetchData () {
-      this.query.sid = this.$route.params.sid
-      listProduct(this.query, (body) => {
-        this.list = body.data.list
-        this.count = body.data.total
-      })
+      }
     },
-    queryData () {
-      listProduct(this.query, (body) => {
-        this.list = body.data.list
-        this.count = body.data.total
-      })
+    created () {
+      this.fetchData()
+    },
+    methods: {
+      fetchData () {
+        this.query.sid = this.$route.params.sid
+        listProduct(this.query, (body) => {
+          this.products = body.data.list
+          this.count = body.data.total
+        })
+      },
+      queryData () {
+        listProduct(this.query, (body) => {
+          this.products = body.data.list
+          this.count = body.data.total
+        })
+      }
     }
   }
-}
 
 </script>
