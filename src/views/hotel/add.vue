@@ -46,7 +46,7 @@
       </div>
     </div>
     <form v-show="show">
-      <h3>{{template.name}}</h3>
+      <h3>{{nodeName}}</h3>
       <div class="form-group row">
         <label for="name" class="col-xs-2 col-form-label">Name</label>
         <div class="col-xs-10">
@@ -56,15 +56,13 @@
       <div class="form-group row">
         <label class="col-xs-2 col-form-label">effectDate</label>
         <div class="col-xs-10">
-          <!--<datepicker v-model="product.effectDateFmt"></datepicker>-->
-          <input class="form-control" type="text" id="effectDate" v-model="product.effectDateFmt">
+          <input class="form-control" type="text" id="effectDate" v-model="product.effectDateText">
         </div>
       </div>
       <div class="form-group row">
         <label class="col-xs-2 col-form-label">expireDate</label>
         <div class="col-xs-10">
-          <!--<datepicker v-model="product.expireDateFmt"></datepicker>-->
-          <input class="form-control" type="text" id="expireDate" v-model="product.expireDateFmt">
+          <input class="form-control" type="text" id="expireDate" v-model="product.expireDateText">
         </div>
       </div>
       <div class="form-group row">
@@ -77,18 +75,18 @@
       <div class="form-group row" v-for="field in fields">
         <label class="col-xs-2 col-form-label">{{field.name}}</label>
         <div class="col-xs-10">
-          <input v-if="field.type == 'text'" class="form-control" type="text" v-model="product.fieldMap[field.key]" :required="field.required">
-          <input v-if="field.type == 'date'" class="form-control" type="text" v-model="product.fieldMap[field.key]" :required="field.required">
-          <input v-if="field.type == 'datetime'" class="form-control" type="text" v-model="product.fieldMap[field.key]" :required="field.required">
-          <textarea rows="3" v-if="field.type == 'textarea'" class="form-control" v-model="product.fieldMap[field.key]" :required="field.required"></textarea>
-          <checkbox v-if="field.type == 'checkbox'" :field-key="field.key" :default-value="product.fieldMap[field.key]" :optional-values="field.optionalValues" v-on:joinValue="joinValue"></checkbox>
+          <input v-if="field.type == 'text'" class="form-control" type="text" v-model="product.fields[field.key]" :required="field.required">
+          <input v-if="field.type == 'date'" class="form-control" type="text" v-model="product.fields[field.key]" :required="field.required">
+          <input v-if="field.type == 'datetime'" class="form-control" type="text" v-model="product.fields[field.key]" :required="field.required">
+          <textarea rows="3" v-if="field.type == 'textarea'" class="form-control" v-model="product.fields[field.key]" :required="field.required"></textarea>
+          <checkbox v-if="field.type == 'checkbox'" :field-key="field.key" :default-value="product.fields[field.key]" :optional-values="field.optionalValues" v-on:joinValue="joinValue"></checkbox>
           <div v-if="field.type == 'radio'">
             <label class="form-check-inline" v-for="op in field.optionalValues">
-              <input class="form-check-input" type="radio" :name="field.key" :value="op.value" v-model="product.fieldMap[field.key]"> {{op.name}}
+              <input class="form-check-input" type="radio" :name="field.key" :value="op.value" v-model="product.fields[field.key]"> {{op.name}}
             </label>
           </div>
           <div v-if="field.type == 'select'">
-            <select class="form-control" v-model="product.fieldMap[field.key]" :required="field.required">
+            <select class="form-control" v-model="product.fields[field.key]" :required="field.required">
               <option v-for="op in field.optionalValues" :value="op.value">{{op.name}}</option>
             </select>
           </div>
@@ -100,7 +98,7 @@
         <div class="col-xs-10">
           <div class="form-check" v-for="contract in contracts">
             <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" v-model="product.contractArray" :value="contract.id">
+              <input class="form-check-input" type="checkbox" v-model="product.contracts" :value="contract">
               <a target="new" href="/contract/#">《{{contract.name}}》</a>
               <span v-if="contract.treeId == product.treeId" class="label label-warning">required</span>
             </label>
@@ -116,19 +114,17 @@
 
 <script>
 import checkbox from "../../components/checkbox.vue"
-import { fetchTree, listField, addProduct } from './api'
+import { fetchTree, listField, listContract, addProduct } from './api'
 
 export default {
   name: 'hotel-product-add-view',
   data () {
     return {
-      format: 'yyyy-MM-dd',
-      product: {fieldMap: {}, contractArray: []},
       treeData: {},
-      template: {},
+      product: {},
+      nodeName: '',
       fields: [],
       contracts: [],
-      disabled: {},
       show: false
     }
   },
@@ -136,12 +132,9 @@ export default {
     checkbox
   },
   created () {
-    // 组件创建完后获取数据，
-    // 此时 data 已经被 observed 了
     this.fetchData()
   },
   watch: {
-    // 如果路由有变化，会再次执行该方法
     '$route': 'fetchData'
   },
   computed: {
@@ -157,32 +150,35 @@ export default {
       return model.children && model.children.length
     },
     choose (model) {
-      this.template = {'id': model.id, 'name': model.name}
+      this.nodeName = model.name
+      this.product.treeId = model.id
+      this.product.sid = this.$route.params.sid
+      this.product.fields = {}
+      this.product.contracts = []
       $('#myModal').modal('hide')
       // 异步取数据然后show
-      listField(this.template.id, (body) => {
+      listField(model.id, (body) => {
         this.fields = body.data
         // 域初始值
         for (let item of this.fields) {
-          this.product.fieldMap[item.key] = item.defaultValue
-        }
-
-        // 合同初始值
-        for (let item of this.contracts) {
-          if (item.treeId == this.template.id) {
-            this.product.contractArray.push(item.id)
-            break
-          }
+          this.product.fields[item.key] = item.defaultValue
         }
         this.show = true
       })
+      // 合同初始值
+      listContract(model.id, (body) => {
+        this.contracts = body.data
+        for (let item of this.contracts) {
+          if (item.treeId == model.id) {
+            this.product.contracts.push(item)
+          }
+        }
+      })
     },
     joinValue (data) {
-      this.product.fieldMap[data.key] = data.value
+      this.product.fields[data.key] = data.value
     },
     addData () {
-      this.product.sid = this.$route.params.sid;
-      this.product.treeId = this.template.id;
       addProduct(this.product, (body) => {
         this.$router.push({ name: 'hotelSupplier', params: { sid: this.$route.params.sid }})
       })

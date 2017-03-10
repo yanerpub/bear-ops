@@ -11,10 +11,10 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item active">
-            <a class="nav-link active" data-toggle="tab" href="#produce" role="tab">生产</a>
+            <a class="nav-link active" data-toggle="tab" href="#purchase" role="tab">采购</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#purchase" role="tab">采购</a>
+            <a class="nav-link" data-toggle="tab" href="#produce" role="tab">生产</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#delivery" role="tab">配送</a>
@@ -25,7 +25,33 @@
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
-          <div class="tab-pane active" id="produce" role="tabpanel">
+          <div class="tab-pane active" id="purchase" role="tabpanel">
+            <blockquote>
+              <p>产品可选的<mark>采购协议</mark></p>
+            </blockquote>
+            <table class="table">
+              <thead>
+              <tr>
+                <th>name</th>
+                <th>version</th>
+                <th>createTime</th>
+                <th>操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="item in contracts">
+                <td><a :href="'/contract.html?tid=' + selectedNodeId + '&id=' + item.id" target="_blank">{{item.name}}</a></td>
+                <td>{{item.version}}</td>
+                <td>{{item.createTime | timeAgo}}</td>
+                <td>
+                  <a v-show="selectedNodeId == item.treeId" :href="'/contract.html?tid=' + selectedNodeId + '&id=' + item.id" target="_blank">修改</a>
+                  <span v-show="selectedNodeId != item.treeId" class="label label-success">继承</span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane" id="produce" role="tabpanel">
             <blockquote>
               <p>产品的<mark>生产、包装流程</mark></p>
             </blockquote>
@@ -51,32 +77,6 @@
               </tbody>
             </table>
             <a :href="'/modeler.html?tid=' + selectedNodeId" target="_blank">添加</a>
-          </div>
-          <div class="tab-pane" id="purchase" role="tabpanel">
-            <blockquote>
-              <p>产品可选的<mark>采购协议</mark></p>
-            </blockquote>
-            <table class="table">
-              <thead>
-              <tr>
-                <th>name</th>
-                <th>version</th>
-                <th>createTime</th>
-                <th>操作</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr v-for="item in contracts">
-                <td><a :href="'/contract.html?tid=' + selectedNodeId + '&id=' + item.id" target="_blank">{{item.name}}</a></td>
-                <td>{{item.version}}</td>
-                <td>{{item.createTime | timeAgo}}</td>
-                <td>
-                  <a v-show="selectedNodeId == item.treeId" :href="'/contract.html?tid=' + selectedNodeId + '&id=' + item.id" target="_blank">修改</a>
-                  <span v-show="selectedNodeId != item.treeId" class="label label-success">继承</span>
-                </td>
-              </tr>
-              </tbody>
-            </table>
           </div>
           <div class="tab-pane" id="delivery" role="tabpanel">
             <blockquote>
@@ -124,7 +124,7 @@
 
 <script>
 import node from "../../components/node.vue"
-import {fetchEnums, fetchTree, fetchNode} from './api'
+import {fetchEnums, fetchTree, fetchWorkflow, fetchContract} from './api'
 
 export default {
   name: 'tree',
@@ -167,10 +167,8 @@ export default {
       }
       this.selectedNodeId = node.id
       this.selectedNodeName = node.name
-      fetchNode(this.selectedNodeId, (body) => {
-        this.workflows = body.data.workflows
-        this.contracts = body.data.contracts
-      })
+      fetchWorkflow(this.selectedNodeId, (body) => this.workflows = body.data)
+      fetchContract(this.selectedNodeId, (body) => this.contracts = body.data)
     }
   }
 }

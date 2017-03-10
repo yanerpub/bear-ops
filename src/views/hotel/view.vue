@@ -11,13 +11,13 @@
       <div class="form-group row">
         <label class="col-xs-2 col-form-label">effectDate</label>
         <div class="col-xs-10">
-          <p class="form-control-static">{{product.effectDateFmt}}</p>
+          <p class="form-control-static">{{product.effectDateText}}</p>
         </div>
       </div>
       <div class="form-group row">
         <label class="col-xs-2 col-form-label">expireDate</label>
         <div class="col-xs-10">
-          <p class="form-control-static">{{product.expireDateFmt}}</p>
+          <p class="form-control-static">{{product.expireDateText}}</p>
         </div>
       </div>
       <div class="form-group row">
@@ -30,22 +30,22 @@
       <div class="form-group row" v-for="field in fields">
         <label class="col-xs-2 col-form-label">{{field.name}}</label>
         <div class="col-xs-10">
-          <input v-if="field.type == 'text'" class="form-control" type="text" v-model="product.fieldMap[field.key]"
+          <input v-if="field.type == 'text'" class="form-control" type="text" v-model="product.fields[field.key]"
                  :required="field.required" disabled>
           <input v-if="field.type == 'password'" class="form-control" type="password"
-                 v-model="product.fieldMap[field.key]" :required="field.required" disabled>
-          <textarea rows="3" v-if="field.type == 'textarea'" class="form-control" v-model="product.fieldMap[field.key]"
+                 v-model="product.fields[field.key]" :required="field.required" disabled>
+          <textarea rows="3" v-if="field.type == 'textarea'" class="form-control" v-model="product.fields[field.key]"
                     :required="field.required" disabled></textarea>
-          <checkbox v-if="field.type == 'checkbox'" :field-key="field.key" :default-value="product.fieldMap[field.key]"
+          <checkbox v-if="field.type == 'checkbox'" :field-key="field.key" :default-value="product.fields[field.key]"
                     :optional-values="field.optionalValues" :disabled="disabled"></checkbox>
           <div v-if="field.type == 'radio'">
             <label class="form-check-inline" v-for="op in field.optionalValues">
               <input class="form-check-input" type="radio" :name="field.key" :value="op.value"
-                     v-model="product.fieldMap[field.key]" disabled> {{op.name}}
+                     v-model="product.fields[field.key]" disabled> {{op.name}}
             </label>
           </div>
           <div v-if="field.type == 'select'">
-            <select class="form-control" v-model="product.fieldMap[field.key]" :required="field.required" disabled>
+            <select class="form-control" v-model="product.fields[field.key]" :required="field.required" disabled>
               <option v-for="op in field.optionalValues" :value="op.value">{{op.name}}</option>
             </select>
           </div>
@@ -57,21 +57,20 @@
         <div class="col-xs-10">
           <div class="form-check" v-for="contract in contracts">
             <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" v-model="product.contractArray" :value="contract.id" disabled>
+              <input class="form-check-input" type="checkbox" v-model="product.contracts" :value="{id: contract.id, version: contract.version}" disabled>
               <a target="new" href="/contract/#">《{{contract.name}}》</a>
             </label>
           </div>
         </div>
       </div>
-      <router-link class="btn btn-secondary" :to="{ name: 'hotelSupplier', params: { sid: $route.params.sid }}">返回
-      </router-link>
+      <router-link class="btn btn-info" :to="{ name: 'hotelSupplier', params: { sid: $route.params.sid }}">返回</router-link>
     </form>
   </div>
 </template>
 
 <script>
 import checkbox from "../../components/checkbox.vue"
-import { fetchProduct, fetchTemplate } from './api'
+import { fetchProduct, listField, listContract } from './api'
 
 export default {
   name: 'hotel-product-view',
@@ -87,24 +86,17 @@ export default {
     checkbox
   },
   created () {
-    // 组件创建完后获取数据，
-    // 此时 data 已经被 observed 了
     this.fetchData()
   },
   watch: {
-    // 如果路由有变化，会再次执行该方法
     '$route': 'fetchData'
   },
   methods: {
     fetchData () {
-      // 先取产品数据再
       fetchProduct(this.$route.params.id, (body) => {
         this.product = body.data
-        // 取得域模板
-        fetchTemplate(this.product.treeId, (body) => {
-          this.fields = body.data.fieldList
-          this.contracts = body.data.contractList
-        })
+        listField(this.product.treeId, (body) => this.fields = body.data)
+        listContract(this.product.treeId, (body) => this.contracts = body.data)
       })
     }
   }

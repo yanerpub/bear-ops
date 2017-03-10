@@ -17,7 +17,7 @@
         <th>treeId</th>
         <th>name</th>
         <th>state</th>
-        <th>userId</th>
+        <th>owner</th>
         <th>effectDate</th>
         <th>expireDate</th>
         <th>createTime</th>
@@ -34,9 +34,9 @@
         <td>{{item.treeId}}</td>
         <td>{{item.name}}</td>
         <td>{{item.stateText}}</td>
-        <td>{{item.userId}}</td>
-        <td>{{item.effectDateFmt}}</td>
-        <td>{{item.expireDateFmt}}</td>
+        <td>{{item.owner}}</td>
+        <td>{{item.effectDateText}}</td>
+        <td>{{item.expireDateText}}</td>
         <td>{{item.createTime | timeAgo}}</td>
         <td>{{item.modifyTime | timeAgo}}</td>
         <td>

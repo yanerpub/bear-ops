@@ -12,8 +12,14 @@ export function fetchTree(callback) {
   });
 }
 
-export function fetchNode(treeId, callback) {
-  Vue.http.get('/tree/' + treeId + '/data').then(function ({body}) {
+export function fetchWorkflow(treeId, callback) {
+  Vue.http.get('/tree/' + treeId + '/workflow').then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function fetchContract(treeId, callback) {
+  Vue.http.get('/tree/' + treeId + '/contract').then(function ({body}) {
     callback(body);
   });
 }

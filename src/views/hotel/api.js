@@ -12,6 +12,12 @@ export function listField(tid, callback) {
   });
 }
 
+export function listContract(tid, callback) {
+  Vue.http.get('/tree/' + tid + '/contract').then(function ({body}) {
+    callback(body);
+  });
+}
+
 export function listSupplier(query, callback) {
   Vue.http.get('/supplier/', query).then(function ({body}) {
     callback(body);
