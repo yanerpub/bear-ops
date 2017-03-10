@@ -5,6 +5,8 @@ Vue.use(Router)
 
 import index from '../views/index.vue';
 
+import treeIndex from '../views/tree/index.vue';
+
 import potentialIndex from '../views/potential/index.vue';
 import potentialAdd from '../views/potential/add.vue';
 import potentialView from '../views/potential/view.vue';
@@ -20,15 +22,16 @@ import supplierAccount from '../views/supplier/account.vue';
 import supplierUser from '../views/supplier/user.vue';
 import supplierBusiness from '../views/supplier/business.vue';
 
-import fieldIndex from '../views/field/index.vue';
 
 import hotelIndex from '../views/hotel/index.vue';
+import hotelField from '../views/hotel/field.vue';
+import hotelStore from '../views/hotel/store.vue';
 import hotelSupplier from '../views/hotel/supplier.vue';
 import hotelProductAdd from '../views/hotel/add.vue';
 import hotelProductView from '../views/hotel/view.vue';
 import hotelProductEdit from '../views/hotel/edit.vue';
+import hotelProductPrice from '../views/hotel/price.vue';
 
-import treeIndex from '../views/tree/index.vue';
 
 export default new Router({
   mode: 'hash',
@@ -54,12 +57,14 @@ export default new Router({
     {path: '/supplier/:sid/user/:id', name: 'supplierUserEdit', component: supplierUser},
     {path: '/supplier/:sid/business', name: 'supplierBusiness', component: supplierBusiness},
   
-    {path: '/field', name: 'fieldIndex', component: fieldIndex},
     {path: '/hotel', name: 'hotelIndex', component: hotelIndex},
+    {path: '/hotel/field', name: 'hotelField', component: hotelField},
+    {path: '/hotel/store', name: 'hotelStore', component: hotelStore},
     {path: '/hotel/:sid', name: 'hotelSupplier', component: hotelSupplier},
     {path: '/hotel/:sid/add', name: 'hotelProductAdd', component: hotelProductAdd},
     {path: '/hotel/:sid/:id', name: 'hotelProduct', component: hotelProductView},
     {path: '/hotel/:sid/:id/edit', name: 'hotelProductEdit', component: hotelProductEdit},
+    {path: '/hotel/:sid/:id/price', name: 'hotelProductPrice', component: hotelProductPrice},
     /*{
       path: '/', component: index,
       children: [

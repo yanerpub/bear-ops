@@ -54,7 +54,7 @@
   import {listProduct} from './api'
 
   export default {
-    name: 'hotel-supplier-product-list-view',
+    name: 'hotel-store-list-view',
     data() {
       return {
         query: {pageNow: 1, pageSize: 10, sortKey: ''},

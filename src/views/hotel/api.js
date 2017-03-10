@@ -47,3 +47,22 @@ export function updateProduct(product, callback) {
     callback(body);
   });
 }
+
+export function listAccount(sid, callback) {
+  Vue.http.get('/supplier/' + sid + '/account').then(function ({body}) {
+    callback(body);
+  });
+}
+
+
+export function addField(field, callback) {
+  Vue.http.post('/field/', field).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function updateField(field, callback) {
+  Vue.http.put('/field/', field).then(function ({body}) {
+    callback(body);
+  });
+}
