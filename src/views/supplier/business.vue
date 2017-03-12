@@ -10,7 +10,6 @@
     <button type="button" class="btn btn-primary" @click="updateData">变更</button>
     <router-link class="btn btn-info" :to="{ name: 'supplierView', params: { sid: $route.params.sid }}">返回
     </router-link>
-    {{array}}
   </div>
 </template>
 

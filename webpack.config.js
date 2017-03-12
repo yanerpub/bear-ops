@@ -38,7 +38,7 @@ module.exports = {
     watchContentBase: true,
     port: 8080,
     proxy: {
-      "/template": "http://localhost:8088",
+      "/store": "http://localhost:8088",
       "/product": "http://localhost:8088",
       "/potential": "http://localhost:8088",
       "/supplier": "http://localhost:8088",

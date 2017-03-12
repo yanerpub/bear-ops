@@ -1,14 +1,14 @@
 <template>
   <div>
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content" :model="treeData">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel">{{treeData.name}}</h4>
+            <h4 class="modal-title" id="productModalLabel">{{treeData.name}}</h4>
           </div>
           <div class="modal-body">
             <ul>
@@ -46,7 +46,8 @@
       </div>
     </div>
     <form v-show="show">
-      <h3>{{nodeName}}</h3>
+      <h3 v-if="!!$route.params.id">产品编辑-{{product.id}}</h3>
+      <h3 v-if="!$route.params.id">{{nodeName}}</h3>
       <div class="form-group row">
         <label for="name" class="col-xs-2 col-form-label">Name</label>
         <div class="col-xs-10">
@@ -94,35 +95,38 @@
       </div>
       <hr>
       <div class="form-group row">
-        <label class="col-xs-2 col-form-label">服务合同</label>
+        <label class="col-xs-2 col-form-label">服务合同协议</label>
         <div class="col-xs-10">
           <div class="form-check" v-for="contract in contracts">
             <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" v-model="product.contracts" :value="contract">
+              <input class="form-check-input" type="checkbox" v-model="product.contracts" :value="{id: contract.id, version: contract.version}">
               <a target="new" href="/contract/#">《{{contract.name}}》</a>
               <span v-if="contract.treeId == product.treeId" class="label label-warning">required</span>
             </label>
           </div>
         </div>
       </div>
-      <button type="button" class="btn btn-primary" @click="addData">添加</button>
-      <router-link class="btn btn-info" :to="{ name: 'hotelSupplier', params: { sid: $route.params.sid }}">返回
-      </router-link>
+      <button type="button" class="btn btn-primary" @click="updateData" v-if="!!$route.params.id">更新</button>
+      <router-link class="btn btn-info" :to="{ name: 'hotelSupplier', params: { sid: $route.params.sid }}" v-if="!!$route.params.id">返回</router-link>
+      <button type="button" class="btn btn-primary" @click="addData" v-if="!$route.params.id">添加</button>
+      <router-link class="btn btn-info" :to="{ name: 'hotelSupplier', params: { sid: $route.params.sid }}" v-if="!$route.params.id">返回</router-link>
     </form>
   </div>
 </template>
 
 <script>
 import checkbox from "../../components/checkbox.vue"
-import { fetchTree, listField, listContract, addProduct } from './api'
+import { fetchTree, listField, listContract, addProduct, fetchProduct, updateProduct } from './api'
 
 export default {
-  name: 'hotel-product-add-view',
+  name: 'hotel-product-edit-view',
   data () {
     return {
+      // add
       treeData: {},
-      product: {},
       nodeName: '',
+      // common
+      product: {},
       fields: [],
       contracts: [],
       show: false
@@ -137,14 +141,21 @@ export default {
   watch: {
     '$route': 'fetchData'
   },
-  computed: {
-  },
   methods: {
     fetchData () {
-      fetchTree((body) => {
-        this.treeData = body.data
-        $('#myModal').modal('show')
-      });
+      if (!!this.$route.params.id) {
+        fetchProduct(this.$route.params.id, (body) => {
+          this.product = body.data
+          listField(this.product.treeId, (body) => this.fields = body.data)
+          listContract(this.product.treeId, (body) => this.contracts = body.data)
+          this.show = true
+        })
+      } else {
+        fetchTree((body) => {
+          this.treeData = body.data
+          $('#productModal').modal('show')
+        })
+      }
     },
     isFolder (model) {
       return model.children && model.children.length
@@ -155,7 +166,7 @@ export default {
       this.product.sid = this.$route.params.sid
       this.product.fields = {}
       this.product.contracts = []
-      $('#myModal').modal('hide')
+      $('#productModal').modal('hide')
       // 异步取数据然后show
       listField(model.id, (body) => {
         this.fields = body.data
@@ -168,11 +179,6 @@ export default {
       // 合同初始值
       listContract(model.id, (body) => {
         this.contracts = body.data
-        for (let item of this.contracts) {
-          if (item.treeId == model.id) {
-            this.product.contracts.push(item)
-          }
-        }
       })
     },
     joinValue (data) {
@@ -182,8 +188,10 @@ export default {
       addProduct(this.product, (body) => {
         this.$router.push({ name: 'hotelSupplier', params: { sid: this.$route.params.sid }})
       })
+    },
+    updateData () {
+      updateProduct(this.product, (body) => this.$router.push({ name: 'hotelSupplier', params: { sid: this.$route.params.sid }}))
     }
   }
 }
-
 </script>

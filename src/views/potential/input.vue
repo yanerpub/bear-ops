@@ -71,7 +71,7 @@
         <label for="source" class="col-xs-2 col-form-label">Source</label>
         <div class="col-xs-10">
           <select id="source" class="form-control" v-model="potential.sourceCode">
-            <option v-for="op in sourceTypes" :value="op.code">{{op.name}}</option>
+            <option v-for="op in potentialSources" :value="op.code">{{op.name}}</option>
           </select>
         </div>
       </div>
@@ -81,47 +81,54 @@
           <input class="form-control" type="text" id="address" v-model="potential.address">
         </div>
       </div>
-      <button type="button" class="btn btn-primary" @click="addData">添加</button>
-      <router-link class="btn btn-info" :to="{ name: 'potentialIndex'}">返回</router-link>
+      <button type="button" class="btn btn-primary" @click="updateData" v-if="!!$route.params.id">更新</button>
+      <router-link class="btn btn-info" :to="{ name: 'potentialView', params: { id: this.$route.params.id }}" v-if="!!$route.params.id">返回</router-link>
+      <button type="button" class="btn btn-primary" @click="addData" v-if="!$route.params.id">添加</button>
+      <router-link class="btn btn-info" :to="{ name: 'potentialIndex'}" v-if="!$route.params.id">返回</router-link>
     </form>
   </div>
 </template>
 
 <script>
-  import { fetchPotentialEnums, addPotential } from './api'
-
-  export default {
-    name: 'potential-add-view',
-    data () {
-      return {
-        termsTypes: [],
-        characterTypes: [],
-        industryTypes: [],
-        sourceTypes: [],
-        potential: {}
+import { fetchEnums, addPotential, fetchPotential, updatePotential } from './api'
+export default {
+  name: 'potential-input-view',
+  data () {
+    return {
+      termsTypes: [],
+      characterTypes: [],
+      industryTypes: [],
+      potentialSources: [],
+      potential: {}
+    }
+  },
+  created () {
+    this.fetchData()
+  },
+  watch: {
+    '$route': 'fetchData'
+  },
+  methods: {
+    fetchData () {
+      fetchEnums('potential', (body) => {
+        this.termsTypes = body.data.termsTypes
+        this.characterTypes = body.data.characterTypes
+        this.industryTypes = body.data.industryTypes
+        this.potentialSources = body.data.potentialSources
+      });
+      if (!!this.$route.params.id) {
+        fetchPotential(this.$route.params.id, (body) => this.potential = body.data)
+      } else {
+        this.potential = {}
       }
     },
-    created () {
-      this.fetchData()
+    addData () {
+      addPotential(this.potential, (body) => this.$router.push('/potential/' + body.data))
     },
-    watch: {
-      '$route': 'fetchData'
-    },
-    methods: {
-      fetchData () {
-        fetchPotentialEnums((body) => {
-          this.termsTypes = body.data.termsTypes
-          this.characterTypes = body.data.characterTypes
-          this.industryTypes = body.data.industryTypes
-          this.sourceTypes = body.data.sourceTypes
-        });
-      },
-      addData () {
-        addPotential(this.potential, (body) => {
-          this.$router.push('/potential/');
-        })
-      }
+    updateData () {
+      updatePotential(this.potential, (body) => this.$router.push('/potential/' + this.$route.params.id))
     }
   }
+}
 
 </script>

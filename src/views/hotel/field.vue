@@ -35,7 +35,7 @@
           <td>{{item.createTime | timeAgo}}</td>
           <td>{{item.modifyTime | timeAgo}}</td>
           <td>
-            <button v-show="selectedNodeId == item.treeId" type="button" class="btn btn-primary" @click="toEditField(item)">
+            <button v-show="selectedNodeId == item.treeId" class="btn btn-primary" @click="toEditField(item)">
               修改属性
             </button>
             <span v-show="selectedNodeId != item.treeId" class="label label-success">继承属性</span>

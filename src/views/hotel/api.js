@@ -1,5 +1,11 @@
 import Vue from 'vue'
 
+export function fetchEnums(resource, callback) {
+  Vue.http.get('/enums/' + resource).then(function ({body}) {
+    callback(body);
+  });
+}
+
 export function fetchTree(callback) {
   Vue.http.get('/tree/?tid=2').then(function ({body}) {
     callback(body);
@@ -63,6 +69,43 @@ export function addField(field, callback) {
 
 export function updateField(field, callback) {
   Vue.http.put('/field/', field).then(function ({body}) {
+    callback(body);
+  });
+}
+
+
+export function listStore(queryParams, callback) {
+  Vue.http.get('/store/', {params: queryParams}).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function addStore(store, callback) {
+  Vue.http.post('/store/', store).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function updateStore(store, callback) {
+  Vue.http.put('/store/', store).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function listRoom(seq, callback) {
+  Vue.http.get('/store/' + seq + '/room/').then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function addRoom(seq, room, callback) {
+  Vue.http.post('/store/' + seq + '/room/', room).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function updateRoom(seq, room, callback) {
+  Vue.http.put('/store/' + seq + '/room/', room).then(function ({body}) {
     callback(body);
   });
 }

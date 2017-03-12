@@ -1,6 +1,12 @@
 <template>
   <div>
     <form>
+      <div class="form-group row" v-if="!!$route.params.sid">
+        <label class="col-sm-2 col-form-label">SID</label>
+        <div class="col-sm-10">
+          <p class="form-control-static">{{supplier.sid}}</p>
+        </div>
+      </div>
       <div class="form-group row">
         <label for="name" class="col-xs-2 col-form-label">Name</label>
         <div class="col-xs-10">
@@ -43,30 +49,43 @@
           <input class="form-control" type="text" id="address" v-model="supplier.address">
         </div>
       </div>
-      <button type="button" class="btn btn-primary" @click="addData">添加</button>
-      <router-link class="btn btn-info" :to="{ name: 'supplierIndex'}">返回</router-link>
+      <button type="button" class="btn btn-primary" @click="updateData" v-if="!!$route.params.sid">更新</button>
+      <router-link class="btn btn-info" :to="{ name: 'supplierView', params: { sid: $route.params.sid }}" v-if="!!$route.params.sid">返回</router-link>
+      <button type="button" class="btn btn-primary" @click="addData" v-if="!$route.params.sid">添加</button>
+      <router-link class="btn btn-info" :to="{ name: 'supplierIndex'}" v-if="!$route.params.sid">返回</router-link>
     </form>
   </div>
 </template>
 
 <script>
-import { addSupplier } from './api'
-
+import { addSupplier, fetchSupplier, updateSupplier } from './api'
 export default {
-  name: 'supplier-add-view',
+  name: 'supplier-input-view',
   data () {
     return {
       supplier: {}
     }
   },
+  created () {
+    this.fetchData()
+  },
+  watch: {
+    '$route': 'fetchData'
+  },
   methods: {
+    fetchData () {
+      if (!!this.$route.params.sid) {
+        fetchSupplier(this.$route.params.sid, (body) => this.supplier = body.data);
+      } else {
+        this.supplier = {}
+      }
+    },
     addData () {
-      addSupplier(this.supplier, (body) => {
-          console.log(body);
-          this.$router.push('/supplier/');
-      })
+      addSupplier(this.supplier, (body) => this.$router.push('/supplier/' + body.data))
+    },
+    updateData () {
+      updateSupplier(this.supplier, (body) => this.$router.push('/supplier/' + this.$route.params.sid))
     }
   }
 }
-
 </script>

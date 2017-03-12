@@ -1,13 +1,13 @@
 import Vue from 'vue'
 
-export function listPotential(queryParams, callback) {
-  Vue.http.get('/potential/', {params: queryParams}).then(function ({body}) {
+export function fetchEnums(resource, callback) {
+  Vue.http.get('/enums/' + resource).then(function ({body}) {
     callback(body);
   });
 }
 
-export function fetchPotentialEnums(callback) {
-  Vue.http.get('/enums/potential').then(function ({body}) {
+export function listPotential(queryParams, callback) {
+  Vue.http.get('/potential/', {params: queryParams}).then(function ({body}) {
     callback(body);
   });
 }
