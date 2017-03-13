@@ -41,7 +41,7 @@
         <td>{{item.modifyTime | timeAgo}}</td>
         <td>
           <router-link :to="{ name: 'hotelProductEdit', params: { sid: item.sid, id: item.id }}">修改</router-link>
-          <router-link :to="{ name: 'hotelProductPrice', params: { sid: item.sid, id: item.id }}">报价结算</router-link>
+          <router-link :to="{ name: 'hotelProductSku', params: { sid: item.sid, id: item.id }}">报价结算</router-link>
         </td>
       </tr>
       </tbody>

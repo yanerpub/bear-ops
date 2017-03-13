@@ -29,7 +29,7 @@ import hotelStoreRoom from '../views/hotel/room.vue';
 import hotelSupplier from '../views/hotel/supplier.vue';
 import hotelProductView from '../views/hotel/view.vue';
 import hotelProductInput from '../views/hotel/input.vue';
-import hotelProductPrice from '../views/hotel/price.vue';
+import hotelProductSku from '../views/hotel/sku.vue';
 
 
 export default new Router({
@@ -68,7 +68,7 @@ export default new Router({
     {path: '/hotel/:sid/add', name: 'hotelProductAdd', component: hotelProductInput},
     {path: '/hotel/:sid/:id', name: 'hotelProduct', component: hotelProductView},
     {path: '/hotel/:sid/:id/edit', name: 'hotelProductEdit', component: hotelProductInput},
-    {path: '/hotel/:sid/:id/price', name: 'hotelProductPrice', component: hotelProductPrice},
+    {path: '/hotel/:sid/:id/sku', name: 'hotelProductSku', component: hotelProductSku},
     /*{
       path: '/', component: index,
       children: [

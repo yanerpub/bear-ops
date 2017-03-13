@@ -109,3 +109,21 @@ export function updateRoom(seq, room, callback) {
     callback(body);
   });
 }
+
+export function listSku(id, callback) {
+  Vue.http.get('/product/' + id + '/sku/').then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function addSku(id, sku, callback) {
+  Vue.http.post('/product/' + id + '/sku/', sku).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function updateSku(id, sku, callback) {
+  Vue.http.put('/product/' + id + '/sku/', sku).then(function ({body}) {
+    callback(body);
+  });
+}
