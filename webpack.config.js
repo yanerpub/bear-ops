@@ -44,7 +44,6 @@ module.exports = {
       "/supplier": "http://localhost:8088",
       "/enums": "http://localhost:8088",
       "/tree": "http://localhost:8088",
-      "/field": "http://localhost:8088",
     }
   },
   plugins: [

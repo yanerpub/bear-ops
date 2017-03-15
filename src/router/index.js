@@ -21,7 +21,6 @@ import supplierUser from '../views/supplier/user.vue';
 import supplierBusiness from '../views/supplier/business.vue';
 
 import hotelIndex from '../views/hotel/index.vue';
-import hotelField from '../views/hotel/field.vue';
 
 import hotelStore from '../views/hotel/store.vue';
 import hotelStoreRoom from '../views/hotel/room.vue';
@@ -59,8 +58,6 @@ export default new Router({
     {path: '/supplier/:sid/business', name: 'supplierBusiness', component: supplierBusiness},
   
     {path: '/hotel', name: 'hotelIndex', component: hotelIndex},
-    {path: '/hotel/field', name: 'hotelField', component: hotelField},
-    
     {path: '/hotel/store', name: 'hotelStore', component: hotelStore},
     {path: '/hotel/store/:seq/room', name: 'hotelStoreRoom', component: hotelStoreRoom},
     

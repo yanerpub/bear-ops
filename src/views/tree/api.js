@@ -23,3 +23,21 @@ export function fetchContract(treeId, callback) {
     callback(body);
   });
 }
+
+export function listField(treeId, callback) {
+  Vue.http.get('/tree/' + treeId + '/field/').then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function addField(treeId, field, callback) {
+  Vue.http.post('/tree/' + treeId + '/field/', field).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function updateField(treeId, field, callback) {
+  Vue.http.put('/tree/' + treeId + '/field/', field).then(function ({body}) {
+    callback(body);
+  });
+}

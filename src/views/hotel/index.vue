@@ -10,7 +10,7 @@
         <input type="text" v-model="query.name" class="form-control" id="name" placeholder="Name">
       </div>
       <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
-      <router-link class="btn btn-secondary" role="button" to="/hotel/field" aria-pressed="true">配置产品属性</router-link>
+      <router-link class="btn btn-secondary" role="button" to="/hotel/field" aria-pressed="true">产品中心</router-link>
       <router-link class="btn btn-secondary" role="button" to="/hotel/store" aria-pressed="true">门店库</router-link>
     </form>
     <table class="table">

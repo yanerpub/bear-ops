@@ -12,8 +12,8 @@ export function fetchTree(callback) {
   });
 }
 
-export function listField(tid, callback) {
-  Vue.http.get('/field/?tid=' + tid).then(function ({body}) {
+export function listField(treeId, callback) {
+  Vue.http.get('/tree/' + treeId + '/field/').then(function ({body}) {
     callback(body);
   });
 }
@@ -56,19 +56,6 @@ export function updateProduct(product, callback) {
 
 export function listAccount(sid, callback) {
   Vue.http.get('/supplier/' + sid + '/account').then(function ({body}) {
-    callback(body);
-  });
-}
-
-
-export function addField(field, callback) {
-  Vue.http.post('/field/', field).then(function ({body}) {
-    callback(body);
-  });
-}
-
-export function updateField(field, callback) {
-  Vue.http.put('/field/', field).then(function ({body}) {
     callback(body);
   });
 }
