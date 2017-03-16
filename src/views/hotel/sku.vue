@@ -42,6 +42,7 @@
         <tr class="active">
           <td>门店</td>
           <td>房型</td>
+          <td>可选服务</td>
           <td>报价</td>
           <td>操作</td>
         </tr>
@@ -50,6 +51,11 @@
         <tr v-for="item in skus">
           <td>{{item.storeSeq}}/{{item.storeName}}</td>
           <td>{{item.roomName}}</td>
+          <td class="text-left">
+            <ul>
+              <li v-for="op in item.services">{{op.serviceName}}-{{op.description}}</li>
+            </ul>
+          </td>
           <td>{{item.originalPrice}}/{{item.sellingPrice}}/{{item.settlementPrice}}/不加价</td>
           <td>
             <button class="btn btn-primary" @click="toEditData(item)">修改报价</button>
@@ -89,9 +95,28 @@
                 <option v-for="op in rooms" :value="op.id">{{op.name}}</option>
               </select>
               <span class="input-group-btn">
-                  <button class="btn btn-default" type="button">添加新房型</button>
-                </span>
+                <button class="btn btn-default" type="button">添加新房型</button>
+              </span>
             </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-2 col-form-label text-right">可选服务</label>
+          <div class="col-xs-6">
+            <div class="input-group">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{currentServiceName}} <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li v-for="op in services"><a @click="currentServiceId = op.id; currentServiceName = op.name;">{{op.name}}</a></li>
+                </ul>
+              </div>
+              <input type="text" class="form-control" v-model="description">
+              <div class="input-group-btn">
+                <input type="button" class="btn btn-default" value="添加" @click="addService">
+              </div>
+            </div>
+            <br>
+            <p v-for="(op, index) in sku.services"><span class="glyphicon glyphicon-remove" aria-hidden="true" @click="sku.services.splice(index, 1)"></span>{{op.serviceName}}-{{op.description}}</p>
           </div>
         </div>
         <div class="form-group">
@@ -129,7 +154,7 @@
 </template>
 
 <script>
-  import {fetchProduct, listAccount, listSku, listStore, listRoom, addSku, updateSku} from './api'
+  import {fetchProduct, listAccount, listSku, listStore, listRoom, listService, addSku, updateSku} from './api'
 
   export default {
     name: 'product-sku-view',
@@ -141,6 +166,10 @@
         store: {},
         stores: [],
         rooms: [],
+        services: [],
+        currentServiceId: 0,
+        currentServiceName: '',
+        description: '',
         sku: {},
         create: false,
         input: false
@@ -157,10 +186,15 @@
         listAccount(this.$route.params.sid, (body) => this.accounts = body.data)
         fetchProduct(this.$route.params.id, (body) => this.product = body.data)
         listSku(this.$route.params.id, (body) => this.skus = body.data)
+        listService((body) => {
+          this.services = body.data
+          this.currentServiceId = this.services[0].id
+          this.currentServiceName = this.services[0].name
+        })
       },
       toAddData () {
         this.input = true
-        this.sku = {}
+        this.sku = {services:[]}
       },
       toEditData (item) {
         listRoom(item.storeSeq, (body) => {
@@ -189,6 +223,10 @@
             this.sku.roomId = this.rooms[0].id
           }
         })
+      },
+      addService() {
+        this.sku.services.push({'serviceId': this.currentServiceId, 'serviceName': this.currentServiceName, 'description': this.description})
+        this.description = ''
       },
       closeInput () {
         this.input = false

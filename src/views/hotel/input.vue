@@ -57,13 +57,13 @@
       <div class="form-group row">
         <label class="col-xs-2 col-form-label">effectDate</label>
         <div class="col-xs-10">
-          <input class="form-control" type="text" id="effectDate" v-model="product.effectDateText">
+          <datepicker language="zh" id="effectDate" input-class="form-control" :format="'yyyy-MM-dd'" v-model="product.effectDateText"></datepicker>
         </div>
       </div>
       <div class="form-group row">
         <label class="col-xs-2 col-form-label">expireDate</label>
         <div class="col-xs-10">
-          <input class="form-control" type="text" id="expireDate" v-model="product.expireDateText">
+          <datepicker language="zh" id="expireDate" input-class="form-control" :format="'yyyy-MM-dd'" v-model="product.expireDateText"></datepicker>
         </div>
       </div>
       <div class="form-group row">
@@ -115,6 +115,7 @@
 </template>
 
 <script>
+import Datepicker from 'vuejs-datepicker'
 import checkbox from "../../components/checkbox.vue"
 import { fetchTree, listField, listContract, addProduct, fetchProduct, updateProduct } from './api'
 
@@ -133,6 +134,7 @@ export default {
     }
   },
   components: {
+    Datepicker,
     checkbox
   },
   created () {
@@ -143,6 +145,7 @@ export default {
   },
   methods: {
     fetchData () {
+      // 编辑
       if (!!this.$route.params.id) {
         fetchProduct(this.$route.params.id, (body) => {
           this.product = body.data
@@ -151,6 +154,7 @@ export default {
           this.show = true
         })
       } else {
+        // 新增
         fetchTree((body) => {
           this.treeData = body.data
           $('#productModal').modal('show')
@@ -185,11 +189,13 @@ export default {
       this.product.fields[data.key] = data.value
     },
     addData () {
-      addProduct(this.product, (body) => {
-        this.$router.push({ name: 'hotelSupplier', params: { sid: this.$route.params.sid }})
-      })
+      this.product.effectDateText = $('#effectDate').val()
+      this.product.expireDateText = $('#expireDate').val()
+      addProduct(this.product, (body) => this.$router.push({ name: 'hotelSupplier', params: { sid: this.$route.params.sid }}))
     },
     updateData () {
+      this.product.effectDateText = $('#effectDate').val()
+      this.product.expireDateText = $('#expireDate').val()
       updateProduct(this.product, (body) => this.$router.push({ name: 'hotelSupplier', params: { sid: this.$route.params.sid }}))
     }
   }

@@ -32,7 +32,7 @@
       <div class="form-group row" v-show="hasExpireDate">
         <label for="expireDate" class="col-xs-2 col-form-label">expireDate</label>
         <div class="col-xs-10">
-          <input class="form-control" type="text" id="expireDate" v-model="aptitude.expireDateText">
+          <datepicker language="zh" id="expireDate" input-class="form-control" :format="'yyyy-MM-dd'" v-model="aptitude.expireDateText"></datepicker>
         </div>
       </div>
       <div class="form-group row">
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-
+import Datepicker from 'vuejs-datepicker'
 import { fetchEnums, fetchAptitude, addAptitude, updateAptitude } from './api'
 
 export default {
@@ -60,6 +60,9 @@ export default {
       expireTypes: [],
       aptitude: {}
     }
+  },
+  components: {
+    Datepicker
   },
   created () {
     this.fetchData()
@@ -89,9 +92,11 @@ export default {
       }
     },
     addData () {
+      this.aptitude.expireDateText = $('#expireDate').val()
       addAptitude(this.$route.params.sid, this.aptitude, (body) => this.$router.push('/supplier/' + this.$route.params.sid))
     },
     updateData () {
+      this.aptitude.expireDateText = $('#expireDate').val()
       updateAptitude(this.$route.params.sid, this.aptitude, (body) => this.$router.push('/supplier/' + this.$route.params.sid))
     }
   }

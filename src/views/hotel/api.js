@@ -12,6 +12,13 @@ export function fetchTree(callback) {
   });
 }
 
+export function listService(callback) {
+  Vue.http.get('/product/service/').then(function ({body}) {
+    callback(body);
+  });
+}
+
+
 export function listField(treeId, callback) {
   Vue.http.get('/tree/' + treeId + '/field/').then(function ({body}) {
     callback(body);
