@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-sm-12">
-      <h3 class="text-center">{{product.name}}-报价结算</h3>
+      <h3 class="text-center">{{product.name}}-报价</h3>
       <table class="table text-center">
         <thead>
         <tr>
@@ -59,6 +59,7 @@
           <td>{{item.originalPrice}}/{{item.sellingPrice}}/{{item.settlementPrice}}/不加价</td>
           <td>
             <button class="btn btn-primary" @click="toEditData(item)">修改报价</button>
+            <button class="btn btn-primary" @click="toEditData(item)">停用报价</button>
           </td>
         </tr>
         </tbody>
@@ -74,7 +75,7 @@
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Search for..." v-model="store.seq">
               <span class="input-group-btn">
-                  <button class="btn btn-default" type="button" @click="searchStore(store)">Go!</button>
+                  <button class="btn btn-default" type="button" @click="searchStore(store)">搜索</button>
                 </span>
             </div>
           </div>
@@ -90,14 +91,9 @@
         <div class="form-group" v-show="rooms.length > 0">
           <label for="roomId" class="col-xs-2 col-form-label text-right">房型</label>
           <div class="col-xs-6">
-            <div class="input-group">
-              <select class="form-control" id="roomId" v-model="sku.roomId" required>
-                <option v-for="op in rooms" :value="op.id">{{op.name}}</option>
-              </select>
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="button">添加新房型</button>
-              </span>
-            </div>
+            <select class="form-control" id="roomId" v-model="sku.roomId" required>
+              <option v-for="op in rooms" :value="op.id">{{op.name}}</option>
+            </select>
           </div>
         </div>
         <div class="form-group">

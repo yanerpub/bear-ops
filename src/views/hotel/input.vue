@@ -49,25 +49,25 @@
       <h3 v-if="!!$route.params.id">产品编辑-{{product.id}}</h3>
       <h3 v-if="!$route.params.id">{{nodeName}}</h3>
       <div class="form-group row">
-        <label for="name" class="col-xs-2 col-form-label">Name</label>
+        <label for="name" class="col-xs-2 col-form-label">名称</label>
         <div class="col-xs-10">
           <input class="form-control" type="text" id="name" v-model="product.name">
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-xs-2 col-form-label">effectDate</label>
+        <label class="col-xs-2 col-form-label">生效日志</label>
         <div class="col-xs-10">
           <datepicker language="zh" id="effectDate" input-class="form-control" :format="'yyyy-MM-dd'" v-model="product.effectDateText"></datepicker>
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-xs-2 col-form-label">expireDate</label>
+        <label class="col-xs-2 col-form-label">过期日期</label>
         <div class="col-xs-10">
           <datepicker language="zh" id="expireDate" input-class="form-control" :format="'yyyy-MM-dd'" v-model="product.expireDateText"></datepicker>
         </div>
       </div>
       <div class="form-group row">
-        <label for="remark" class="col-xs-2 col-form-label">remark</label>
+        <label for="remark" class="col-xs-2 col-form-label">备注</label>
         <div class="col-xs-10">
           <input class="form-control" type="text" id="remark" v-model="product.remark">
         </div>

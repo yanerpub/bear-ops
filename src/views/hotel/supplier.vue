@@ -41,7 +41,10 @@
         <td>{{item.modifyTime | timeAgo}}</td>
         <td>
           <router-link :to="{ name: 'hotelProductEdit', params: { sid: item.sid, id: item.id }}">修改</router-link>
-          <router-link :to="{ name: 'hotelProductSku', params: { sid: item.sid, id: item.id }}">报价结算</router-link>
+          <router-link :to="{ name: 'hotelProductEdit', params: { sid: item.sid, id: item.id }}">生产</router-link>
+          <router-link :to="{ name: 'hotelProductEdit', params: { sid: item.sid, id: item.id }}">上架</router-link>
+          <router-link :to="{ name: 'hotelProductEdit', params: { sid: item.sid, id: item.id }}">下架</router-link>
+          <router-link :to="{ name: 'hotelProductSku', params: { sid: item.sid, id: item.id }}">报价</router-link>
         </td>
       </tr>
       </tbody>

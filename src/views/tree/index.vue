@@ -11,7 +11,7 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item active">
-            <a class="nav-link active" data-toggle="tab" href="#purchase" role="tab">采购</a>
+            <a class="nav-link active" data-toggle="tab" href="#purchase" role="tab">采购合同</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#field" role="tab">产品定义</a>
@@ -20,34 +20,38 @@
             <a class="nav-link" data-toggle="tab" href="#produce" role="tab">生产流程</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#delivery" role="tab">交付</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#return" role="tab">退货</a>
+            <a class="nav-link" data-toggle="tab" href="#log" role="tab">日志</a>
           </li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
           <div class="tab-pane active" id="purchase" role="tabpanel">
             <blockquote>
-              <p>产品可选的<mark>采购协议</mark></p>
+              <p>{{selectedNodeName}}可选的<mark>采购合同</mark></p>
             </blockquote>
+            <div class="pull-right">
+              <button type="button" class="btn btn-default">添加合同</button>
+            </div>
             <table class="table">
               <thead>
               <tr>
-                <th>name</th>
-                <th>version</th>
-                <th>createTime</th>
+                <th>名称</th>
+                <th>状态</th>
+                <th>版本</th>
+                <th>创建时间</th>
                 <th>操作</th>
               </tr>
               </thead>
               <tbody>
               <tr v-for="item in contracts">
                 <td><a :href="'/contract.html?tid=' + selectedNodeId + '&id=' + item.id" target="_blank">{{item.name}}</a></td>
+                <td>{{item.stateText}}</td>
                 <td>{{item.version}}</td>
                 <td>{{item.createTime | timeAgo}}</td>
                 <td>
                   <a v-show="selectedNodeId == item.treeId" :href="'/contract.html?tid=' + selectedNodeId + '&id=' + item.id" target="_blank">修改</a>
+                  <a v-show="selectedNodeId == item.treeId && item.state == 'OPEN'">封闭</a>
+                  <a v-show="selectedNodeId == item.treeId">生产工作流与交付</a>
                   <span v-show="selectedNodeId != item.treeId" class="label label-success">继承</span>
                 </td>
               </tr>
@@ -56,28 +60,26 @@
           </div>
           <div class="tab-pane" id="field" role="tabpanel">
             <blockquote>
-              <p>产品的<mark>定义</mark></p>
+              <p>{{selectedNodeName}}的属性<mark>定义</mark></p>
             </blockquote>
-            <form class="form-inline">
-              <button type="button" class="btn btn-primary" @click="toAddField">添加属性</button>
-            </form>
+            <div class="pull-right">
+              <button type="button" class="btn btn-default" @click="toAddField">添加属性</button>
+            </div>
             <table class="table">
               <thead>
               <tr>
-                <th>#</th>
-                <th>key</th>
-                <th>name</th>
-                <th>type</th>
-                <th>required</th>
-                <th>default</th>
-                <th>createTime</th>
-                <th>modifyTime</th>
+                <th>域键</th>
+                <th>域名称</th>
+                <th>控件类型</th>
+                <th>必须</th>
+                <th>默认值</th>
+                <th>创建时间</th>
+                <th>修改时间</th>
                 <th>操作</th>
               </tr>
               </thead>
               <tbody>
               <tr v-for="item in fields">
-                <td>{{item.id}}</td>
                 <td>{{item.key}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.type}}</td>
@@ -86,9 +88,7 @@
                 <td>{{item.createTime | timeAgo}}</td>
                 <td>{{item.modifyTime | timeAgo}}</td>
                 <td>
-                  <button v-show="selectedNodeId == item.treeId" class="btn btn-primary" @click="toEditField(item)">
-                    修改属性
-                  </button>
+                  <a v-show="selectedNodeId == item.treeId" @click="toEditField(item)">修改属性</a>
                   <span v-show="selectedNodeId != item.treeId" class="label label-success">继承属性</span>
                 </td>
               </tr>
@@ -97,81 +97,36 @@
           </div>
           <div class="tab-pane" id="produce" role="tabpanel">
             <blockquote>
-              <p>产品的<mark>生产、制造流程</mark></p>
+              <p>{{selectedNodeName}}的<mark>生产、制造流程</mark></p>
             </blockquote>
-            <form class="form-inline">
-              <button type="button" class="btn btn-primary" @click="toAddField">添加属性</button>
-            </form>
-            <table class="table">
-              <thead>
-              <tr>
-                <th>#</th>
-                <th>key</th>
-                <th>name</th>
-                <th>type</th>
-                <th>required</th>
-                <th>default</th>
-                <th>createTime</th>
-                <th>modifyTime</th>
-                <th>操作</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr v-for="item in fields">
-                <td>{{item.id}}</td>
-                <td>{{item.key}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.type}}</td>
-                <td>{{item.required}}</td>
-                <td>{{item.defaultValue}}</td>
-                <td>{{item.createTime | timeAgo}}</td>
-                <td>{{item.modifyTime | timeAgo}}</td>
-                <td>
-                  <button v-show="selectedNodeId == item.treeId" class="btn btn-primary" @click="toEditField(item)">
-                    修改属性
-                  </button>
-                  <span v-show="selectedNodeId != item.treeId" class="label label-success">继承属性</span>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-            <table class="table">
-              <thead>
-              <tr>
-                <th>name</th>
-                <th>version</th>
-                <th>createTime</th>
-                <th>操作</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr v-for="item in workflows">
-                <td><a :href="'/viewer.html?tid=' + selectedNodeId + '&id=' + item.id" target="_blank">{{item.name}}</a></td>
-                <td>{{item.version}}</td>
-                <td>{{item.createTime | timeAgo}}</td>
-                <td>
-                  <a v-show="selectedNodeId == item.treeId" :href="'/modeler.html?tid=' + selectedNodeId + '&id=' + item.id" target="_blank">修改</a>
-                  <span v-show="selectedNodeId != item.treeId" class="label label-success">继承</span>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-            <a :href="'/modeler.html?tid=' + selectedNodeId" target="_blank">添加</a>
-          </div>
-          <div class="tab-pane" id="delivery" role="tabpanel">
-            <blockquote>
-              <p>对下游系统输出即<mark>交付</mark></p>
-            </blockquote>
-            <div class="radio" v-for="item in deliveryTypes">
-              <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios1" :value="item.code">
-                {{item.name}}
-              </label>
+            <div class="pull-right">
+              <a :href="'/modeler.html?tid=' + selectedNodeId"  class="btn btn-default" target="_blank">添加流程</a>
             </div>
+            <table class="table">
+              <thead>
+              <tr>
+                <th>name</th>
+                <th>version</th>
+                <th>createTime</th>
+                <th>操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="item in workflows">
+                <td><a :href="'/viewer.html?tid=' + selectedNodeId + '&id=' + item.id" target="_blank">{{item.name}}</a></td>
+                <td>{{item.version}}</td>
+                <td>{{item.createTime | timeAgo}}</td>
+                <td>
+                  <a v-show="selectedNodeId == item.treeId" :href="'/modeler.html?tid=' + selectedNodeId + '&id=' + item.id" target="_blank">修改</a>
+                  <span v-show="selectedNodeId != item.treeId" class="label label-success">继承</span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
           </div>
-          <div class="tab-pane" id="return" role="tabpanel">
+          <div class="tab-pane" id="log" role="tabpanel">
             <blockquote>
-              <p><mark>退货</mark>的规则、流程</p>
+              <p><mark>日志</mark>对品类树节点操作的日志</p>
             </blockquote>
             <table class="table">
               <thead>
@@ -194,7 +149,6 @@
               </tr>
               </tbody>
             </table>
-            <a :href="'/modeler.html?tid=' + selectedNodeId" target="_blank">添加</a>
           </div>
         </div>
       </div>
