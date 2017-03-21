@@ -132,15 +132,15 @@
           <div class="modal-body">
             <form>
               <div class="form-group row">
-                <label for="key" class="col-xs-2 col-form-label">域Key</label>
-                <div class="col-xs-10">
-                  <input class="form-control" type="text" id="key" v-model="field.key" required>
-                </div>
-              </div>
-              <div class="form-group row">
                 <label for="name" class="col-xs-2 col-form-label">域名</label>
                 <div class="col-xs-10">
                   <input class="form-control" type="text" id="name" v-model="field.name" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="key" class="col-xs-2 col-form-label">域Key</label>
+                <div class="col-xs-10">
+                  <input class="form-control" type="text" id="key" v-model="field.key" required>
                 </div>
               </div>
               <div class="form-group row">

@@ -1,7 +1,6 @@
 <template>
   <div>
     <form>
-      <h3>{{product.id}}</h3>
       <div class="form-group row">
         <label class="col-xs-2 col-form-label">产品名</label>
         <div class="col-xs-10">

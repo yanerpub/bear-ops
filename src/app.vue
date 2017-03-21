@@ -20,6 +20,9 @@
               <router-link to="/">工作台</router-link>
             </li>
             <li>
+              <router-link to="/potential/">商机</router-link>
+            </li>
+            <li>
               <router-link to="/supplier/">供应商</router-link>
             </li>
             <li>
@@ -38,7 +41,6 @@
                 <li><router-link to="/tree/">品类树</router-link></li>
                 <li><router-link to="/workflow/">工作流</router-link></li>
                 <li role="separator" class="divider"></li>
-                <li><router-link to="/potential/">潜在供应商</router-link></li>
                 <li><a href="#">退出</a></li>
               </ul>
             </li>
