@@ -12,14 +12,13 @@ export function fetchTree(callback) {
   });
 }
 
-export function fetchWorkflow(treeId, callback) {
-  Vue.http.get('/tree/' + treeId + '/workflow').then(function ({body}) {
+export function listContract(treeId, callback) {
+  Vue.http.get('/tree/' + treeId + '/contract').then(function ({body}) {
     callback(body);
   });
 }
-
-export function fetchContract(treeId, callback) {
-  Vue.http.get('/tree/' + treeId + '/contract').then(function ({body}) {
+export function updateContract(treeId, contract, callback) {
+  Vue.http.put('/tree/' + treeId + '/contract/', contract).then(function ({body}) {
     callback(body);
   });
 }
@@ -38,6 +37,12 @@ export function addField(treeId, field, callback) {
 
 export function updateField(treeId, field, callback) {
   Vue.http.put('/tree/' + treeId + '/field/', field).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function listWorkflow(queryParams, callback) {
+  Vue.http.get('/workflow/', {params: queryParams}).then(function ({body}) {
     callback(body);
   });
 }

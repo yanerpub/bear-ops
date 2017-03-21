@@ -23,7 +23,7 @@
           <td>{{product.effectDateText}}</td>
           <td>{{product.expireDateText}}</td>
           <td>
-            <button class="btn btn-primary" @click="toAddData">添加报价</button>
+            <button class="btn btn-primary btn-xs" @click="toAddData">添加报价</button>
           </td>
         </tr>
         <tr class="info" v-for="item in accounts">
@@ -58,8 +58,8 @@
           </td>
           <td>{{item.originalPrice}}/{{item.sellingPrice}}/{{item.settlementPrice}}/不加价</td>
           <td>
-            <button class="btn btn-primary" @click="toEditData(item)">修改报价</button>
-            <button class="btn btn-primary" @click="toEditData(item)">停用报价</button>
+            <button class="btn btn-primary btn-xs" @click="toEditData(item)">修改报价</button>
+            <button class="btn btn-primary btn-xs" @click="toEditData(item)">停用报价</button>
           </td>
         </tr>
         </tbody>
@@ -75,8 +75,8 @@
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Search for..." v-model="store.seq">
               <span class="input-group-btn">
-                  <button class="btn btn-default" type="button" @click="searchStore(store)">搜索</button>
-                </span>
+                <button class="btn btn-default" type="button" @click="searchStore(store)">搜索</button>
+              </span>
             </div>
           </div>
         </div>

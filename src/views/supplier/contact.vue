@@ -8,13 +8,13 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="name" class="col-xs-2 col-form-label">Name</label>
+        <label for="name" class="col-xs-2 col-form-label">名称</label>
         <div class="col-xs-10">
           <input class="form-control" type="text" id="name" v-model="contact.name">
         </div>
       </div>
       <div class="form-group row">
-        <label for="terms" class="col-xs-2 col-form-label">Terms</label>
+        <label for="terms" class="col-xs-2 col-form-label">称谓</label>
         <div class="col-xs-10">
           <select id="terms" class="form-control" v-model="contact.terms">
             <option v-for="op in termsTypes" :value="op">{{op}}</option>
@@ -22,25 +22,25 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="cellphone" class="col-xs-2 col-form-label">Cellphone</label>
+        <label for="cellphone" class="col-xs-2 col-form-label">手机</label>
         <div class="col-xs-10">
           <input class="form-control" type="text" id="cellphone" v-model="contact.cellphone">
         </div>
       </div>
       <div class="form-group row">
-        <label for="telephone" class="col-xs-2 col-form-label">Telephone</label>
+        <label for="telephone" class="col-xs-2 col-form-label">座机</label>
         <div class="col-xs-10">
           <input class="form-control" type="text" id="telephone" v-model="contact.telephone">
         </div>
       </div>
       <div class="form-group row">
-        <label for="email" class="col-xs-2 col-form-label">Email</label>
+        <label for="email" class="col-xs-2 col-form-label">邮箱</label>
         <div class="col-xs-10">
           <input class="form-control" type="text" id="email" v-model="contact.email">
         </div>
       </div>
       <div class="form-group row">
-        <label for="position" class="col-xs-2 col-form-label">Position</label>
+        <label for="position" class="col-xs-2 col-form-label">职位</label>
         <div class="col-xs-10">
           <input class="form-control" type="text" id="position" v-model="contact.position">
         </div>

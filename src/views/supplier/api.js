@@ -6,18 +6,6 @@ export function fetchEnums(resource, callback) {
   });
 }
 
-export function fetchStat(sid, callback) {
-  Vue.http.get('/supplier/' + sid + '/stat').then(function ({body}) {
-    callback(body);
-  });
-}
-
-export function listAllBusiness(callback) {
-  Vue.http.get('/tree/business').then(function ({body}) {
-    callback(body);
-  });
-}
-
 export function listBusiness(sid, callback) {
   Vue.http.get('/supplier/' + sid + '/business').then(function ({body}) {
     callback(body);

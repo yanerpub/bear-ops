@@ -8,25 +8,25 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="bank" class="col-xs-2 col-form-label">Bank</label>
+        <label for="bank" class="col-xs-2 col-form-label">银行</label>
         <div class="col-xs-10">
           <input class="form-control" type="text" id="bank" v-model="account.bank">
         </div>
       </div>
       <div class="form-group row">
-        <label for="name" class="col-xs-2 col-form-label">Name</label>
+        <label for="name" class="col-xs-2 col-form-label">户主名</label>
         <div class="col-xs-10">
           <input class="form-control" type="text" id="name" v-model="account.name">
         </div>
       </div>
       <div class="form-group row">
-        <label for="number" class="col-xs-2 col-form-label">Number</label>
+        <label for="number" class="col-xs-2 col-form-label">账号</label>
         <div class="col-xs-10">
           <input class="form-control" type="text" id="number" v-model="account.number">
         </div>
       </div>
       <div class="form-group row">
-        <label for="currency" class="col-xs-2 col-form-label">Currency</label>
+        <label for="currency" class="col-xs-2 col-form-label">币种</label>
         <div class="col-xs-10">
           <select id="currency" class="form-control" v-model="account.currencyCode">
             <option v-for="op in currencyTypes" :value="op.code">{{op.name}}</option>

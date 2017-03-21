@@ -2,41 +2,29 @@
   <div>
     <form class="form-inline">
       <div class="form-group">
-        <label class="sr-only" for="sid">SID</label>
-        <input type="text" v-model="query.sid" class="form-control" id="sid" placeholder="SID">
-      </div>
-      <div class="form-group">
-        <label class="sr-only" for="name">名称</label>
+        <label class="sr-only" for="name">Name</label>
         <input type="text" v-model="query.name" class="form-control" id="name" placeholder="Name">
       </div>
       <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
-      <router-link class="btn btn-secondary" role="button" to="/hotel/store" aria-pressed="true">门店库</router-link>
+      <a href="/modeler.html"  class="btn btn-default" target="_blank">添加流程</a>
     </form>
     <table class="table">
       <thead>
       <tr>
-        <th>SID</th>
         <th>名称</th>
-        <th>手机</th>
-        <th>电话</th>
-        <th>邮箱</th>
-        <th>负责人</th>
+        <th>版本</th>
         <th>创建时间</th>
-        <th>修改时间</th>
+        <th>操作</th>
       </tr>
       </thead>
       <tbody>
       <tr v-for="item in list">
-        <td>
-          <router-link :to="{ name: 'hotelSupplier', params: { sid: item.sid }}">{{item.sid}}</router-link>
-        </td>
-        <td>{{item.name}}</td>
-        <td>{{item.cellphone}}</td>
-        <td>{{item.telephone}}</td>
-        <td>{{item.email}}</td>
-        <td>{{item.owner}}</td>
+        <td><a :href="'/viewer.html?id=' + item.id" target="_blank">{{item.name}}</a></td>
+        <td>{{item.version}}</td>
         <td>{{item.createTime | timeAgo}}</td>
-        <td>{{item.modifyTime | timeAgo}}</td>
+        <td>
+          <a :href="'/modeler.html?id=' + item.id" target="_blank">修改</a>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -45,10 +33,10 @@
 </template>
 
 <script>
-  import {listSupplier} from './api'
+  import {listWorkflow} from './api'
 
   export default {
-    name: 'hotel-supplier-list-view',
+    name: 'workflow-view',
     data() {
       return {
         query: {pageNow: 1, pageSize: 10, sortKey: ''},
@@ -66,7 +54,7 @@
     },
     methods: {
       queryData () {
-        listSupplier(this.query, (body) => {
+        listWorkflow(this.query, (body) => {
           this.list = body.data.list
           this.count = body.data.total
         });

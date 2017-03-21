@@ -2,7 +2,7 @@
   <div>
     <form class="form-inline">
       <div class="form-group">
-        <label class="sr-only" for="name">Name</label>
+        <label class="sr-only" for="name">产品名</label>
         <input type="text" v-model="query.name" class="form-control" id="name" placeholder="Name">
       </div>
       <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
@@ -12,16 +12,16 @@
     <table class="table">
       <thead>
       <tr>
-        <th>id</th>
-        <th>sid</th>
-        <th>treeId</th>
-        <th>name</th>
-        <th>state</th>
-        <th>owner</th>
-        <th>effectDate</th>
-        <th>expireDate</th>
-        <th>createTime</th>
-        <th>modifyTime</th>
+        <th>产品ID</th>
+        <th>供应商SID</th>
+        <th>品类树ID</th>
+        <th>产品名</th>
+        <th>状态</th>
+        <th>负责人</th>
+        <th>生效日期</th>
+        <th>过期日期</th>
+        <th>创建时间</th>
+        <th>修改时间</th>
         <th>操作</th>
       </tr>
       </thead>
@@ -41,9 +41,9 @@
         <td>{{item.modifyTime | timeAgo}}</td>
         <td>
           <router-link :to="{ name: 'hotelProductEdit', params: { sid: item.sid, id: item.id }}">修改</router-link>
-          <router-link :to="{ name: 'hotelProductEdit', params: { sid: item.sid, id: item.id }}">生产</router-link>
-          <router-link :to="{ name: 'hotelProductEdit', params: { sid: item.sid, id: item.id }}">上架</router-link>
-          <router-link :to="{ name: 'hotelProductEdit', params: { sid: item.sid, id: item.id }}">下架</router-link>
+          <button type="button" class="btn btn-primary btn-xs">生产</button>
+          <button type="button" class="btn btn-primary btn-xs" v-show="item.state == 'PASS'">上架</button>
+          <button type="button" class="btn btn-primary btn-xs" v-show="item.state == 'PUBLISH'">下架</button>
           <router-link :to="{ name: 'hotelProductSku', params: { sid: item.sid, id: item.id }}">报价</router-link>
         </td>
       </tr>

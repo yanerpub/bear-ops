@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="type" class="col-xs-2 col-form-label">type</label>
+        <label for="type" class="col-xs-2 col-form-label">资质类型</label>
         <div class="col-xs-10">
           <select id="type" class="form-control" v-model="aptitude.typeCode">
             <option v-for="op in aptitudeTypes" :value="op.code">{{op.name}}</option>
@@ -16,13 +16,13 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="number" class="col-xs-2 col-form-label">number</label>
+        <label for="number" class="col-xs-2 col-form-label">资质编号</label>
         <div class="col-xs-10">
           <input class="form-control" type="text" id="number" v-model="aptitude.number">
         </div>
       </div>
       <div class="form-group row">
-        <label for="expireType" class="col-xs-2 col-form-label">expireType</label>
+        <label for="expireType" class="col-xs-2 col-form-label">过期类型</label>
         <div class="col-xs-10">
           <select id="expireType" class="form-control" v-model="aptitude.expireTypeCode">
             <option v-for="op in expireTypes" :value="op.code">{{op.name}}</option>
@@ -30,13 +30,13 @@
         </div>
       </div>
       <div class="form-group row" v-show="hasExpireDate">
-        <label for="expireDate" class="col-xs-2 col-form-label">expireDate</label>
+        <label for="expireDate" class="col-xs-2 col-form-label">过期日期</label>
         <div class="col-xs-10">
           <datepicker language="zh" id="expireDate" input-class="form-control" :format="'yyyy-MM-dd'" v-model="aptitude.expireDateText"></datepicker>
         </div>
       </div>
       <div class="form-group row">
-        <label for="attachment" class="col-xs-2 col-form-label">attachment</label>
+        <label for="attachment" class="col-xs-2 col-form-label">附件</label>
         <div class="col-xs-10">
           <input class="form-control" type="text" id="attachment" v-model="aptitude.attachment">
         </div>

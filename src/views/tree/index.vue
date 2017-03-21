@@ -17,9 +17,6 @@
             <a class="nav-link" data-toggle="tab" href="#field" role="tab">产品定义</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#produce" role="tab">生产流程</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#log" role="tab">日志</a>
           </li>
         </ul>
@@ -50,8 +47,9 @@
                 <td>{{item.createTime | timeAgo}}</td>
                 <td>
                   <a v-show="selectedNodeId == item.treeId" :href="'/contract.html?tid=' + selectedNodeId + '&id=' + item.id" target="_blank">修改</a>
-                  <a v-show="selectedNodeId == item.treeId && item.state == 'OPEN'">封闭</a>
-                  <a v-show="selectedNodeId == item.treeId">生产工作流与交付</a>
+                  <button type="button" class="btn btn-primary btn-xs" v-show="selectedNodeId == item.treeId && item.state != 'OPEN'">开放</button>
+                  <button type="button" class="btn btn-primary btn-xs" v-show="selectedNodeId == item.treeId && item.state == 'OPEN'">封闭</button>
+                  <button type="button" class="btn btn-primary btn-xs" v-show="selectedNodeId == item.treeId" @click="toEditContract(item)">生产工作流与交付</button>
                   <span v-show="selectedNodeId != item.treeId" class="label label-success">继承</span>
                 </td>
               </tr>
@@ -88,37 +86,8 @@
                 <td>{{item.createTime | timeAgo}}</td>
                 <td>{{item.modifyTime | timeAgo}}</td>
                 <td>
-                  <a v-show="selectedNodeId == item.treeId" @click="toEditField(item)">修改属性</a>
+                  <button type="button" class="btn btn-primary btn-xs" v-show="selectedNodeId == item.treeId" @click="toEditField(item)">修改属性</button>
                   <span v-show="selectedNodeId != item.treeId" class="label label-success">继承属性</span>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="tab-pane" id="produce" role="tabpanel">
-            <blockquote>
-              <p>{{selectedNodeName}}的<mark>生产、制造流程</mark></p>
-            </blockquote>
-            <div class="pull-right">
-              <a :href="'/modeler.html?tid=' + selectedNodeId"  class="btn btn-default" target="_blank">添加流程</a>
-            </div>
-            <table class="table">
-              <thead>
-              <tr>
-                <th>name</th>
-                <th>version</th>
-                <th>createTime</th>
-                <th>操作</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr v-for="item in workflows">
-                <td><a :href="'/viewer.html?tid=' + selectedNodeId + '&id=' + item.id" target="_blank">{{item.name}}</a></td>
-                <td>{{item.version}}</td>
-                <td>{{item.createTime | timeAgo}}</td>
-                <td>
-                  <a v-show="selectedNodeId == item.treeId" :href="'/modeler.html?tid=' + selectedNodeId + '&id=' + item.id" target="_blank">修改</a>
-                  <span v-show="selectedNodeId != item.treeId" class="label label-success">继承</span>
                 </td>
               </tr>
               </tbody>
@@ -131,10 +100,10 @@
             <table class="table">
               <thead>
               <tr>
-                <th>name</th>
-                <th>version</th>
-                <th>createTime</th>
-                <th>操作</th>
+                <th>修改时间</th>
+                <th>修改人/角色</th>
+                <th>变更动作</th>
+                <th>变更内容</th>
               </tr>
               </thead>
               <tbody>
@@ -163,19 +132,19 @@
           <div class="modal-body">
             <form>
               <div class="form-group row">
-                <label for="key" class="col-xs-2 col-form-label">Key</label>
+                <label for="key" class="col-xs-2 col-form-label">域Key</label>
                 <div class="col-xs-10">
                   <input class="form-control" type="text" id="key" v-model="field.key" required>
                 </div>
               </div>
               <div class="form-group row">
-                <label for="name" class="col-xs-2 col-form-label">Name</label>
+                <label for="name" class="col-xs-2 col-form-label">域名</label>
                 <div class="col-xs-10">
                   <input class="form-control" type="text" id="name" v-model="field.name" required>
                 </div>
               </div>
               <div class="form-group row">
-                <label for="type" class="col-xs-2 col-form-label">Type</label>
+                <label for="type" class="col-xs-2 col-form-label">类型</label>
                 <div class="col-xs-10">
                   <select id="type" class="form-control" v-model="field.type">
                     <option value="text">text</option>
@@ -189,7 +158,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-xs-2 col-form-label">Required</label>
+                <label class="col-xs-2 col-form-label">是否必须</label>
                 <div class="col-xs-10">
                   <label class="form-check-inline">
                     <input type="radio" name="required" value="true" v-model="field.required">是
@@ -200,14 +169,14 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label for="default" class="col-xs-2 col-form-label">Default</label>
+                <label for="default" class="col-xs-2 col-form-label">默认值</label>
                 <div class="col-xs-10">
                   <input class="form-control" type="text" id="default" v-model="field.defaultValue" placeholder="使用#设置默认多值">
                 </div>
               </div>
               <div class="form-group row" v-show="hasOptions">
                 <hr>
-                <label class="col-xs-2 col-form-label">Option</label>
+                <label class="col-xs-2 col-form-label">可选值</label>
                 <div class="col-xs-10">
                   <form class="form-inline">
                     <div v-for="(item, index) in field.optionalValues">
@@ -217,10 +186,10 @@
                         <label>name</label>
                         <input type="text" v-model="item.name">
                       </div>
-                      <button type="button" class="btn btn-primary" @click="field.optionalValues.splice(index, 1)">-
+                      <button type="button" class="btn btn-primary btn-xs" @click="field.optionalValues.splice(index, 1)">-
                       </button>
                     </div>
-                    <button type="button" class="btn btn-primary" @click="addValue">+</button>
+                    <button type="button" class="btn btn-primary btn-xs" @click="addValue">+</button>
                   </form>
                 </div>
               </div>
@@ -234,12 +203,32 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="makeDeliverModal" tabindex="-1" role="dialog" aria-labelledby="makeDeliverModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="makeDeliverModalLabel">生产流程与交付</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              {{workflows}}{{deliveryTypes}}
+              {{contract}}
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" @click="updateContract">更新</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import node from "../../components/node.vue"
-import {fetchEnums, fetchTree, fetchContract, listField, addField, updateField, fetchWorkflow} from './api'
+import {fetchEnums, fetchTree, listContract, updateContract, listField, addField, updateField, listWorkflow} from './api'
 
 export default {
   name: 'tree',
@@ -253,7 +242,9 @@ export default {
       selectedNodeName: '',
       contracts: [],
       fields: [],
+      logs: [],
       field: {},
+      contract: {},
       workflows:[],
       deliveryTypes: [],
       create: false
@@ -274,9 +265,6 @@ export default {
   },
   methods: {
     fetchData () {
-      fetchEnums('tree', (body) => {
-        this.deliveryTypes = body.data.deliveryTypes
-      });
       fetchTree((body) => {
         this.treeData = body.data
         this.choose(this.treeData)
@@ -326,9 +314,17 @@ export default {
       }
       this.selectedNodeId = node.id
       this.selectedNodeName = node.name
-      fetchContract(this.selectedNodeId, (body) => this.contracts = body.data)
+      listContract(this.selectedNodeId, (body) => this.contracts = body.data)
       listField(this.selectedNodeId, (body) => this.fields = body.data)
-      fetchWorkflow(this.selectedNodeId, (body) => this.workflows = body.data)
+    },
+    toEditContract (item) {
+      this.contract = item
+      fetchEnums('tree', (body) => this.deliveryTypes = body.data.deliveryTypes);
+      listWorkflow({}, (body) => this.workflows = body.data.list);
+      $('#makeDeliverModal').modal('show')
+    },
+    updateContract () {
+
     }
   }
 }

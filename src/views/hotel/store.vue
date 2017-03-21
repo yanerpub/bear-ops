@@ -17,12 +17,12 @@
       <tr>
         <th>id</th>
         <th>seq</th>
-        <th>name</th>
-        <th>telephone</th>
-        <th>source</th>
-        <th>state</th>
-        <th>createTime</th>
-        <th>modifyTime</th>
+        <th>店名</th>
+        <th>联系电话</th>
+        <th>来源</th>
+        <th>状态</th>
+        <th>创建时间</th>
+        <th>修改时间</th>
         <th>操作</th>
       </tr>
       </thead>
@@ -38,7 +38,7 @@
         <td>{{item.modifyTime | timeAgo}}</td>
         <td>
           <router-link :to="{ name: 'hotelStoreRoom', params: { seq: item.seq }}">房型</router-link>
-          <button class="btn btn-default" @click="toEditStore(item)">修改</button>
+          <button class="btn btn-default btn-xs" @click="toEditStore(item)">修改</button>
         </td>
       </tr>
       </tbody>
@@ -54,31 +54,31 @@
           <div class="modal-body">
             <form>
               <div class="form-group row">
-                <label for="name" class="col-xs-2 col-form-label">Name</label>
+                <label for="name" class="col-xs-2 col-form-label">店名</label>
                 <div class="col-xs-10">
                   <input class="form-control" type="text" id="name" v-model="store.name" required>
                 </div>
               </div>
               <div class="form-group row">
-                <label for="telephone" class="col-xs-2 col-form-label">Telephone</label>
+                <label for="telephone" class="col-xs-2 col-form-label">联系电话</label>
                 <div class="col-xs-10">
                   <input class="form-control" type="text" id="telephone" v-model="store.telephone" required>
                 </div>
               </div>
               <div class="form-group row">
-                <label for="address" class="col-xs-2 col-form-label">Address</label>
+                <label for="address" class="col-xs-2 col-form-label">地址</label>
                 <div class="col-xs-10">
                   <input class="form-control" type="text" id="address" v-model="store.address" required>
                 </div>
               </div>
               <div class="form-group row">
-                <label for="coordinate" class="col-xs-2 col-form-label">Coordinate</label>
+                <label for="coordinate" class="col-xs-2 col-form-label">坐标</label>
                 <div class="col-xs-10">
                   <input class="form-control" type="text" id="coordinate" v-model="store.coordinate" required>
                 </div>
               </div>
               <div class="form-group row">
-                <label for="source" class="col-xs-2 col-form-label">Source</label>
+                <label for="source" class="col-xs-2 col-form-label">来源</label>
                 <div class="col-xs-10">
                   <select id="source" class="form-control" v-model="store.sourceCode">
                     <option v-for="op in storeSources" :value="op.code">{{op.name}}</option>

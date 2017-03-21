@@ -16,21 +16,21 @@
                 <div>
                   {{model.name}}
                   <span v-if="isFolder(model)"></span>
-                  <span v-else><button type="button" class="btn btn-primary btn-sm" @click="choose(model)">确认</button></span>
+                  <span v-else><button type="button" class="btn btn-primary btn-xs" @click="choose(model)">确认</button></span>
                 </div>
                 <ul v-if="isFolder">
                   <li v-for="model in model.children">
                     <div>
                       {{model.name}}
                       <span v-if="isFolder(model)"></span>
-                      <span v-else><button type="button" class="btn btn-primary btn-sm" @click="choose(model)">确认</button></span>
+                      <span v-else><button type="button" class="btn btn-primary btn-xs" @click="choose(model)">确认</button></span>
                     </div>
                     <ul v-if="isFolder">
                       <li v-for="model in model.children" :model="treeData">
                         <div>
                           {{model.name}}
                           <span v-if="isFolder(model)"></span>
-                          <span v-else><button type="button" class="btn btn-primary btn-sm" @click="choose(model)">确认</button></span>
+                          <span v-else><button type="button" class="btn btn-primary btn-xs" @click="choose(model)">确认</button></span>
                         </div>
                       </li>
                     </ul>

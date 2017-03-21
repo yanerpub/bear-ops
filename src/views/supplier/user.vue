@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="type" class="col-xs-2 col-form-label">type</label>
+        <label for="type" class="col-xs-2 col-form-label">类型</label>
         <div class="col-xs-10">
           <select id="type" class="form-control" v-model="user.typeCode">
             <option v-for="op in userTypes" :value="op.code">{{op.name}}</option>
@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="value" class="col-xs-2 col-form-label">value</label>
+        <label for="value" class="col-xs-2 col-form-label">用户ID</label>
         <div class="col-xs-10">
           <input class="form-control" type="text" id="value" v-model="user.value">
         </div>

@@ -9,10 +9,10 @@
       <thead>
       <tr>
         <th>id</th>
-        <th>name</th>
-        <th>bedCount</th>
-        <th>hasWindow</th>
-        <th>createTime</th>
+        <th>房型名</th>
+        <th>床数量</th>
+        <th>是否有窗</th>
+        <th>创建时间</th>
         <th>操作</th>
       </tr>
       </thead>
@@ -39,25 +39,25 @@
           <div class="modal-body">
             <form>
               <div class="form-group row">
-                <label for="name" class="col-xs-2 col-form-label">Name</label>
+                <label for="name" class="col-xs-2 col-form-label">房型名</label>
                 <div class="col-xs-10">
                   <input class="form-control" type="text" id="name" v-model="room.name" required>
                 </div>
               </div>
               <div class="form-group row">
-                <label for="bedCount" class="col-xs-2 col-form-label">BedCount</label>
+                <label for="bedCount" class="col-xs-2 col-form-label">床数量</label>
                 <div class="col-xs-10">
                   <input class="form-control" type="text" id="bedCount" v-model="room.bedCount" required>
                 </div>
               </div>
               <div class="form-group row">
-                <label for="hasWindow" class="col-xs-2 col-form-label">HasWindow</label>
+                <label for="hasWindow" class="col-xs-2 col-form-label">是否有窗</label>
                 <div class="col-xs-10">
                   <input class="form-control" type="text" id="hasWindow" v-model="room.hasWindow" required>
                 </div>
               </div>
               <div class="form-group row">
-                <label for="picture" class="col-xs-2 col-form-label">picture</label>
+                <label for="picture" class="col-xs-2 col-form-label">图片信息</label>
                 <div class="col-xs-10">
                   <input class="form-control" type="text" id="picture" v-model="room.picture" required>
                 </div>

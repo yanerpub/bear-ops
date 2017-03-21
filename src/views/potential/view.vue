@@ -52,103 +52,103 @@
       <div class="tab-pane" id="detail" role="tabpanel">
         <form class="col-sm-offset-1">
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">id</label>
+            <label class="col-sm-2 col-form-label">ID</label>
             <div class="col-sm-10">
               <p class="form-control-static">{{potential.id}}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Name</label>
+            <label class="col-sm-2 col-form-label">名称</label>
             <div class="col-sm-10">
               <p class="form-control-static">{{potential.name}}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Terms</label>
+            <label class="col-sm-2 col-form-label">称谓</label>
             <div class="col-sm-10">
               <p class="form-control-static">{{potential.terms}}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Cellphone</label>
+            <label class="col-sm-2 col-form-label">手机</label>
             <div class="col-sm-10">
               <p class="form-control-static">{{potential.cellphone}}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">telephone</label>
+            <label class="col-sm-2 col-form-label">座机</label>
             <div class="col-sm-10">
               <p class="form-control-static">{{potential.telephone}}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">email</label>
+            <label class="col-sm-2 col-form-label">邮箱</label>
             <div class="col-sm-10">
               <p class="form-control-static">{{potential.email}}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Position</label>
+            <label class="col-sm-2 col-form-label">职位</label>
             <div class="col-sm-10">
               <p class="form-control-static">{{potential.position}}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Character</label>
+            <label class="col-sm-2 col-form-label">品性</label>
             <div class="col-sm-10">
               <p class="form-control-static">{{potential.character}}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Company</label>
+            <label class="col-sm-2 col-form-label">公司</label>
             <div class="col-sm-10">
               <p class="form-control-static">{{potential.company}}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Industry</label>
+            <label class="col-sm-2 col-form-label">行业</label>
             <div class="col-sm-10">
               <p class="form-control-static">{{potential.industryText}}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">StaffCount</label>
+            <label class="col-sm-2 col-form-label">员工数</label>
             <div class="col-sm-10">
               <p class="form-control-static">{{potential.staffCount}}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Source</label>
+            <label class="col-sm-2 col-form-label">来源</label>
             <div class="col-sm-10">
               <p class="form-control-static">{{potential.sourceText}}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">address</label>
+            <label class="col-sm-2 col-form-label">地址</label>
             <div class="col-sm-10">
               <p class="form-control-static">{{potential.address}}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Sid</label>
+            <label class="col-sm-2 col-form-label">映射SID</label>
             <div class="col-sm-10">
               <p class="form-control-static">{{potential.sid}}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">owner</label>
+            <label class="col-sm-2 col-form-label">负责人</label>
             <div class="col-sm-10">
               <p class="form-control-static">{{potential.owner}}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">CreateTime</label>
+            <label class="col-sm-2 col-form-label">创建时间</label>
             <div class="col-sm-10">
               <p class="form-control-static">{{potential.createTime | timeAgo}}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">ModifyTime</label>
+            <label class="col-sm-2 col-form-label">修改时间</label>
             <div class="col-sm-10">
               <p class="form-control-static">{{potential.modifyTime | timeAgo}}</p>
             </div>
@@ -168,7 +168,7 @@
           <div class="modal-body">
             <form>
               <div class="form-group row">
-                <label for="owner" class="col-xs-2 col-form-label">Owner</label>
+                <label for="owner" class="col-xs-2 col-form-label">负责人</label>
                 <div class="col-xs-10">
                   <input class="form-control" type="text" id="owner" v-model="potential.owner">
                 </div>

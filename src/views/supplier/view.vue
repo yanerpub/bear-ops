@@ -4,7 +4,7 @@
       <div class="panel panel-primary">
         <!-- Default panel contents -->
         <div class="panel-heading">
-          <h4><span class="glyphicon glyphicon-apple" aria-hidden="true"></span>{{supplier.name}}</h4>
+          <h4><span class="glyphicon glyphicon-apple" aria-hidden="true"></span>{{supplier.name}}/{{supplier.sid}}</h4>
         </div>
         <table class="table">
           <thead>
@@ -23,9 +23,8 @@
             </td>
             <td>
               <div v-if="supplier.aid > 0">
-                <span>{{supplier.aptitudeVo.typeText}}-{{supplier.aptitudeVo.number}}-{{supplier.aptitudeVo.stateText}}</span><br>
+                <span>{{supplier.aptitudeVo.typeText}}-{{supplier.aptitudeVo.number}}</span><br>{{supplier.aptitudeVo.stateText}}状态
                 <router-link :to="{ name: 'supplierAptitudeEdit', params: { sid: $route.params.sid, id: supplier.aid }}">编辑</router-link>
-                <a href="#" v-show="supplier.aptitudeVo">提交审核</a>
               </div>
               <router-link :to="{ name: 'supplierAptitudeAdd', params: { sid: $route.params.sid }}" v-else>
                 补充资质
@@ -54,7 +53,7 @@
               <div class="panel-heading" role="tab" id="headingContact">
                 <h4 class="panel-title">
                   <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseContact" aria-expanded="true" aria-controls="collapseContact">
-                    联系人{{stat.contact}}
+                    联系人{{supplier.contactCount}}
                   </a>
                 </h4>
               </div>
@@ -65,19 +64,18 @@
                   <table class="table">
                     <thead>
                     <tr>
-                      <th>id</th>
-                      <th>name</th>
-                      <th>cellphone</th>
-                      <th>telephone</th>
-                      <th>email</th>
-                      <th>position</th>
-                      <th>createTime</th>
-                      <th>modifyTime</th>
+                      <th>名称</th>
+                      <th>手机</th>
+                      <th>座机</th>
+                      <th>邮箱</th>
+                      <th>职位</th>
+                      <th>创建时间</th>
+                      <th>修改时间</th>
+                      <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="item in contacts">
-                      <td><router-link :to="{ name: 'supplierContactEdit', params: { sid: $route.params.sid, id: item.id }}">{{item.id}}</router-link></td>
                       <td>{{item.name}}</td>
                       <td>{{item.cellphone}}</td>
                       <td>{{item.telephone}}</td>
@@ -85,6 +83,7 @@
                       <td>{{item.position}}</td>
                       <td>{{item.createTime | timeAgo}}</td>
                       <td>{{item.modifyTime | timeAgo}}</td>
+                      <td><router-link :to="{ name: 'supplierContactEdit', params: { sid: $route.params.sid, id: item.id }}">编辑</router-link></td>
                     </tr>
                     </tbody>
                   </table>
@@ -95,7 +94,7 @@
               <div class="panel-heading" role="tab" id="headingAccount">
                 <h4 class="panel-title">
                   <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseAccount" aria-expanded="false" aria-controls="collapseAccount">
-                    结算{{stat.account}}
+                    结算{{supplier.accountCount}}
                   </a>
                 </h4>
               </div>
@@ -106,20 +105,18 @@
                   <table class="table">
                     <thead>
                     <tr>
-                      <th>id</th>
-                      <th>bank</th>
-                      <th>name</th>
-                      <th>number</th>
-                      <th>currency</th>
-                      <th>state</th>
-                      <th>createTime</th>
-                      <th>modifyTime</th>
-                      <th>Action</th>
+                      <th>银行</th>
+                      <th>户主名</th>
+                      <th>账号</th>
+                      <th>币种</th>
+                      <th>状态</th>
+                      <th>创建时间</th>
+                      <th>修改时间</th>
+                      <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="item in accounts">
-                      <td><router-link :to="{ name: 'supplierAccountEdit', params: { sid: $route.params.sid, id: item.id }}">{{item.id}}</router-link></td>
                       <td>{{item.bank}}</td>
                       <td>{{item.name}}</td>
                       <td>{{item.number}}</td>
@@ -128,8 +125,9 @@
                       <td>{{item.createTime | timeAgo}}</td>
                       <td>{{item.modifyTime | timeAgo}}</td>
                       <td>
-                        <button type="button" class="btn btn-default" @click="freezeAccount(item)" v-show="item.state == 'UNFREEZE'">冻结</button>
-                        <button type="button" class="btn btn-default" @click="unfreezeAccount(item)" v-show="item.state == 'FREEZE'">解冻</button>
+                        <router-link :to="{ name: 'supplierAccountEdit', params: { sid: $route.params.sid, id: item.id }}">编辑</router-link>
+                        <button type="button" class="btn btn-default btn-xs" @click="freezeAccount(item)" v-show="item.state == 'UNFREEZE'">冻结</button>
+                        <button type="button" class="btn btn-default btn-xs" @click="unfreezeAccount(item)" v-show="item.state == 'FREEZE'">解冻</button>
                       </td>
                     </tr>
                     </tbody>
@@ -141,7 +139,7 @@
               <div class="panel-heading" role="tab" id="headingUser">
                 <h4 class="panel-title">
                   <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseUser" aria-expanded="false" aria-controls="collapseUser">
-                    用户{{stat.user}}
+                    用户{{supplier.userCount}}
                   </a>
                 </h4>
               </div>
@@ -152,20 +150,20 @@
                   <table class="table">
                     <thead>
                     <tr>
-                      <th>id</th>
-                      <th>type</th>
-                      <th>value</th>
-                      <th>createTime</th>
-                      <th>modifyTime</th>
+                      <th>类型</th>
+                      <th>用户</th>
+                      <th>创建时间</th>
+                      <th>修改时间</th>
+                      <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="item in users">
-                      <td><router-link :to="{ name: 'supplierUserEdit', params: { sid: $route.params.sid, id: item.id }}">{{item.id}}</router-link></td>
                       <td>{{item.typeText}}</td>
                       <td>{{item.value}}</td>
                       <td>{{item.createTime | timeAgo}}</td>
                       <td>{{item.modifyTime | timeAgo}}</td>
+                      <td><router-link :to="{ name: 'supplierUserEdit', params: { sid: $route.params.sid, id: item.id }}">编辑</router-link></td>
                     </tr>
                     </tbody>
                   </table>
@@ -176,7 +174,7 @@
               <div class="panel-heading" role="tab" id="headingBusiness">
                 <h4 class="panel-title">
                   <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseBusiness" aria-expanded="false" aria-controls="collapseBusiness">
-                    业务{{stat.business}}
+                    产品线{{supplier.businessCount}}
                   </a>
                 </h4>
               </div>
@@ -187,15 +185,13 @@
                   <table class="table">
                     <thead>
                     <tr>
-                      <th>id</th>
-                      <th>name</th>
-                      <th>createTime</th>
+                      <th>产品线</th>
+                      <th>创建时间</th>
                       <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="item in businesses">
-                      <td><router-link :to="{ name: 'supplierUserEdit', params: { sid: $route.params.sid, id: item.id }}">{{item.id}}</router-link></td>
                       <td>{{item.name}}</td>
                       <td>{{item.createTime | timeAgo}}</td>
                       <td>
@@ -212,74 +208,73 @@
           </div>
         </div>
         <div class="tab-pane" id="detail" role="tabpanel">
-          <form class="col-sm-offset-1">
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">SID</label>
-              <div class="col-sm-10">
-                <p class="form-control-static">{{supplier.sid}}</p>
-              </div>
+          <br><br>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">SID</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{supplier.sid}}</p>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Name</label>
-              <div class="col-sm-10">
-                <p class="form-control-static">{{supplier.name}}</p>
-              </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">名称</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{supplier.name}}</p>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Website</label>
-              <div class="col-sm-10">
-                <p class="form-control-static">{{supplier.website}}</p>
-              </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">网站</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{supplier.website}}</p>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Cellphone</label>
-              <div class="col-sm-10">
-                <p class="form-control-static">{{supplier.cellphone}}</p>
-              </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">手机</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{supplier.cellphone}}</p>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">telephone</label>
-              <div class="col-sm-10">
-                <p class="form-control-static">{{supplier.telephone}}</p>
-              </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">座机</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{supplier.telephone}}</p>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">email</label>
-              <div class="col-sm-10">
-                <p class="form-control-static">{{supplier.email}}</p>
-              </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">邮箱</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{supplier.email}}</p>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">description</label>
-              <div class="col-sm-10">
-                <p class="form-control-static">{{supplier.description}}</p>
-              </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">描述</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{supplier.description}}</p>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">address</label>
-              <div class="col-sm-10">
-                <p class="form-control-static">{{supplier.address}}</p>
-              </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">地址</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{supplier.address}}</p>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">owner</label>
-              <div class="col-sm-10">
-                <p class="form-control-static">{{supplier.owner}}</p>
-              </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">负责人</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{supplier.owner}}</p>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">CreateTime</label>
-              <div class="col-sm-10">
-                <p class="form-control-static">{{supplier.createTime | timeAgo}}</p>
-              </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">创建时间</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{supplier.createTime | timeAgo}}</p>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">ModifyTime</label>
-              <div class="col-sm-10">
-                <p class="form-control-static">{{supplier.modifyTime | timeAgo}}</p>
-              </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">更新时间</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{supplier.modifyTime | timeAgo}}</p>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
@@ -291,7 +286,7 @@
 
 <script>
 
-  import {fetchSupplier, fetchStat, listBusiness, listContact, listAccount, updateAccountState, listUser} from './api'
+  import {fetchSupplier, listBusiness, listContact, listAccount, updateAccountState, listUser} from './api'
 
   export default {
     name: 'supplier-view',
@@ -319,7 +314,6 @@
     methods: {
       fetchData () {
         fetchSupplier(this.$route.params.sid, (body) => this.supplier = body.data);
-        fetchStat(this.$route.params.sid, (body) => this.stat = body.data);
       },
       fetchContact () {
         listContact(this.$route.params.sid, (body) => this.contacts = body.data);

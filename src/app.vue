@@ -35,10 +35,10 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">管理员 <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><router-link to="/potential/">潜在供应商</router-link></li>
                 <li><router-link to="/tree/">品类树</router-link></li>
-                <li><router-link to="/tree/">工作流</router-link></li>
+                <li><router-link to="/workflow/">工作流</router-link></li>
                 <li role="separator" class="divider"></li>
+                <li><router-link to="/potential/">潜在供应商</router-link></li>
                 <li><a href="#">退出</a></li>
               </ul>
             </li>

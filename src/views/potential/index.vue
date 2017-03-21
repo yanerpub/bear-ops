@@ -2,11 +2,11 @@
   <div>
     <form class="form-inline">
       <div class="form-group">
-        <label class="sr-only" for="owner">owner</label>
+        <label class="sr-only" for="owner">负责人</label>
         <input type="text" v-model="query.owner" class="form-control" id="owner" placeholder="owner">
       </div>
       <div class="form-group">
-        <label class="sr-only" for="name">Name</label>
+        <label class="sr-only" for="name">名称</label>
         <input type="text" v-model="query.name" class="form-control" id="name" placeholder="Name">
       </div>
       <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
@@ -16,13 +16,13 @@
       <thead>
       <tr>
         <th>id</th>
-        <th>name</th>
-        <th>cellphone</th>
-        <th>telephone</th>
-        <th>email</th>
-        <th>owner</th>
-        <th>createTime</th>
-        <th>modifyTime</th>
+        <th>名称</th>
+        <th>手机</th>
+        <th>座机</th>
+        <th>邮箱</th>
+        <th>负责人</th>
+        <th>创建时间</th>
+        <th>修改时间</th>
       </tr>
       </thead>
       <tbody>

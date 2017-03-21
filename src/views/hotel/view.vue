@@ -3,25 +3,25 @@
     <form>
       <h3>{{product.id}}</h3>
       <div class="form-group row">
-        <label class="col-xs-2 col-form-label">Name</label>
+        <label class="col-xs-2 col-form-label">产品名</label>
         <div class="col-xs-10">
           <p class="form-control-static">{{product.name}}</p>
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-xs-2 col-form-label">effectDate</label>
+        <label class="col-xs-2 col-form-label">生效日期</label>
         <div class="col-xs-10">
           <p class="form-control-static">{{product.effectDateText}}</p>
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-xs-2 col-form-label">expireDate</label>
+        <label class="col-xs-2 col-form-label">过期日期</label>
         <div class="col-xs-10">
           <p class="form-control-static">{{product.expireDateText}}</p>
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-xs-2 col-form-label">remark</label>
+        <label class="col-xs-2 col-form-label">备注</label>
         <div class="col-xs-10">
           <p class="form-control-static">{{product.remark}}</p>
         </div>

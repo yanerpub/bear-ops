@@ -6,6 +6,7 @@ Vue.use(Router)
 import index from '../views/index.vue';
 
 import treeIndex from '../views/tree/index.vue';
+import workflowIndex from '../views/tree/workflow.vue';
 
 import potential from '../views/potential/index.vue';
 import potentialView from '../views/potential/view.vue';
@@ -37,6 +38,7 @@ export default new Router({
   routes: [
     {path: '/', name: 'home', component: index},
     {path: '/tree', name: 'tree', component: treeIndex},
+    {path: '/workflow', name: 'workflow', component: workflowIndex},
     
     {path: '/potential', name: 'potentialIndex', component: potential},
     {path: '/potential/add', name: 'potentialAdd', component: potentialInput},
