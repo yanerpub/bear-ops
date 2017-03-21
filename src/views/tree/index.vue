@@ -211,9 +211,42 @@
             <h4 class="modal-title" id="makeDeliverModalLabel">生产流程与交付</h4>
           </div>
           <div class="modal-body">
-            <form>
-              {{workflows}}{{deliveryTypes}}
-              {{contract}}
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="makeWorkflowId" class="col-xs-2 col-form-label text-right">生产流程</label>
+                <div class="col-xs-10">
+                  <select class="form-control" id="makeWorkflowId" v-model="contract.makeWorkflowId">
+                    <option v-for="op in workflows" :value="op.id">{{op.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="returnWorkflowId" class="col-xs-2 col-form-label text-right">退货流程</label>
+                <div class="col-xs-10">
+                  <select class="form-control" id="returnWorkflowId" v-model="contract.returnWorkflowId">
+                    <option v-for="op in workflows" :value="op.id">{{op.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-xs-2 col-form-label text-right">交付方式</label>
+                <div class="col-xs-10">
+                  <div class="input-group">
+                    <div class="input-group-btn">
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{currentDeliveryType}} <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <li v-for="op in deliveryTypes"><a @click="currentDeliveryType = op">{{op}}</a></li>
+                      </ul>
+                    </div>
+                    <input type="text" class="form-control" v-model="location">
+                    <div class="input-group-btn">
+                      <input type="button" class="btn btn-default" value="添加" @click="addDelivery">
+                    </div>
+                  </div>
+                  <br>
+                  <p v-for="(op, index) in contract.deliveries"><span class="glyphicon glyphicon-remove" aria-hidden="true" @click="contract.deliveries.splice(index, 1)"></span>{{op.protocol}}-{{op.location}}</p>
+                </div>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -247,6 +280,8 @@ export default {
       contract: {},
       workflows:[],
       deliveryTypes: [],
+      currentDeliveryType: '',
+      location: '',
       create: false
     }
   },
@@ -319,12 +354,29 @@ export default {
     },
     toEditContract (item) {
       this.contract = item
-      fetchEnums('tree', (body) => this.deliveryTypes = body.data.deliveryTypes);
-      listWorkflow({}, (body) => this.workflows = body.data.list);
-      $('#makeDeliverModal').modal('show')
+      fetchEnums('tree', (body) => {
+        this.deliveryTypes = body.data.deliveryTypes
+        this.currentDeliveryType = this.deliveryTypes[0]
+      });
+      listWorkflow({}, (body) => {
+        this.workflows = body.data.list
+        $('#makeDeliverModal').modal('show')
+      })
+    },
+    addDelivery () {
+      if (!this.contract.deliveries) {
+        this.contract.deliveries = []
+      }
+      this.contract.deliveries.push({'protocol': this.currentDeliveryType, 'location': this.location})
+      this.location = ''
     },
     updateContract () {
-
+      updateContract(this.selectedNodeId, this.contract, (body) => {
+        listContract(this.selectedNodeId, (body) => {
+          this.contracts = body.data
+          $('#makeDeliverModal').modal('hide')
+        })
+      })
     }
   }
 }
