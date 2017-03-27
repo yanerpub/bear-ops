@@ -11,6 +11,7 @@
     <table class="table">
       <thead>
       <tr>
+        <th>Key</th>
         <th>名称</th>
         <th>版本</th>
         <th>创建时间</th>
@@ -19,7 +20,8 @@
       </thead>
       <tbody>
       <tr v-for="item in list">
-        <td><a :href="'/viewer.html?id=' + item.id" target="_blank">{{item.name}}</a></td>
+        <td><a :href="'/viewer.html?id=' + item.id" target="_blank">{{item.key}}</a></td>
+        <td>{{item.name}}</td>
         <td>{{item.version}}</td>
         <td>{{item.createTime | timeAgo}}</td>
         <td>

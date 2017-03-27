@@ -1,13 +1,28 @@
 <template>
   <div>
     <form class="form-inline">
-      <div class="form-group">
-        <label class="sr-only" for="name">产品名</label>
-        <input type="text" v-model="query.name" class="form-control" id="name" placeholder="Name">
-      </div>
-      <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
-      <router-link :to="{ name: 'hotelProductAdd', params: { sid: $route.params.sid }}" aria-pressed="true">添加
-      </router-link>
+      <table>
+        <tr>
+          <td style="padding: 5px;">产品ID</td>
+          <td style="padding: 5px;"><input type="text" v-model="query.name" class="form-control" placeholder="产品ID"></td>
+          <td style="padding: 5px;">产品名</td>
+          <td style="padding: 5px;"><input type="text" v-model="query.name" class="form-control" placeholder="产品名"></td>
+          <td style="padding: 5px;">供应商名</td>
+          <td style="padding: 5px;"><input type="text" v-model="query.name" class="form-control" placeholder="供应商名"></td>
+        </tr>
+        <tr>
+          <td style="padding: 5px;">门店名</td>
+          <td style="padding: 5px;"><input type="text" v-model="query.name" class="form-control" placeholder="门店名"></td>
+          <td style="padding: 5px;">房型名</td>
+          <td style="padding: 5px;"><input type="text" v-model="query.name" class="form-control" placeholder="房型名"></td>
+          <td style="padding: 5px;"></td>
+          <td style="padding: 5px;">
+            <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
+            <router-link :to="{ name: 'hotelProductAdd', params: { sid: $route.params.sid }}" aria-pressed="true">添加
+            </router-link>
+          </td>
+        </tr>
+      </table>
     </form>
     <table class="table">
       <thead>

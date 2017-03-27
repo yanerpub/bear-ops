@@ -208,7 +208,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="makeDeliverModalLabel">生产流程与交付</h4>
+            <h4 class="modal-title" id="makeDeliverModalLabel">工作流与交付</h4>
           </div>
           <div class="modal-body">
             <form class="form-horizontal">
@@ -353,12 +353,12 @@ export default {
       listField(this.selectedNodeId, (body) => this.fields = body.data)
     },
     toEditContract (item) {
-      this.contract = item
       fetchEnums('tree', (body) => {
         this.deliveryTypes = body.data.deliveryTypes
         this.currentDeliveryType = this.deliveryTypes[0]
       });
       listWorkflow({}, (body) => {
+        this.contract = item
         this.workflows = body.data.list
         $('#makeDeliverModal').modal('show')
       })
