@@ -8,6 +8,7 @@ import index from '../views/index.vue';
 import resourceIndex from '../views/resource/index.vue';
 import groupIndex from '../views/group/index.vue';
 import operatorIndex from '../views/operator/index.vue';
+import teacherApplyIndex from '../views/teacherApply/index.vue';
 
 
 export default new Router({
@@ -18,6 +19,7 @@ export default new Router({
     {path: '/resource', name: 'resource', component: resourceIndex},
     {path: '/group', name: 'group', component: groupIndex},
     {path: '/operator', name: 'operator', component: operatorIndex},
+    {path: '/teacherApply', name: 'teacherApply', component: teacherApplyIndex},
     /*{
       path: '/', component: index,
       children: [

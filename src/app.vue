@@ -69,12 +69,12 @@ export default {
         {
           "id": 4,
           "name": "用户管理",
-          "uri": "/user",
+          "uri": "/teacherApply",
           "children": [
             {
               "id": 5,
               "name": "老师入驻",
-              "uri": "/teacher"
+              "uri": "/teacherApply"
             },
             {
               "id": 6,
