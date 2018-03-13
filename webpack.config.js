@@ -38,13 +38,7 @@ module.exports = {
     watchContentBase: true,
     port: 8080,
     proxy: {
-      "/store": "http://localhost:8088",
-      "/product": "http://localhost:8088",
-      "/potential": "http://localhost:8088",
-      "/supplier": "http://localhost:8088",
-      "/enums": "http://localhost:8088",
-      "/tree": "http://localhost:8088",
-      "/workflow": "http://localhost:8088",
+      "/ops": "http://localhost:8088"
     }
   },
   plugins: [

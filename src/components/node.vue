@@ -1,62 +1,66 @@
 <template>
   <li>
     <div :class="{bold: isFolder, node: true}" @click="click" @dblclick="toggle">
-      {{model.name}}
+      <span class="label label-primary">{{model.name}}</span>
+      <span class="label label-warning">{{model.typeName}}</span>
+      <span class="label label-info">{{model.stateName}}</span>
+      <span class="label label-success">{{model.uri}}</span>
       <span v-if="isFolder">[{{open ? '-' : '+'}}]</span>
     </div>
     <ul v-show="open" v-if="isFolder">
-      <node class="node" v-for="model in model.children" v-on:choose="choose" :model="model"></node>
+      <node class="node" v-for="model in model.children" :key="model.name" v-on:choose="choose" :model="model"></node>
       <!--<li class="add" @click="addChild">+</li>-->
     </ul>
   </li>
 </template>
 <script>
-import Vue from 'vue'
 
-export default {
-  name: 'node',
-  props: {
-    model: Object
-  },
-  data () {
-    return {
-      open: false
-    }
-  },
-  computed: {
-    isFolder () {
-      return this.model.children && this.model.children.length
-    }
-  },
-  methods: {
-    click () {
-      this.$emit('choose', {id: this.model.id, name: this.model.name})
+  export default {
+    name: 'node',
+    props: {
+      model: Object
     },
-    toggle () {
-      if (this.isFolder) {
-        this.open = !this.open
+    data() {
+      return {
+        open: false
       }
     },
-    choose (node) {
-      this.$emit('choose', node)
+    computed: {
+      isFolder() {
+        return this.model.children && this.model.children.length
+      }
+    },
+    methods: {
+      click() {
+        this.$emit('choose', this.model)
+      },
+      toggle() {
+        if (this.isFolder) {
+          this.open = !this.open
+        }
+      },
+      choose(node) {
+        this.$emit('choose', node)
+      }
     }
   }
-}
 
 
 </script>
 
 <style scoped>
-.node {
-  cursor: pointer;
-}
-.bold {
-  font-weight: bold;
-}
-ul {
-  padding-left: 1em;
-  line-height: 1.5em;
-  list-style-type: dot;
-}
+  .node {
+    cursor: pointer;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  ul {
+    padding-left: 1em;
+    line-height: 1.5em;
+    list-style-type: dot;
+  }
 
 </style>
