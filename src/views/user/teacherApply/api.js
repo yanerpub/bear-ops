@@ -12,8 +12,8 @@ export function listApply(queryParams, callback) {
   });
 }
 
-export function handleApply(potential, callback) {
-  Vue.http.put('/ops/teacherApply/', potential).then(function ({body}) {
+export function handleApply(apply, callback) {
+  Vue.http.put('/ops/teacherApply/', apply).then(function ({body}) {
     callback(body);
   });
 }

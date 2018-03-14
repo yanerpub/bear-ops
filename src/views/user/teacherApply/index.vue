@@ -41,7 +41,7 @@
         <td>{{item.createTime | timeAgo}}</td>
         <td>todo</td>
         <td>
-          <span v-show="item.stateCode == 2">{{item.stateName}}</span>
+          <span v-show="item.stateCode != 1">{{item.stateName}}</span>
           <button type="button" class="btn btn-primary" @click="toApproveApply(item)" v-show="item.stateCode == 1">同意</button>
           <button type="button" class="btn btn-primary" @click="rejectApply(item)" v-show="item.stateCode == 1">拒绝</button>
         </td>
@@ -105,7 +105,7 @@
   import {handleApply, listApply} from './api'
 
   export default {
-    name: 'operator',
+    name: 'teacher-apply',
     data() {
       return {
         query: {stateCode: '', pageNow: 1, pageSize: 10},
@@ -143,6 +143,7 @@
             } else {
               alert('更新失败！');
             }
+            $('#applyModal').modal('hide')
           })
         }
       },

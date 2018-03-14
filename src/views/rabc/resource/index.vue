@@ -96,7 +96,7 @@
 </template>
 
 <script>
-  import node from "../../components/node.vue"
+  import node from "../../../components/node.vue"
   import {
     fetchTree,
     addNode,

@@ -12,14 +12,14 @@ export function listOperator(queryParams, callback) {
   });
 }
 
-export function addOperator(potential, callback) {
-  Vue.http.post('/ops/operator/', potential).then(function ({body}) {
+export function addOperator(teacher, callback) {
+  Vue.http.post('/ops/operator/', teacher).then(function ({body}) {
     callback(body);
   });
 }
 
-export function updateOperator(potential, callback) {
-  Vue.http.put('/ops/operator/', potential).then(function ({body}) {
+export function updateOperator(teacher, callback) {
+  Vue.http.put('/ops/operator/', teacher).then(function ({body}) {
     callback(body);
   });
 }
