@@ -1,5 +1,5 @@
 <template>
-  <li>
+  <li class="list-group-item">
     <div :class="{bold: isFolder, node: true}" @click="click" @dblclick="toggle">
       <span class="label label-primary">{{model.name}}</span>
       <span class="label label-warning">{{model.typeName}}</span>
