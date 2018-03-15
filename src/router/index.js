@@ -17,6 +17,10 @@ import studentIndex from '../views/user/student/index.vue';
 import studentCourseIndex from '../views/user/student/course.vue';
 import courseIndex from '../views/course/index.vue';
 import courseViewIndex from '../views/course/view.vue';
+import caseIndex from '../views/case/index.vue';
+import caseInputIndex from '../views/case/input.vue';
+import caseAuditIndex from '../views/case/audit.vue';
+import caseViewIndex from '../views/case/view.vue';
 
 export default new Router({
   mode: 'hash',
@@ -35,6 +39,10 @@ export default new Router({
     {path: '/student/:id/course', name: 'studentCourse', component: studentCourseIndex},
     {path: '/course', name: 'course', component: courseIndex},
     {path: '/course/:id', name: 'courseView', component: courseViewIndex},
+    {path: '/case', name: 'case', component: caseIndex},
+    {path: '/case/input', name: 'caseInput', component: caseInputIndex},
+    {path: '/case/audit', name: 'caseAudit', component: caseAuditIndex},
+    {path: '/case/:id', name: 'caseView', component: caseViewIndex},
     /*{
       path: '/', component: index,
       children: [

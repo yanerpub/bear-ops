@@ -3,19 +3,13 @@
     <h3>课程介绍</h3>
     <form class="form-horizontal">
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label">ID</label>
-        <div class="col-sm-10">
-          <p class="form-control-static">{{course.id}}</p>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-2 col-form-label">名称</label>
+        <label class="col-sm-2 col-form-label">课程名称</label>
         <div class="col-sm-10">
           <p class="form-control-static">{{course.name}}</p>
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label">称谓</label>
+        <label class="col-sm-2 col-form-label">课程介绍</label>
         <div class="col-sm-10">
           <p class="form-control-static">{{course.description}}</p>
         </div>
@@ -27,23 +21,25 @@
       <thead>
       <tr>
         <th>序号</th>
-        <th>姓名</th>
-        <th>学号</th>
-        <th>电话号码</th>
-        <th>课程数</th>
-        <th>平均分</th>
-        <th>账号状态</th>
+        <th>作业名</th>
+        <th>有效期始</th>
+        <th>有效期止</th>
+        <th>作业状态</th>
+        <th>案例名称</th>
+        <th>数据介绍</th>
+        <th>数据下载</th>
       </tr>
       </thead>
       <tbody>
       <tr v-for="item in course.assignments">
         <td>{{item.id}}</td>
         <td>{{item.name}}</td>
-        <td>{{item.number}}</td>
-        <td>{{item.mobile}}</td>
-        <td>{{item.courseCount}}</td>
-        <td>{{item.averageScore}}</td>
-        <td>{{item.stateName}}</td>
+        <td>{{item.startDate | dateFormat }}</td>
+        <td>{{item.endDate | dateFormat }}</td>
+        <td>{{item.currentState}}</td>
+        <td>{{item.caseName}}</td>
+        <td>{{item.caseDescription}}</td>
+        <td>{{item.attachment}}</td>
       </tr>
       </tbody>
     </table>
@@ -55,10 +51,8 @@
         <th>序号</th>
         <th>姓名</th>
         <th>学号</th>
-        <th>电话号码</th>
-        <th>课程数</th>
-        <th>平均分</th>
-        <th>账号状态</th>
+        <th>学校</th>
+        <th>状态</th>
       </tr>
       </thead>
       <tbody>
@@ -66,9 +60,7 @@
         <td>{{item.id}}</td>
         <td>{{item.name}}</td>
         <td>{{item.number}}</td>
-        <td>{{item.mobile}}</td>
-        <td>{{item.courseCount}}</td>
-        <td>{{item.averageScore}}</td>
+        <td>{{item.lastSchoolName}}</td>
         <td>{{item.stateName}}</td>
       </tr>
       </tbody>

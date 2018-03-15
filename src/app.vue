@@ -42,7 +42,7 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue'
+import Vue from 'vue'
 // menu
 export default {
   name: 'app-view',
@@ -114,13 +114,13 @@ export default {
               "id": 11,
               "name": "案例审核",
               "pid": 10,
-              "uri": "/caseauth"
+              "uri": "/case/audit"
             },
             {
               "id": 12,
               "name": "案例管理",
               "pid": 10,
-              "uri": "/caseops"
+              "uri": "/case"
             }
           ]
         },
