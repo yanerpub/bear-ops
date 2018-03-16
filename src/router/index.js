@@ -22,6 +22,9 @@ import caseIndex from '../views/case/index.vue';
 import caseInputIndex from '../views/case/input.vue';
 import caseAuditIndex from '../views/case/audit.vue';
 import caseViewIndex from '../views/case/view.vue';
+import noticeIndex from '../views/notice/index.vue';
+import noticeInputIndex from '../views/notice/input.vue';
+import noticeViewIndex from '../views/notice/view.vue';
 
 export default new Router({
   mode: 'hash',
@@ -45,45 +48,9 @@ export default new Router({
     {path: '/case/input', name: 'caseInput', component: caseInputIndex},
     {path: '/case/audit', name: 'caseAudit', component: caseAuditIndex},
     {path: '/case/:id', name: 'caseView', component: caseViewIndex},
-    /*{
-      path: '/', component: index,
-      children: [
-        {
-          path: 'supplier', component: supplierIndex,
-          children: [
-            {
-              path: 'list', component: supplierList
-            },
-            {
-              path: 'add', component: supplierAdd
-            },
-            {
-              path: ':id', component: supplierDetail
-            },
-            {
-              path: ':id/edit', component: supplierEdit
-            }
-          ]
-        },
-        {
-          path: 'teacher', component: supplierIndex,
-          children: [
-            {
-              path: 'list', component: supplierList
-            },
-            {
-              path: 'add', component: supplierAdd
-            },
-            {
-              path: ':id', component: supplierDetail
-            },
-            {
-              path: ':id/edit', component: supplierEdit
-            }
-          ]
-        }
-      ]
-    },*/
+    {path: '/notice', name: 'notice', component: noticeIndex},
+    {path: '/notice/input', name: 'noticeInput', component: noticeInputIndex},
+    {path: '/notice/:id', name: 'noticeView', component: noticeViewIndex},
     {path: '*', redirect: '/'}
   ]
 })
