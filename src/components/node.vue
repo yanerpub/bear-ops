@@ -1,14 +1,12 @@
 <template>
   <li class="list-group-item">
-    <div :class="{bold: isFolder, node: true}" @click="click" @dblclick="toggle">
-      <span class="label label-primary">{{model.name}}</span>
-      <span class="label label-warning">{{model.typeName}}</span>
-      <span class="label label-info">{{model.stateName}}</span>
-      <span class="label label-success">{{model.uri}}</span>
-      <span v-if="isFolder">[{{open ? '-' : '+'}}]</span>
-    </div>
+    <h5>
+      <span class="badge node" :class="{'badge-primary': isMenu, 'badge-secondary': !isMenu}" @click="click">{{model.name}}</span>
+      <span class="badge badge-dark">{{model.uri}}</span>
+      <span class="node" v-if="isFolder" @click="toggle">[{{open ? '-' : '+'}}]</span>
+    </h5>
     <ul v-show="open" v-if="isFolder">
-      <node class="node" v-for="model in model.children" :key="model.name" v-on:choose="choose" :model="model"></node>
+      <node v-for="model in model.children" :key="model.name" v-on:choose="choose" :model="model"></node>
       <!--<li class="add" @click="addChild">+</li>-->
     </ul>
   </li>
@@ -28,6 +26,9 @@
     computed: {
       isFolder() {
         return this.model.children && this.model.children.length
+      },
+      isMenu() {
+        return this.model.typeCode == 1
       }
     },
     methods: {
@@ -52,15 +53,4 @@
   .node {
     cursor: pointer;
   }
-
-  .bold {
-    font-weight: bold;
-  }
-
-  ul {
-    padding-left: 1em;
-    line-height: 1.5em;
-    list-style-type: dot;
-  }
-
 </style>

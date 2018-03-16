@@ -1,14 +1,18 @@
 <template>
   <div>
-    <form class="form-inline">
-      <div class="form-group">
-        <label class="sr-only">名称</label>
-        <input type="text" v-model="query.name" class="form-control" placeholder="Name">
+    <div class="card">
+      <div class="card-body">
+        <form class="form-inline">
+          <div class="form-group row">
+            <label for="queryName">名称</label>
+            <input type="text" id="queryName" v-model="query.name" class="form-control mx-sm-4">
+          </div>
+          <button type="button" class="btn btn-primary mr-2" @click="queryData">查询</button>
+          <router-link class="btn btn-primary" role="button" to="/teacher/" aria-pressed="true">返回</router-link>
+        </form>
       </div>
-      <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
-      <router-link class="btn btn-secondary" role="button" to="/teacher/" aria-pressed="true">返回</router-link>
-    </form>
-    <table class="table">
+    </div>
+    <table class="table table-bordered">
       <thead>
       <tr>
         <th>序号</th>
@@ -30,21 +34,23 @@
       </tr>
       </tbody>
     </table>
-    <nav aria-label="Page navigation">
+    <nav>
       <ul class="pagination">
-        <li>
-          <a href="#" aria-label="Previous">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
           </a>
         </li>
-        <li class="active"><a href="#">{{query.pageNow}}<span class="sr-only">(current)</span></a></li>
-        <li>
-          <a href="#" aria-label="Next">
+        <li class="page-item active"><a class="page-link" href="#">{{query.pageNow}}</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
           </a>
         </li>
-        <li>
-          <span>共{{totalPage}}页</span>
+        <li class="page-item">
+          <span class="page-link">共{{totalPage}}页</span>
         </li>
       </ul>
     </nav>

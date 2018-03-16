@@ -34,9 +34,9 @@
           <div class="modal-body">
             <form>
               <div class="form-group row" v-show="create">
-                <label for="name" class="col-sm-2 col-form-label">父结点</label>
+                <label class="col-sm-2 col-form-label">父结点</label>
                 <div class="col-sm-10">
-                  <span class="label label-info">{{inputNode.parentName}}</span>
+                  <input type="text" readonly class="form-control-plaintext" :value="inputNode.parentName">
                 </div>
               </div>
               <div class="form-group row">

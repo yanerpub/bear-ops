@@ -3,11 +3,11 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light rounded" v-if="user">
       <div class="container">
         <a class="navbar-brand" href="#">BEAR SCHOOL</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07"
-                aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsCol"
+                aria-controls="navbarsCol" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarsExample07">
+        <div class="collapse navbar-collapse" id="navbarsCol">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown active" v-for="item in menu">
               <a class="nav-link dropdown-toggle" href="#" :id="item.id" data-toggle="dropdown" aria-haspopup="true"
@@ -162,8 +162,6 @@
         this.user = {id: 1, name: "test"}
         if (!this.user) {
           this.$router.push('/signIn')
-        } else {
-          this.$router.push('/')
         }
       }
     }

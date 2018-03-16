@@ -1,31 +1,42 @@
 <template>
   <div>
-    <form class="form-inline">
-      <div class="form-group">
-        <label class="sr-only">案例名称</label>
-        <input type="text" v-model="query.name" class="form-control" placeholder="Name">
+    <div class="card">
+      <div class="card-body">
+        <form>
+          <div class="form-row align-items-center">
+            <div class="col-auto">
+              <label class="sr-only">案例名称</label>
+              <input type="text" class="form-control mb-2" v-model="query.name" placeholder="课程名称">
+            </div>
+            <div class="col-auto">
+              <label class="sr-only">时间</label>
+              <div class="input-group">
+                <datepicker language="zh" id="startDate" class="form-control mb-2" :format="'yyyy-MM-dd'"></datepicker>
+                <datepicker language="zh" id="endDate" class="form-control mb-2" :format="'yyyy-MM-dd'"></datepicker>
+              </div>
+            </div>
+            <div class="col-auto">
+              <label class="sr-only">创建者</label>
+              <input type="text" class="form-control mb-2" v-model="query.creatorName" placeholder="创建者">
+            </div>
+            <div class="col-auto">
+              <label class="sr-only">状态</label>
+              <select class="form-control mb-2" v-model="query.stateCode">
+                <option value="">无</option>
+                <option value="0">禁用</option>
+                <option value="1">正常</option>
+              </select>
+            </div>
+            <div class="col-auto">
+              <button type="button" class="btn btn-primary" @click="queryData">查询</button>
+              <router-link class="btn btn-primary" role="button" to="/case/input" aria-pressed="true">添加</router-link>
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="form-group">
-        <label class="sr-only">创建时间</label>
-        <datepicker language="zh" id="startDate" class="form-control" :format="'yyyy-MM-dd'"></datepicker>
-        <datepicker language="zh" id="endDate" class="form-control" :format="'yyyy-MM-dd'"></datepicker>
-      </div>
-      <div class="form-group">
-        <label class="sr-only">创建者</label>
-        <input type="text" v-model="query.creatorName" class="form-control" placeholder="CreatorName">
-      </div>
-      <div class="form-group">
-        <label class="sr-only">状态</label>
-        <select id="source" class="form-control" v-model="query.stateCode">
-          <option value="">无</option>
-          <option value="0">禁用</option>
-          <option value="1">正常</option>
-        </select>
-      </div>
-      <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
-      <router-link class="btn btn-secondary" role="button" to="/case/input" aria-pressed="true">添加</router-link>
-    </form>
-    <table class="table">
+    </div>
+
+    <table class="table table-bordered">
       <thead>
       <tr>
         <th>序号</th>
@@ -46,27 +57,29 @@
         <td>{{item.stateName}}</td>
         <td>{{item.referCount}}</td>
         <td>
-          <button type="button" class="btn btn-primary" @click="lockCase(item)" v-show="item.stateCode == 1">禁用</button>
-          <button type="button" class="btn btn-primary" @click="unlockCase(item)" v-show="item.stateCode == 0">激活</button>
+          <button type="button" class="btn btn-link" @click="lockCase(item)" v-show="item.stateCode == 1">禁用</button>
+          <button type="button" class="btn btn-link" @click="unlockCase(item)" v-show="item.stateCode == 0">激活</button>
         </td>
       </tr>
       </tbody>
     </table>
-    <nav aria-label="Page navigation">
+    <nav>
       <ul class="pagination">
-        <li>
-          <a href="#" aria-label="Previous">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
           </a>
         </li>
-        <li class="active"><a href="#">{{query.pageNow}}<span class="sr-only">(current)</span></a></li>
-        <li>
-          <a href="#" aria-label="Next">
+        <li class="page-item active"><a class="page-link" href="#">{{query.pageNow}}</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
           </a>
         </li>
-        <li>
-          <span>共{{totalPage}}页</span>
+        <li class="page-item">
+          <span class="page-link">共{{totalPage}}页</span>
         </li>
       </ul>
     </nav>

@@ -1,26 +1,30 @@
 <template>
   <div>
-    <form class="form-inline">
-      <div class="form-group">
-        <label class="sr-only">名称</label>
-        <input type="text" v-model="query.name" class="form-control" placeholder="Name">
+    <div class="card">
+      <div class="card-body">
+        <form class="form-inline">
+          <div class="form-group row mr-2">
+            <label for="queryName">名称</label>
+            <input type="text" id="queryName" v-model="query.name" class="form-control mx-sm-4">
+          </div>
+          <div class="form-group row mr-2">
+            <label for="queryMobile">手机</label>
+            <input type="text" id="queryMobile" v-model="query.mobile" class="form-control mx-sm-4">
+          </div>
+          <div class="form-group row">
+            <label for="queryRole">账号状态</label>
+            <select id="queryRole" v-model="query.stateCode" class="form-control mx-sm-4">
+              <option value="">无</option>
+              <option value="0">冻结</option>
+              <option value="1">正常</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-primary mr-2" @click="queryData">查询</button>
+          <router-link class="btn btn-primary" role="button" to="/teacher/input" aria-pressed="true">添加</router-link>
+        </form>
       </div>
-      <div class="form-group">
-        <label class="sr-only">手机</label>
-        <input type="text" v-model="query.mobile" class="form-control" placeholder="Mobile">
-      </div>
-      <div class="form-group">
-        <label class="sr-only">账号状态</label>
-        <select id="source" class="form-control" v-model="query.stateCode">
-          <option value="">无</option>
-          <option value="0">冻结</option>
-          <option value="1">正常</option>
-        </select>
-      </div>
-      <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
-      <router-link class="btn btn-secondary" role="button" to="/teacher/input" aria-pressed="true">添加</router-link>
-    </form>
-    <table class="table">
+    </div>
+    <table class="table table-bordered">
       <thead>
       <tr>
         <th>序号</th>
@@ -53,28 +57,30 @@
         <td>{{item.stateName}}</td>
         <td>查看个人简历todo</td>
         <td>
-          <button type="button" class="btn btn-primary" @click="lockTeacher(item)" v-show="item.stateCode == 1">禁用</button>
-          <button type="button" class="btn btn-primary" @click="unlockTeacher(item)" v-show="item.stateCode == 0">激活</button>
-          <button type="button" class="btn btn-secondary" @click="resetPassword(item.id)">重置密码</button>
+          <button type="button" class="btn btn-link" @click="lockTeacher(item)" v-show="item.stateCode == 1">禁用</button>
+          <button type="button" class="btn btn-link" @click="unlockTeacher(item)" v-show="item.stateCode == 0">激活</button>
+          <button type="button" class="btn btn-link" @click="resetPassword(item.id)">重置密码</button>
         </td>
       </tr>
       </tbody>
     </table>
-    <nav aria-label="Page navigation">
+    <nav>
       <ul class="pagination">
-        <li>
-          <a href="#" aria-label="Previous">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
           </a>
         </li>
-        <li class="active"><a href="#">{{query.pageNow}}<span class="sr-only">(current)</span></a></li>
-        <li>
-          <a href="#" aria-label="Next">
+        <li class="page-item active"><a class="page-link" href="#">{{query.pageNow}}</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
           </a>
         </li>
-        <li>
-          <span>共{{totalPage}}页</span>
+        <li class="page-item">
+          <span class="page-link">共{{totalPage}}页</span>
         </li>
       </ul>
     </nav>

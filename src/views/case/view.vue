@@ -1,75 +1,104 @@
 <template>
-  <div class="container">
-    <h3>课程介绍</h3>
-    <form class="form-horizontal">
-      <div class="form-group row">
-        <label for="id" class="col-xs-2 col-form-label">案例编号</label>
-        <div class="col-xs-10">
-          <input class="form-control" type="text" id="id" v-model="ce.id" disabled>
+  <div class="row">
+    <div class="col-sm-7">
+      <h3>课程介绍</h3>
+      <form>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">案例编号</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" :value="ce.id">
+          </div>
         </div>
-      </div>
-      <div class="form-group row">
-        <label for="name" class="col-xs-2 col-form-label">案例名称</label>
-        <div class="col-xs-10">
-          <input class="form-control" type="text" id="name" v-model="ce.name" disabled>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">案例名称</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" :value="ce.name">
+          </div>
         </div>
-      </div>
-      <div class="form-group row">
-        <label for="introduction" class="col-xs-2 col-form-label">数据介绍</label>
-        <div class="col-xs-10">
-          <textarea rows="3" class="form-control" id="introduction" v-model="ce.description" disabled></textarea>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">数据介绍</label>
+          <div class="col-sm-10">
+            <textarea rows="3" readonly class="form-control-plaintext" v-model="ce.description"></textarea>
+          </div>
         </div>
-      </div>
-      <div class="form-group row">
-        <label for="authorName" class="col-xs-2 col-form-label">案例作者</label>
-        <div class="col-xs-10">
-          <input class="form-control" type="text" id="authorName" v-model="ce.authorName" disabled>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">案例作者</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" :value="ce.authorName">
+          </div>
         </div>
-      </div>
-      <div class="form-group row">
-        <label for="attachment" class="col-xs-2 col-form-label">上传数据</label>
-        <div class="col-xs-10">
-          <input class="form-control" type="text" id="attachment" v-model="ce.attachment" disabled>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">上传数据</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" :value="ce.attachment">
+          </div>
         </div>
-      </div>
-      <div class="form-group row">
-        <label for="cover" class="col-xs-2 col-form-label">案例封面</label>
-        <div class="col-xs-10">
-          <input class="form-control" type="text" id="cover" v-model="ce.cover" disabled>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">案例封面</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" :value="ce.cover">
+          </div>
         </div>
-      </div>
-      <div class="form-group row" v-show="ce.applyStateCode != 1">
-        <label class="col-xs-2 col-form-label">案例状态</label>
-        <div class="col-xs-10">
-          <p class="form-control-static">{{ce.applyStateName}}<span v-show="ce.applyStateCode == 2">-驳回原因:{{ce.rejectReason}}</span></p>
+        <div class="form-group row" v-show="ce.applyStateCode != 1">
+          <label class="col-sm-2 col-form-label">案例状态</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" :value="ce.applyStateName">
+            <span class="badge badge-secondary" v-show="ce.applyStateCode == 2">驳回原因:{{ce.rejectReason}}</span>
+          </div>
         </div>
-      </div>
-      <button type="button" class="btn btn-primary" @click="passData" v-show="ce.applyStateCode == 1">通过</button>
-      <button type="button" class="btn btn-primary" @click="toRejectData" v-show="ce.applyStateCode == 1">驳回</button>
-      <router-link class="btn btn-info" :to="{ name: 'caseAudit'}">返回</router-link>
-    </form>
-    <div class="pull-right">
-      <div>
-        <h4>个人信息</h4>
-        <p>{{ce.creatorName}}</p>
-        <p>{{stat.schoolName}}</p>
-        <p>{{stat.introduction}}</p>
-        <p>狗熊案例库：已申请加入{{stat.applyPassCount}}个，驳回{{stat.applyRejectCount}}个</p>
+        <button type="button" class="btn btn-primary" @click="passData" v-show="ce.applyStateCode == 1">通过</button>
+        <button type="button" class="btn btn-primary" @click="toRejectData" v-show="ce.applyStateCode == 1">驳回</button>
+        <router-link class="btn btn-primary" :to="{ name: 'caseAudit'}">返回</router-link>
+      </form>
+    </div>
+    <div class="col-sm-5">
+      <div class="card">
+        <div class="card-header">
+          <h3>个人信息</h3>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">申请人</label>
+              <div class="col-sm-6">
+                <input type="text" readonly class="form-control-plaintext" :value="ce.creatorName">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">学校</label>
+              <div class="col-sm-6">
+                <input type="text" readonly class="form-control-plaintext" :value="stat.schoolName">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">个人简介</label>
+              <div class="col-sm-6">
+                <input type="text" readonly class="form-control-plaintext" :value="stat.introduction">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">狗熊案例库</label>
+              <div class="col-sm-6">
+                <span>已申请加入{{stat.applyPassCount}}个，驳回{{stat.applyRejectCount}}个</span>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-    <div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel">
+    <div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
+            <h5 class="modal-title" id="rejectModalLabel">驳回原因</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
               aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="rejectModalLabel">驳回原因</h4>
           </div>
           <div class="modal-body">
-            <form class="form-horizontal">
-              <div class="form-group">
-                <label for="rejectReason" class="col-xs-2 col-form-label">驳回原因</label>
-                <div class="col-xs-10">
+            <form>
+              <div class="form-group row">
+                <label for="rejectReason" class="col-sm-2 col-form-label">驳回原因</label>
+                <div class="col-sm-10">
                   <textarea rows="3" class="form-control" id="rejectReason" v-model="ce.rejectReason" required></textarea>
                 </div>
               </div>

@@ -1,59 +1,62 @@
 <template>
   <div>
-    <form class="form-inline">
-      <div class="form-group">
-        <label class="sr-only">名称</label>
-        <input type="text" v-model="query.name" class="form-control" placeholder="Name">
+    <div class="card">
+      <div class="card-body">
+        <form class="form-inline">
+          <div class="form-group row mr-2">
+            <label for="queryName">名称</label>
+            <input type="text" id="queryName" v-model="query.name" class="form-control mx-sm-4">
+          </div>
+          <div class="form-group row">
+            <label for="queryRole">角色</label>
+            <select id="queryRole" v-model="query.groupId" class="form-control mx-sm-4">
+              <option value="">无</option>
+              <option v-for="op in groups" :value="op.id">{{op.name}}</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-primary mr-2" @click="queryData">查询</button>
+          <button type="button" class="btn btn-primary" @click="toAddOperator">添加</button>
+        </form>
       </div>
-      <div class="form-group">
-        <label class="sr-only">角色</label>
-        <select id="source" class="form-control" v-model="query.groupId">
-          <option value="">无</option>
-          <option v-for="op in groups" :value="op.id">{{op.name}}</option>
-        </select>
-      </div>
-      <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
-      <button type="button" class="btn btn-secondary" @click="toAddOperator">添加</button>
-    </form>
-
-    <div class="modal fade" id="operatorModal" tabindex="-1" role="dialog" aria-labelledby="operatorModalLabel">
+    </div>
+    <div class="modal fade" id="operatorModal" tabindex="-1" role="dialog" aria-labelledby="operatorModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
+            <h5 class="modal-title" id="operatorModalLabel"><span v-show="create">创建</span><span
+              v-show="!create">更新</span>
+            </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
               aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="operatorModalLabel"><span v-show="create">创建</span><span
-              v-show="!create">更新</span>
-            </h4>
           </div>
           <div class="modal-body">
-            <form class="form-horizontal">
-              <div class="form-group">
-                <label for="name" class="col-xs-2 col-form-label">名称</label>
-                <div class="col-xs-10">
+            <form>
+              <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">名称</label>
+                <div class="col-sm-10">
                   <input class="form-control" type="text" id="name" v-model="inputOperator.name" required>
                 </div>
               </div>
-              <div class="form-group">
-                <label for="mobile" class="col-xs-2 col-form-label">手机</label>
-                <div class="col-xs-10">
+              <div class="form-group row">
+                <label for="mobile" class="col-sm-2 col-form-label">手机</label>
+                <div class="col-sm-10">
                   <input class="form-control" type="text" id="mobile" v-model="inputOperator.mobile" required>
                 </div>
               </div>
-              <div class="form-group">
-                <label for="state" class="col-xs-2 col-form-label">状态</label>
-                <div class="col-xs-10">
+              <div class="form-group row">
+                <label for="state" class="col-sm-2 col-form-label">状态</label>
+                <div class="col-sm-10">
                   <select id="state" class="form-control" v-model="inputOperator.stateCode">
                     <option value="0">冻结</option>
                     <option value="1">正常</option>
                   </select>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-xs-2 col-form-label">角色</label>
-                <div class="col-xs-10">
-                  <ul>
-                    <li v-for="group in groups">
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">角色</label>
+                <div class="col-sm-10">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item" v-for="group in groups">
                       <div class="checkbox">
                         <label>
                           <input type="checkbox" :value="group.id" v-model="inputOperator.groups">{{group.name}}
@@ -74,7 +77,7 @@
       </div>
     </div>
 
-    <table class="table">
+    <table class="table table-bordered">
       <thead>
       <tr>
         <th>ID</th>
@@ -95,29 +98,31 @@
         <td>{{item.groupsName}}</td>
         <td>{{item.createTime | timeAgo}}</td>
         <td>
-          <button type="button" class="btn btn-secondary" @click="toUpdateOperator(item)">查看</button>
-          <button type="button" class="btn btn-secondary" @click="resetPassword(item.id)">重置密码</button>
-          <button type="button" class="btn btn-primary" @click="lockOperator(item)" v-show="item.stateCode == 1">禁用</button>
-          <button type="button" class="btn btn-primary" @click="unlockOperator(item)" v-show="item.stateCode == 0">启用</button>
+          <button type="button" class="btn btn-link" @click="toUpdateOperator(item)">查看</button>
+          <button type="button" class="btn btn-link" @click="resetPassword(item.id)">重置密码</button>
+          <button type="button" class="btn btn-link" @click="lockOperator(item)" v-show="item.stateCode == 1">禁用</button>
+          <button type="button" class="btn btn-link" @click="unlockOperator(item)" v-show="item.stateCode == 0">启用</button>
         </td>
       </tr>
       </tbody>
     </table>
-    <nav aria-label="Page navigation">
+    <nav>
       <ul class="pagination">
-        <li>
-          <a href="#" aria-label="Previous">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
           </a>
         </li>
-        <li class="active"><a href="#">{{query.pageNow}}<span class="sr-only">(current)</span></a></li>
-        <li>
-          <a href="#" aria-label="Next">
+        <li class="page-item active"><a class="page-link" href="#">{{query.pageNow}}</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
           </a>
         </li>
-        <li>
-          <span>共{{totalPage}}页</span>
+        <li class="page-item">
+          <span class="page-link">共{{totalPage}}页</span>
         </li>
       </ul>
     </nav>

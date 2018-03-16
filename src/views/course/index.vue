@@ -1,31 +1,42 @@
 <template>
   <div>
-    <form class="form-inline">
-      <div class="form-group">
-        <label class="sr-only">课程名称</label>
-        <input type="text" v-model="query.name" class="form-control" placeholder="Name">
+    <div class="card">
+      <div class="card-body">
+        <form>
+          <div class="form-row align-items-center">
+            <div class="col-auto">
+              <label class="sr-only">课程名称</label>
+              <input type="text" class="form-control mb-2" v-model="query.name" placeholder="课程名称">
+            </div>
+            <div class="col-auto">
+              <label class="sr-only">授课老师</label>
+              <input type="text" class="form-control mb-2" v-model="query.teacherName" placeholder="授课老师">
+            </div>
+            <div class="col-auto">
+              <label class="sr-only">开始</label>
+              <div class="input-group">
+                <datepicker language="zh" id="startDate" class="form-control mb-2" :format="'yyyy-MM-dd'"></datepicker>
+                <datepicker language="zh" id="endDate" class="form-control mb-2" :format="'yyyy-MM-dd'"></datepicker>
+              </div>
+            </div>
+            <div class="col-auto">
+              <label class="sr-only">授课老师</label>
+              <select class="form-control mb-2" v-model="query.stateCode">
+                <option value="">无</option>
+                <option value="0">未上课</option>
+                <option value="1">上课中</option>
+                <option value="2">已结课</option>
+              </select>
+            </div>
+            <div class="col-auto">
+              <button type="button" class="btn btn-primary" @click="queryData">查询</button>
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="form-group">
-        <label class="sr-only">授课老师</label>
-        <input type="text" v-model="query.teacherName" class="form-control" placeholder="TeacherName">
-      </div>
-      <div class="form-group">
-        <label class="sr-only">开课时间</label>
-        <datepicker language="zh" id="startDate" class="form-control" :format="'yyyy-MM-dd'"></datepicker>
-        <datepicker language="zh" id="endDate" class="form-control" :format="'yyyy-MM-dd'"></datepicker>
-      </div>
-      <div class="form-group">
-        <label class="sr-only">课程状态</label>
-        <select id="source" class="form-control" v-model="query.stateCode">
-          <option value="">无</option>
-          <option value="0">未上课</option>
-          <option value="1">上课中</option>
-          <option value="2">已结课</option>
-        </select>
-      </div>
-      <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
-    </form>
-    <table class="table">
+    </div>
+
+    <table class="table table-bordered">
       <thead>
       <tr>
         <th>序号</th>
@@ -51,21 +62,23 @@
       </tr>
       </tbody>
     </table>
-    <nav aria-label="Page navigation">
+    <nav>
       <ul class="pagination">
-        <li>
-          <a href="#" aria-label="Previous">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
           </a>
         </li>
-        <li class="active"><a href="#">{{query.pageNow}}<span class="sr-only">(current)</span></a></li>
-        <li>
-          <a href="#" aria-label="Next">
+        <li class="page-item active"><a class="page-link" href="#">{{query.pageNow}}</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
           </a>
         </li>
-        <li>
-          <span>共{{totalPage}}页</span>
+        <li class="page-item">
+          <span class="page-link">共{{totalPage}}页</span>
         </li>
       </ul>
     </nav>

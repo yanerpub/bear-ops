@@ -1,6 +1,7 @@
 .DS_Store
 node_modules/
 npm-debug.log
-dist/
+dist/app.js
+dist/vendor.js
 .idea
 *.iml

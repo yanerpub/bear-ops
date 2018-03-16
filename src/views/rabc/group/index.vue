@@ -1,53 +1,59 @@
 <template>
   <div>
-    <form class="form-inline">
-      <div class="form-group">
-        <label class="sr-only">名称</label>
-        <input type="text" v-model="query.name" class="form-control" placeholder="Name">
+    <div class="card">
+      <div class="card-body">
+        <form class="form-inline">
+          <div class="form-group row">
+            <label for="queryName">名称</label>
+            <input type="text" id="queryName" v-model="query.name" class="form-control mx-sm-3">
+          </div>
+          <button type="button" class="btn btn-primary mr-2" @click="queryData">查询</button>
+          <button type="button" class="btn btn-primary" @click="toAddGroup">添加</button>
+        </form>
       </div>
-      <button type="button" class="btn btn-secondary" @click="queryData">查询</button>
-      <button type="button" class="btn btn-secondary" @click="toAddGroup">添加</button>
-    </form>
+    </div>
 
-    <div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="groupModalLabel">
+    <div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="groupModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
+            <h5 class="modal-title" id="groupModalLabel"><span v-show="create">创建</span><span
+              v-show="!create">更新</span>
+            </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
               aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="groupModalLabel"><span v-show="create">创建</span><span
-              v-show="!create">更新</span>
-            </h4>
           </div>
           <div class="modal-body">
-            <form class="form-horizontal">
-              <div class="form-group">
-                <label for="name" class="col-xs-2 col-form-label">名称</label>
-                <div class="col-xs-10">
+            <form>
+              <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">名称</label>
+                <div class="col-sm-10">
                   <input class="form-control" type="text" id="name" v-model="inputGroup.name" required>
                 </div>
               </div>
-              <div class="form-group">
-                <label for="state" class="col-xs-2 col-form-label">状态</label>
-                <div class="col-xs-10">
+              <div class="form-group row">
+                <label for="state" class="col-sm-2 col-form-label">状态</label>
+                <div class="col-sm-10">
                   <select id="state" class="form-control" v-model="inputGroup.stateCode">
                     <option value="0">冻结</option>
                     <option value="1">正常</option>
                   </select>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-xs-2 col-form-label">资源</label>
-                <div class="col-xs-10">
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">资源</label>
+                <div class="col-sm-10">
                   <ul>
                     <li v-for="item in resources">
-                      {{item.name}}-{{item.typeName}}
-                      <ul>
+                      <span class="badge" :class="{'badge-primary': item.stateCode == 1, 'badge-secondary': item.stateCode == 2}">{{item.name}}</span>
+                      <span class="badge badge-dark">{{item.uri}}</span>
+                      <ul v-if="item.children && item.children.length">
                         <li v-for="child in item.children">
                           <div class="checkbox">
                             <label>
                               <input type="checkbox" :value="child.id" v-model="inputGroup.resources">
-                              {{child.name}}-{{child.typeName}}
+                              <span class="badge" :class="{'badge-primary': child.stateCode == 1, 'badge-secondary': child.stateCode == 2}">{{child.name}}</span>
+                              <span class="badge badge-dark">{{child.uri}}</span>
                             </label>
                           </div>
                         </li>
@@ -67,7 +73,7 @@
       </div>
     </div>
 
-    <table class="table">
+    <table class="table table-bordered">
       <thead>
       <tr>
         <th>ID</th>
@@ -84,28 +90,30 @@
         <td>{{item.stateName}}</td>
         <td>{{item.createTime | timeAgo}}</td>
         <td>
-          <button type="button" class="btn btn-secondary" @click="toUpdateGroup(item)">查看</button>
-          <button type="button" class="btn btn-primary" @click="lockGroup(item)" v-show="item.stateCode == 1">禁用</button>
-          <button type="button" class="btn btn-primary" @click="unlockGroup(item)" v-show="item.stateCode == 0">启用</button>
+          <button type="button" class="btn btn-link" @click="toUpdateGroup(item)">查看</button>
+          <button type="button" class="btn btn-link" @click="lockGroup(item)" v-show="item.stateCode == 1">禁用</button>
+          <button type="button" class="btn btn-link" @click="unlockGroup(item)" v-show="item.stateCode == 0">启用</button>
         </td>
       </tr>
       </tbody>
     </table>
-    <nav aria-label="Page navigation">
+    <nav>
       <ul class="pagination">
-        <li>
-          <a href="#" aria-label="Previous">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
           </a>
         </li>
-        <li class="active"><a href="#">{{query.pageNow}}<span class="sr-only">(current)</span></a></li>
-        <li>
-          <a href="#" aria-label="Next">
+        <li class="page-item active"><a class="page-link" href="#">{{query.pageNow}}</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
           </a>
         </li>
-        <li>
-          <span>共{{totalPage}}页</span>
+        <li class="page-item">
+          <span class="page-link">共{{totalPage}}页</span>
         </li>
       </ul>
     </nav>
@@ -142,7 +150,7 @@
           this.count = body._data.total
         });
       },
-      toAddGroup () {
+      toAddGroup() {
         fetchResource((body) => {
           this.resources = body._data.children;
         });
@@ -160,7 +168,7 @@
           $('#groupModal').modal('hide')
         })
       },
-      toUpdateGroup (item) {
+      toUpdateGroup(item) {
         this.create = false
         this.inputGroup = item
         fetchResource((body) => {
