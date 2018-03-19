@@ -2,60 +2,130 @@
   <div>
     <form>
       <div class="form-group row">
-        <label for="name" class="col-sm-2 col-form-label">名称</label>
+        <label for="name" class="col-sm-2 col-form-label">标题</label>
         <div class="col-sm-10">
-          <input class="form-control" type="text" id="name" v-model="teacher.name">
+          <input class="form-control" type="text" id="name" v-model="notice.title">
         </div>
       </div>
       <div class="form-group row">
-        <label for="mobile" class="col-sm-2 col-form-label">手机</label>
+        <label for="introduction" class="col-sm-2 col-form-label">通知内容</label>
         <div class="col-sm-10">
-          <input class="form-control" type="text" id="mobile" v-model="teacher.mobile">
+          <textarea rows="3" class="form-control" id="introduction" v-model="notice.content"></textarea>
         </div>
       </div>
       <div class="form-group row">
-        <label for="schoolName" class="col-sm-2 col-form-label">学校</label>
+        <label for="state" class="col-sm-2 col-form-label">消息类型</label>
         <div class="col-sm-10">
-          <input class="form-control" type="text" id="schoolName" v-model="teacher.schoolName">
+          <select id="state" class="form-control" v-model="notice.typeCode">
+            <option value="0">全部</option>
+            <option value="1">老师</option>
+            <option value="2">学生</option>
+            <option value="3">运营</option>
+            <option value="4">指定</option>
+          </select>
         </div>
       </div>
       <div class="form-group row">
-        <label for="introduction" class="col-sm-2 col-form-label">个人简介</label>
+        <label for="publishTime" class="col-sm-2 col-form-label">发布时间</label>
         <div class="col-sm-10">
-          <textarea rows="3" class="form-control" id="introduction" v-model="teacher.introduction"></textarea>
+          <datepicker language="zh" id="publishTime" class="form-control" :format="'yyyy-MM-dd'"></datepicker>
         </div>
       </div>
       <div class="form-group row">
-        <label for="password" class="col-sm-2 col-form-label">创建密码</label>
+        <label for="expireTime" class="col-sm-2 col-form-label">过期时间</label>
         <div class="col-sm-10">
-          <input class="form-control" type="text" id="password" v-model="teacher.password">
+          <datepicker language="zh" id="expireTime" class="form-control" :format="'yyyy-MM-dd'"></datepicker>
+        </div>
+      </div>
+      <div class="form-group row" v-show="notice.typeCode == 4">
+        <label class="col-sm-2 col-form-label">通知人</label>
+        <div class="col-sm-10">
+          <div class="card">
+            <div class="card-body">
+              <form class="form-inline">
+                <div class="form-group row mr-2">
+                  <label for="queryName">名称</label>
+                  <input type="text" id="queryName" v-model="query.name" class="form-control mx-sm-4">
+                </div>
+                <div class="form-group row">
+                  <label for="queryRole">角色</label>
+                  <select id="queryRole" v-model="query.typeCode" class="form-control mx-sm-4">
+                    <option value="0">全部</option>
+                    <option value="1">老师</option>
+                    <option value="2">学生</option>
+                    <option value="3">运营</option>
+                  </select>
+                </div>
+                <button type="button" class="btn btn-primary mr-2" @click="queryData">查询</button>
+              </form>
+            </div>
+            <table class="table">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>姓名</th>
+                <th>手机</th>
+                <th>类型</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="item in list">
+                <td>{{item.id}}</td>
+                <td>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" :value="item.id" v-model="notice.noticeUsers">{{item.name}}
+                    </label>
+                  </div>
+                </td>
+                <td>{{item.mobile}}</td>
+                <td>{{item.typeName}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <button type="button" class="btn btn-primary" @click="addData">确定</button>
-      <router-link class="btn btn-primary" :to="{ name: 'teacher'}">返回</router-link>
+      <router-link class="btn btn-primary" :to="{ name: 'notice'}">返回</router-link>
     </form>
   </div>
 </template>
 
 <script>
-  import {addTeacher} from './api'
+  import Datepicker from 'vuejs-datepicker'
+  import {addNotice, listUser} from './api'
 
   export default {
-    name: 'teacher-input-view',
+    name: 'notice-input-view',
     data() {
       return {
-        teacher: {}
+        notice: {typeCode: 0, noticeUsers: []},
+        list: [],
+        count: 0,
+        query: {pageNow: 1, pageSize: 10}
       }
+    },
+    components: {
+      Datepicker
     },
     methods: {
       addData() {
-        addTeacher(this.teacher, (body) => {
+        this.notice.publishTime = $('#publishTime').val()
+        this.notice.expireTime = $('#expireTime').val()
+        addNotice(this.notice, (body) => {
           if (body._data > 0) {
-            this.$router.push('/teacher/');
+            this.$router.push('/notice/');
           } else {
             alert('添加失败！');
           }
         })
+      },
+      queryData() {
+        listUser(this.query, (body) => {
+          this.list = body._data.list
+          this.count = body._data.total
+        });
       }
     }
   }

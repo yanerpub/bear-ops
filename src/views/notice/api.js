@@ -11,8 +11,26 @@ export function listNotice(queryParams, callback) {
   });
 }
 
+export function addNotice(notice, callback) {
+  Vue.http.post('/ops/notice/', notice).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function listUser(queryParams, callback) {
+  Vue.http.get('/ops/user/', {params: queryParams}).then(function ({body}) {
+    callback(body);
+  });
+}
+
 export function fetchNotice(id, callback) {
   Vue.http.get('/ops/notice/' + id).then(function ({body}) {
+    callback(body);
+  });
+}
+
+export function fetchNoticeUser(id, queryParams, callback) {
+  Vue.http.get('/ops/notice/' + id + '/user/', {params: queryParams}).then(function ({body}) {
     callback(body);
   });
 }

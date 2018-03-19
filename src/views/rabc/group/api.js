@@ -12,14 +12,14 @@ export function listGroup(queryParams, callback) {
   });
 }
 
-export function addGroup(potential, callback) {
-  Vue.http.post('/ops/group/', potential).then(function ({body}) {
+export function addGroup(group, callback) {
+  Vue.http.post('/ops/group/', group).then(function ({body}) {
     callback(body);
   });
 }
 
-export function updateGroup(potential, callback) {
-  Vue.http.put('/ops/group/', potential).then(function ({body}) {
+export function updateGroup(group, callback) {
+  Vue.http.put('/ops/group/', group).then(function ({body}) {
     callback(body);
   });
 }

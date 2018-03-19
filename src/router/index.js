@@ -25,6 +25,8 @@ import caseViewIndex from '../views/case/view.vue';
 import noticeIndex from '../views/notice/index.vue';
 import noticeInputIndex from '../views/notice/input.vue';
 import noticeViewIndex from '../views/notice/view.vue';
+import commentIndex from '../views/comment/index.vue';
+import commentViewIndex from '../views/comment/view.vue';
 
 export default new Router({
   mode: 'hash',
@@ -51,6 +53,8 @@ export default new Router({
     {path: '/notice', name: 'notice', component: noticeIndex},
     {path: '/notice/input', name: 'noticeInput', component: noticeInputIndex},
     {path: '/notice/:id', name: 'noticeView', component: noticeViewIndex},
+    {path: '/comment', name: 'comment', component: commentIndex},
+    {path: '/comment/:id', name: 'commentView', component: commentViewIndex},
     {path: '*', redirect: '/'}
   ]
 })

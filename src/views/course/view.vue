@@ -18,6 +18,7 @@
               <input type="text" readonly class="form-control-plaintext" :value="course.description">
             </div>
           </div>
+          <router-link class="btn btn-primary" :to="{ name: 'course'}">返回</router-link>
         </form>
       </div>
     </div>
