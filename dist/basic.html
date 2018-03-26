@@ -39,7 +39,7 @@
   $(function () {
     'use strict';
     $('#fileupload').fileupload({
-      url: '/ops/upload',
+      url: '/ops/file',
       dataType: 'json',
       done: function (e, data) {
         $('#files').val(JSON.stringify(data.result._data));

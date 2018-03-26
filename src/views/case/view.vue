@@ -30,13 +30,13 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">上传数据</label>
           <div class="col-sm-10">
-            <input type="text" readonly class="form-control-plaintext" :value="ce.attachment">
+            <a :href="ce.attachmentUrl" class="form-control-plaintext" target="_blank">{{ce.attachmentName}}</a>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">案例封面</label>
           <div class="col-sm-10">
-            <input type="text" readonly class="form-control-plaintext" :value="ce.cover">
+            <a :href="ce.coverUrl" class="form-control-plaintext" target="_blank">{{ce.coverName}}</a>
           </div>
         </div>
         <div class="form-group row" v-show="ce.applyStateCode != 1">
@@ -79,7 +79,7 @@
             <div class="form-group row">
               <label class="col-sm-4 col-form-label">狗熊案例库</label>
               <div class="col-sm-6">
-                <span>已申请加入{{stat.applyPassCount}}个，驳回{{stat.applyRejectCount}}个</span>
+                <span class="form-control-plaintext">已申请加入{{stat.applyPassCount}}个，驳回{{stat.applyRejectCount}}个</span>
               </div>
             </div>
           </form>
@@ -137,6 +137,12 @@
       queryData() {
         fetchCase(this.$route.params.id, (body) => {
           this.ce = body._data.case
+          var attachment = JSON.parse(this.ce.attachment)
+          this.ce.attachmentName = attachment[0].originalName
+          this.ce.attachmentUrl = attachment[0].url
+          var cover = JSON.parse(this.ce.cover)
+          this.ce.coverName = cover[0].originalName
+          this.ce.coverUrl = cover[0].url
           this.stat = body._data.stat
         });
       },
