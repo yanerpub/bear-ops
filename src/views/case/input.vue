@@ -27,13 +27,13 @@
           <div class="form-group row">
             <label for="attachment" class="col-sm-2 col-form-label">上传数据</label>
             <div class="col-sm-10">
-              <input class="form-control" type="text" id="attachment" v-model="ce.attachment">
+              <iframe id="attachment" name="attachment" src="basic.html" width="100%" height="100px" frameborder="0" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>
             </div>
           </div>
           <div class="form-group row">
             <label for="cover" class="col-sm-2 col-form-label">案例封面</label>
             <div class="col-sm-10">
-              <input class="form-control" type="text" id="cover" v-model="ce.cover">
+              <iframe id="cover" name="cover" src="basic.html" width="100%" height="100px" frameborder="0" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>
             </div>
           </div>
           <button type="button" class="btn btn-primary" @click="addData">确定</button>
@@ -56,6 +56,8 @@
     },
     methods: {
       addData() {
+        this.ce.attachment = window.frames["attachment"].document.getElementById("files").value;
+        this.ce.cover = window.frames["cover"].document.getElementById("files").value;
         addCase(this.ce, (body) => {
           this.$router.push('/case/')
         })

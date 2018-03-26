@@ -57,6 +57,7 @@
         <td>{{item.stateName}}</td>
         <td>{{item.referCount}}</td>
         <td>
+          <router-link :to="{ name: 'caseView', params: { id: item.id }}">查看</router-link>
           <button type="button" class="btn btn-link" @click="lockCase(item)" v-show="item.stateCode == 1">禁用</button>
           <button type="button" class="btn btn-link" @click="unlockCase(item)" v-show="item.stateCode == 0">激活</button>
         </td>
