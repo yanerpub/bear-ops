@@ -59,7 +59,11 @@
         this.ce.attachment = window.frames["attachment"].document.getElementById("files").value;
         this.ce.cover = window.frames["cover"].document.getElementById("files").value;
         addCase(this.ce, (body) => {
-          this.$router.push('/case/')
+          if (body._data > 0) {
+            this.$router.push('/case/');
+          } else {
+            alert('添加失败！');
+          }
         })
       }
     }

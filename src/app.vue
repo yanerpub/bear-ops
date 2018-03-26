@@ -24,7 +24,7 @@
                  aria-expanded="false">{{user.name}}</a>
               <div class="dropdown-menu" aria-labelledby="sysnemu">
                 <router-link class="dropdown-item" to="/resource/">资源菜单</router-link>
-                <a class="dropdown-item" href="#">退出</a>
+                <router-link class="dropdown-item" to="/signIn/">测试登录</router-link>
               </div>
             </li>
           </ul>
@@ -51,7 +51,7 @@
     },
     methods: {
       queryData() {
-        Vue.http.get('/ops/user/').then(function ({body}) {
+        Vue.http.get('/ops/sign/status/').then(function ({body}) {
           //console.log(body);
         });
         this.menu = [
