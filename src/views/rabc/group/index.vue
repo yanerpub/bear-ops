@@ -45,8 +45,13 @@
                 <div class="col-sm-10">
                   <ul>
                     <li v-for="item in resources">
-                      <span class="badge" :class="{'badge-primary': item.stateCode == 1, 'badge-secondary': item.stateCode == 2}">{{item.name}}</span>
-                      <span class="badge badge-dark">{{item.uri}}</span>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" :value="item.id" v-model="inputGroup.resources">
+                          <span class="badge" :class="{'badge-primary': item.stateCode == 1, 'badge-secondary': item.stateCode == 2}">{{item.name}}</span>
+                          <span class="badge badge-dark">{{item.uri}}</span>
+                        </label>
+                      </div>
                       <ul v-if="item.children && item.children.length">
                         <li v-for="child in item.children">
                           <div class="checkbox">

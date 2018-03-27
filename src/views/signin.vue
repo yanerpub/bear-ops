@@ -12,6 +12,9 @@
           <input type="checkbox" value="remember-me"> 记住
         </label>
       </div>
+      <div class="alert alert-danger" role="alert" v-show="!success">
+        {{error}}
+      </div>
       <button class="btn btn-lg btn-primary btn-block" type="button" @click="login">登录</button>
     </form>
   </div>
@@ -23,13 +26,25 @@
     name: 'sign-in-view',
     data() {
       return {
-        sign: {}
+        sign: {},
+        success: true,
+        error: ''
       }
     },
     methods: {
+      doPost(data, callback) {
+        Vue.http.post('/ops/sign/in/', data).then(function ({body}) {
+          callback(body);
+        });
+      },
       login() {
-        Vue.http.post('/ops/sign/in/', this.sign).then(function ({body}) {
-          this.$router.push('/')
+        this.doPost(this.sign, (body) => {
+          if (body._code != '000000') {
+            this.success = false;
+            this.error = body._msg;
+          } else {
+            this.$router.push('/')
+          }
         });
       }
     }
