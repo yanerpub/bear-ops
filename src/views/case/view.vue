@@ -167,11 +167,11 @@
           updateCase(this.ce, (body) => {
             if (body._data > 0) {
               this.queryData();
+              $('#rejectModal').modal('hide')
             } else {
               alert('更新失败！');
             }
           })
-          $('#rejectModal').modal('hide')
         }
       }
     }

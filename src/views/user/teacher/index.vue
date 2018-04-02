@@ -88,7 +88,7 @@
 </template>
 
 <script>
-  import {listTeacher, updateTeacher} from './api'
+  import {listTeacher, updateTeacher, resetPassword} from './api'
 
   export default {
     name: 'teacher-list-view',
@@ -140,7 +140,13 @@
       },
       resetPassword(userId) {
         if (confirm('确定重置密码？')) {
-          // todo
+          resetPassword({id: userId, password: '123456'}, (body) => {
+            if (body._data > 0) {
+              alert('更新成功！');
+            } else {
+              alert('更新失败！');
+            }
+          })
         }
       }
     }
