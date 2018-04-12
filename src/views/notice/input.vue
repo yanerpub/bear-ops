@@ -22,7 +22,14 @@
             <option value="2">学生</option>
             <option value="3">运营</option>
             <option value="4">指定</option>
+            <option value="5">课程</option>
           </select>
+        </div>
+      </div>
+      <div class="form-group row" v-show="notice.typeCode == 5">
+        <label for="courseId" class="col-sm-2 col-form-label">课程</label>
+        <div class="col-sm-10">
+          <textarea rows="3" class="form-control" id="courseId" v-model="notice.courseId"></textarea>
         </div>
       </div>
       <div class="form-group row">

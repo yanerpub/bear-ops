@@ -7,6 +7,16 @@
       <div class="card-body">
         <form>
           <div class="form-group row">
+            <label for="industry" class="col-sm-2 col-form-label">行业</label>
+            <div class="col-sm-10">
+              <select id="industry" class="form-control">
+                <option value="1">教育</option>
+                <option value="2">医学</option>
+                <option value="3">工程</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label">案例名称</label>
             <div class="col-sm-10">
               <input class="form-control" type="text" id="name" v-model="ce.name">
