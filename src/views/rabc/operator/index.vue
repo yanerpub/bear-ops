@@ -98,10 +98,10 @@
         <td>{{item.groupsName}}</td>
         <td>{{item.createTime | timeAgo}}</td>
         <td>
-          <button type="button" class="btn btn-link" @click="toUpdateOperator(item)">查看</button>
-          <button type="button" class="btn btn-link" @click="resetPassword(item.id)">重置密码</button>
-          <button type="button" class="btn btn-link" @click="lockOperator(item)" v-show="item.stateCode == 1">禁用</button>
-          <button type="button" class="btn btn-link" @click="unlockOperator(item)" v-show="item.stateCode == 0">启用</button>
+          <button type="button" class="btn btn-link" @click="toUpdateOperator(item)" v-show="item.id != 1">查看</button>
+          <button type="button" class="btn btn-link" @click="resetPassword(item.id)" v-show="item.id != 1">重置密码</button>
+          <button type="button" class="btn btn-link" @click="lockOperator(item)" v-show="item.stateCode == 1 && item.id != 1">禁用</button>
+          <button type="button" class="btn btn-link" @click="unlockOperator(item)" v-show="item.stateCode == 0 && item.id != 1">启用</button>
         </td>
       </tr>
       </tbody>

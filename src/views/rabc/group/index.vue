@@ -12,7 +12,50 @@
         </form>
       </div>
     </div>
-
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>名称</th>
+        <th>状态</th>
+        <th>创建时间</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="item in list">
+        <td>{{item.id}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.stateName}}</td>
+        <td>{{item.createTime | timeAgo}}</td>
+        <td>
+          <button type="button" class="btn btn-link" @click="toUpdateGroup(item)">查看</button>
+          <button type="button" class="btn btn-link" @click="lockGroup(item)" v-show="item.stateCode == 1 && item.id != 1">禁用</button>
+          <button type="button" class="btn btn-link" @click="unlockGroup(item)" v-show="item.stateCode == 0 && item.id != 1">启用</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <nav>
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        <li class="page-item active"><a class="page-link" href="#">{{query.pageNow}}</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <span class="page-link">共{{totalPage}}页</span>
+        </li>
+      </ul>
+    </nav>
     <div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="groupModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -72,56 +115,11 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             <button type="button" class="btn btn-primary" v-show="create" @click="addGroup">创建</button>
-            <button type="button" class="btn btn-primary" v-show="!create" @click="updateGroup">更新</button>
+            <button type="button" class="btn btn-primary" v-show="!create && inputGroup.id != 1" @click="updateGroup">更新</button>
           </div>
         </div>
       </div>
     </div>
-
-    <table class="table table-bordered">
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>名称</th>
-        <th>状态</th>
-        <th>创建时间</th>
-        <th>操作</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="item in list">
-        <td>{{item.id}}</td>
-        <td>{{item.name}}</td>
-        <td>{{item.stateName}}</td>
-        <td>{{item.createTime | timeAgo}}</td>
-        <td>
-          <button type="button" class="btn btn-link" @click="toUpdateGroup(item)">查看</button>
-          <button type="button" class="btn btn-link" @click="lockGroup(item)" v-show="item.stateCode == 1">禁用</button>
-          <button type="button" class="btn btn-link" @click="unlockGroup(item)" v-show="item.stateCode == 0">启用</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-    <nav>
-      <ul class="pagination">
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-            <span class="sr-only">Previous</span>
-          </a>
-        </li>
-        <li class="page-item active"><a class="page-link" href="#">{{query.pageNow}}</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-            <span class="sr-only">Next</span>
-          </a>
-        </li>
-        <li class="page-item">
-          <span class="page-link">共{{totalPage}}页</span>
-        </li>
-      </ul>
-    </nav>
   </div>
 </template>
 

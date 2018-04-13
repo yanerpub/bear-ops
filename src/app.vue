@@ -23,8 +23,8 @@
               <a class="nav-link dropdown-toggle" href="#" id="sysnemu" data-toggle="dropdown" aria-haspopup="true"
                  aria-expanded="false">{{user.name}}</a>
               <div class="dropdown-menu" aria-labelledby="sysnemu">
-                <router-link class="dropdown-item" to="/resource/">资源菜单</router-link>
-                <router-link class="dropdown-item" to="/signIn/">登录</router-link>
+                <!--<router-link class="dropdown-item" to="/resource/">资源菜单</router-link>-->
+                <a class="dropdown-item" href="/login.html">登录页面</a>
                 <a class="dropdown-item" @click="logout">退出</a>
               </div>
             </li>
@@ -65,12 +65,12 @@
       queryStatus() {
         this.doGet('/sign/status/', (body) => {
           if (body._code != '000000') {
-            this.$router.push('/signIn')
+            window.location.href = 'login.html';
           } else {
             this.menu = body._data.menu;
             this.user = body._data.user;
             if (!this.user) {
-              this.$router.push('/signIn')
+              window.location.href = 'login.html';
             } else {
               this.$router.push('/')
             }
