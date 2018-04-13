@@ -24,7 +24,7 @@
                  aria-expanded="false">{{user.name}}</a>
               <div class="dropdown-menu" aria-labelledby="sysnemu">
                 <!--<router-link class="dropdown-item" to="/resource/">资源菜单</router-link>-->
-                <a class="dropdown-item" href="/login.html">登录页面</a>
+                <!--<a class="dropdown-item" href="/login.html">登录页面</a>-->
                 <a class="dropdown-item" @click="logout">退出</a>
               </div>
             </li>
