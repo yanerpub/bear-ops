@@ -4,7 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 import index from '../views/index.vue';
-import signInIndex from '../views/signin.vue';
+//import signInIndex from '../views/signin.vue';
 
 import resourceIndex from '../views/rabc/resource/index.vue';
 import groupIndex from '../views/rabc/group/index.vue';
@@ -33,7 +33,7 @@ export default new Router({
   saveScrollPosition: true,
   routes: [
     {path: '/', name: 'home', component: index},
-    {path: '/signIn', name: 'signIn', component: signInIndex},
+    //{path: '/signIn', name: 'signIn', component: signInIndex},
     {path: '/resource', name: 'resource', component: resourceIndex},
     {path: '/group', name: 'group', component: groupIndex},
     {path: '/operator', name: 'operator', component: operatorIndex},

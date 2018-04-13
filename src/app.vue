@@ -63,7 +63,7 @@
         });
       },
       queryStatus() {
-        this.doGet('/ops/sign/status/', (body) => {
+        this.doGet('/sign/status/', (body) => {
           if (body._code != '000000') {
             this.$router.push('/signIn')
           } else {
@@ -80,10 +80,10 @@
         //this.user = {id: 1, name: "test"}
       },
       logout() {
-        this.doGet('/ops/sign/out/', (body) => {
+        this.doGet('/sign/out/', (body) => {
           this.menu = [];
           this.user = {};
-          this.$router.push('/signIn')
+          window.location.href = 'login.html';
         });
       }
     }

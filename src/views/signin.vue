@@ -33,7 +33,7 @@
     },
     methods: {
       doPost(data, callback) {
-        Vue.http.post('/ops/sign/in/', data).then(function ({body}) {
+        Vue.http.post('/sign/in/', data).then(function ({body}) {
           callback(body);
         });
       },

@@ -38,7 +38,8 @@ module.exports = {
     watchContentBase: true,
     port: 8080,
     proxy: {
-      "/ops": "http://localhost:8088"
+      "/ops": "http://localhost:9078",
+      "/sign": "http://localhost:9078"
     }
   },
   plugins: [
