@@ -52,7 +52,7 @@
             <th>姓名</th>
             <th>手机</th>
             <th>状态</th>
-            <th>操作</th>
+            <th>个人信息</th>
           </tr>
           </thead>
           <tbody>
@@ -61,7 +61,7 @@
             <td>{{item.name}}</td>
             <td>{{item.mobile}}</td>
             <td>{{item.stateName}}</td>
-            <td>todo</td>
+            <td>查看todo</td>
           </tr>
           </tbody>
         </table>

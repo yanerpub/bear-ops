@@ -62,6 +62,7 @@
               <label class="col-sm-4 col-form-label">申请人</label>
               <div class="col-sm-6">
                 <input type="text" readonly class="form-control-plaintext" :value="ce.creatorName">
+                <span class="badge badge-primary" v-show="stat.type == 3">运营</span>
               </div>
             </div>
             <div class="form-group row">

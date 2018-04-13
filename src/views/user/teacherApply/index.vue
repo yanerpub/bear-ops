@@ -43,7 +43,7 @@
         <td>{{item.mobile}}</td>
         <td>{{item.schoolName}}</td>
         <td>{{item.createTime | timeAgo}}</td>
-        <td>todo</td>
+        <td>个人简历todo</td>
         <td>
           <span v-show="item.stateCode != 1">{{item.stateName}}</span>
           <button type="button" class="btn btn-link" @click="toApproveApply(item)" v-show="item.stateCode == 1">同意</button>
