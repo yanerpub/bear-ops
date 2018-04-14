@@ -55,6 +55,7 @@
         <td>{{item.averageScore}}</td>
         <td>{{item.stateName}}</td>
         <td>
+          <a :href="'#' + item.id" class="btn btn-link">查看简历</a>
           <button type="button" class="btn btn-link" @click="lockStudent(item)" v-show="item.stateCode == 1">禁用</button>
           <button type="button" class="btn btn-link" @click="unlockStudent(item)" v-show="item.stateCode == 0">激活</button>
           <button type="button" class="btn btn-link" @click="resetPassword(item.id)">重置密码</button>

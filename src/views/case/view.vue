@@ -65,19 +65,19 @@
                 <span class="badge badge-primary" v-show="stat.type == 3">运营</span>
               </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" v-show="stat.type != 3">
               <label class="col-sm-4 col-form-label">学校</label>
               <div class="col-sm-6">
                 <input type="text" readonly class="form-control-plaintext" :value="stat.schoolName">
               </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" v-show="stat.type != 3">
               <label class="col-sm-4 col-form-label">个人简介</label>
               <div class="col-sm-6">
                 <input type="text" readonly class="form-control-plaintext" :value="stat.introduction">
               </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" v-show="stat.type != 3">
               <label class="col-sm-4 col-form-label">狗熊案例库</label>
               <div class="col-sm-6">
                 <span class="form-control-plaintext">已申请加入{{stat.applyPassCount}}个，驳回{{stat.applyRejectCount}}个</span>
