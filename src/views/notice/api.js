@@ -39,6 +39,16 @@ export function listUser(queryParams, callback) {
   });
 }
 
+export function listCourse(queryParams, callback) {
+  Vue.http.get('/ops/course/', {params: queryParams}).then(function ({body}) {
+    if (body._code == '000000') {
+      callback(body);
+    } else {
+      alert(body._msg);
+    }
+  });
+}
+
 export function fetchNotice(id, callback) {
   Vue.http.get('/ops/notice/' + id).then(function ({body}) {
     if (body._code == '000000') {

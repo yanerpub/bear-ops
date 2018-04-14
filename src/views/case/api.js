@@ -50,3 +50,43 @@ export function addCase(teacher, callback) {
     }
   });
 }
+
+export function listIndustry(callback) {
+  Vue.http.get('/ops/industry/').then(function ({body}) {
+    if (body._code == '000000') {
+      callback(body);
+    } else {
+      alert(body._msg);
+    }
+  });
+}
+
+export function addIndustry(industry, callback) {
+  Vue.http.post('/ops/industry/', industry).then(function ({body}) {
+    if (body._code == '000000') {
+      callback(body);
+    } else {
+      alert(body._msg);
+    }
+  });
+}
+
+export function updateIndustry(industry, callback) {
+  Vue.http.put('/ops/industry/', industry).then(function ({body}) {
+    if (body._code == '000000') {
+      callback(body);
+    } else {
+      alert(body._msg);
+    }
+  });
+}
+
+export function deleteIndustry(id, callback) {
+  Vue.http.delete('/ops/industry/' + id).then(function ({body}) {
+    if (body._code == '000000') {
+      callback(body);
+    } else {
+      alert(body._msg);
+    }
+  });
+}

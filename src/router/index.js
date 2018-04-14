@@ -22,6 +22,7 @@ import caseIndex from '../views/case/index.vue';
 import caseInputIndex from '../views/case/input.vue';
 import caseAuditIndex from '../views/case/audit.vue';
 import caseViewIndex from '../views/case/view.vue';
+import industryIndex from '../views/case/industry.vue';
 import noticeIndex from '../views/notice/index.vue';
 import noticeInputIndex from '../views/notice/input.vue';
 import noticeViewIndex from '../views/notice/view.vue';
@@ -50,6 +51,7 @@ export default new Router({
     {path: '/case/input', name: 'caseInput', component: caseInputIndex},
     {path: '/case/audit', name: 'caseAudit', component: caseAuditIndex},
     {path: '/case/:id', name: 'caseView', component: caseViewIndex},
+    {path: '/industry', name: 'industryView', component: industryIndex},
     {path: '/notice', name: 'notice', component: noticeIndex},
     {path: '/notice/input', name: 'noticeInput', component: noticeInputIndex},
     {path: '/notice/:id', name: 'noticeView', component: noticeViewIndex},

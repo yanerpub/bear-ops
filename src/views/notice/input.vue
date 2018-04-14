@@ -31,12 +31,6 @@
               </select>
             </div>
           </div>
-          <div class="form-group row" v-show="notice.typeCode == 5">
-            <label for="courseId" class="col-sm-2 col-form-label">课程</label>
-            <div class="col-sm-10">
-              <input class="form-control" type="text" id="courseId" v-model="notice.courseId">
-            </div>
-          </div>
           <div class="form-group row">
             <label for="publishTime" class="col-sm-2 col-form-label">发布时间</label>
             <div class="col-sm-10">
@@ -68,7 +62,7 @@
                         <option value="3">运营</option>
                       </select>
                     </div>
-                    <button type="button" class="btn btn-primary mr-2" @click="queryData">查询</button>
+                    <button type="button" class="btn btn-primary mr-2" @click="queryUser">查询</button>
                   </form>
                 </div>
                 <table class="table">
@@ -98,6 +92,46 @@
               </div>
             </div>
           </div>
+          <div class="form-group row" v-show="notice.typeCode == 5">
+            <label class="col-sm-2 col-form-label">通知课程</label>
+            <div class="col-sm-10">
+              <div class="card">
+                <div class="card-body">
+                  <form class="form-inline">
+                    <div class="form-group row mr-2">
+                      <label for="queryName">名称</label>
+                      <input type="text"　v-model="query.name" class="form-control mx-sm-4">
+                    </div>
+                    <button type="button" class="btn btn-primary mr-2" @click="queryCourse">查询</button>
+                  </form>
+                </div>
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>名称</th>
+                    <th>开课时间</th>
+                    <th>结束时间</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr v-for="item in list">
+                    <td>{{item.id}}</td>
+                    <td>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" :value="item.id" v-model="notice.noticeCourses">{{item.name}}
+                        </label>
+                      </div>
+                    </td>
+                    <td>{{item.startDate | dateFormat }}</td>
+                    <td>{{item.endDate | dateFormat }}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
           <button type="button" class="btn btn-primary" @click="addData">确定</button>
           <router-link class="btn btn-primary" :to="{ name: 'notice'}">返回</router-link>
         </form>
@@ -108,13 +142,13 @@
 
 <script>
   import Datepicker from 'vuejs-datepicker'
-  import {addNotice, listUser} from './api'
+  import {addNotice, listUser, listCourse} from './api'
 
   export default {
     name: 'notice-input-view',
     data() {
       return {
-        notice: {typeCode: 0, noticeUsers: []},
+        notice: {typeCode: 0, noticeUsers: [], noticeCourses: []},
         list: [],
         count: 0,
         query: {pageNow: 1, pageSize: 10}
@@ -135,8 +169,15 @@
           }
         })
       },
-      queryData() {
+      queryUser() {
         listUser(this.query, (body) => {
+          this.list = body._data.list
+          this.count = body._data.total
+        });
+      },
+      queryCourse() {
+        this.query.stateCode = '';
+        listCourse(this.query, (body) => {
           this.list = body._data.list
           this.count = body._data.total
         });

@@ -30,6 +30,7 @@
             <div class="col-auto">
               <button type="button" class="btn btn-primary" @click="queryData">查询</button>
               <router-link class="btn btn-primary" role="button" to="/case/input" aria-pressed="true">添加</router-link>
+              <router-link class="btn btn-primary" role="button" to="/industry" aria-pressed="true">管理行业</router-link>
             </div>
           </div>
         </form>

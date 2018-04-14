@@ -16,9 +16,7 @@
             <label for="industry" class="col-sm-2 col-form-label">行业</label>
             <div class="col-sm-10">
               <select id="industry" class="form-control">
-                <option value="1">教育</option>
-                <option value="2">医学</option>
-                <option value="3">工程</option>
+                <option v-for="op in industries" :value="op.id">{{op.name}}</option>
               </select>
             </div>
           </div>
@@ -55,12 +53,13 @@
 </template>
 
 <script>
-  import {addCase} from './api'
+  import {addCase, listIndustry} from './api'
 
   export default {
     name: 'case-input-view',
     data() {
       return {
+        industries: [],
         ce: {}
       }
     },
@@ -68,6 +67,11 @@
       this.queryData()
     },
     methods: {
+      queryData() {
+        listIndustry((body) => {
+          this.industries = body._data
+        });
+      },
       addData() {
         this.ce.attachment = window.frames["attachment"].document.getElementById("files").value;
         this.ce.cover = window.frames["cover"].document.getElementById("files").value;
