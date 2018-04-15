@@ -30,8 +30,12 @@
         <td>{{item.createTime | timeAgo}}</td>
         <td>
           <button type="button" class="btn btn-link" @click="toUpdateGroup(item)">查看</button>
-          <button type="button" class="btn btn-link" @click="lockGroup(item)" v-show="item.stateCode == 1 && item.id != 1">禁用</button>
-          <button type="button" class="btn btn-link" @click="unlockGroup(item)" v-show="item.stateCode == 0 && item.id != 1">启用</button>
+          <button type="button" class="btn btn-link" @click="lockGroup(item)"
+                  v-show="item.stateCode == 1 && item.id != 1">禁用
+          </button>
+          <button type="button" class="btn btn-link" @click="unlockGroup(item)"
+                  v-show="item.stateCode == 0 && item.id != 1">启用
+          </button>
         </td>
       </tr>
       </tbody>
@@ -56,7 +60,8 @@
         </li>
       </ul>
     </nav>
-    <div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="groupModalLabel" aria-hidden="true">
+    <div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="groupModalLabel"
+         aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -90,8 +95,10 @@
                     <li v-for="item in resources">
                       <div class="checkbox">
                         <label>
-                          <input type="checkbox" :value="item.id" v-model="inputGroup.resources">
-                          <span class="badge" :class="{'badge-primary': item.stateCode == 1, 'badge-secondary': item.stateCode == 2}">{{item.name}}</span>
+                          <input type="checkbox" :value="item.id" v-model="inputGroup.resources"
+                                 @click="checkParent(item)">
+                          <span class="badge"
+                                :class="{'badge-primary': item.stateCode == 1, 'badge-secondary': item.stateCode == 2}">{{item.name}}</span>
                           <span class="badge badge-dark">{{item.uri}}</span>
                         </label>
                       </div>
@@ -100,7 +107,8 @@
                           <div class="checkbox">
                             <label>
                               <input type="checkbox" :value="child.id" v-model="inputGroup.resources">
-                              <span class="badge" :class="{'badge-primary': child.stateCode == 1, 'badge-secondary': child.stateCode == 2}">{{child.name}}</span>
+                              <span class="badge"
+                                    :class="{'badge-primary': child.stateCode == 1, 'badge-secondary': child.stateCode == 2}">{{child.name}}</span>
                               <span class="badge badge-dark">{{child.uri}}</span>
                             </label>
                           </div>
@@ -115,7 +123,9 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             <button type="button" class="btn btn-primary" v-show="create" @click="addGroup">创建</button>
-            <button type="button" class="btn btn-primary" v-show="!create && inputGroup.id != 1" @click="updateGroup">更新</button>
+            <button type="button" class="btn btn-primary" v-show="!create && inputGroup.id != 1" @click="updateGroup">
+              更新
+            </button>
           </div>
         </div>
       </div>
@@ -146,6 +156,14 @@
         return parseInt(this.count / this.query.pageSize) + 1
       }
     },
+    watch: {
+      inputGroup: {
+        handler: function (item) {
+          console.log(item.resources)
+        },
+        deep: true
+      }
+    },
     methods: {
       queryData() {
         listGroup(this.query, (body) => {
@@ -160,6 +178,42 @@
         this.create = true
         this.inputGroup = {stateCode: 1, resources: []}
         $('#groupModal').modal('show')
+      },
+      checkParent(item) {
+        if (item.children && item.children.length) {
+          let i, j;
+          let exclude = true;
+          for (i = 0; i < this.inputGroup.resources.length; i++) {
+            if (this.inputGroup.resources[i] == item.id) {
+              exclude = false;
+              break;
+            }
+          }
+          if (exclude) {
+            console.log('in')
+            for (i = 0; i < item.children.length; i++) {
+              for (j = 0; j < this.inputGroup.resources.length; j++) {
+                if (this.inputGroup.resources[j] == item.children[i].id) {
+                  exclude = false;
+                  break;
+                }
+              }
+              if (exclude) {
+                this.inputGroup.resources.push(item.children[i].id);
+              }
+            }
+          } else {
+            console.log('out');
+            for (i = 0; i < item.children.length; i++) {
+              for (j = 0; j < this.inputGroup.resources.length; j++) {
+                if (this.inputGroup.resources[j] == item.children[i].id) {
+                  this.inputGroup.resources.splice(j, 1);
+                  break;
+                }
+              }
+            }
+          }
+        }
       },
       addGroup() {
         if (!this.inputGroup) {
