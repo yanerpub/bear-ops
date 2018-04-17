@@ -11,8 +11,8 @@
             <div class="col-auto">
               <label class="sr-only">时间</label>
               <div class="input-group">
-                <datepicker language="zh" id="startDate" class="form-control mb-2" :format="'yyyy-MM-dd'"></datepicker>
-                <datepicker language="zh" id="endDate" class="form-control mb-2" :format="'yyyy-MM-dd'"></datepicker>
+                <datepicker language="zh" id="startDate" class="form-control mb-2" :format="'yyyy-MM-dd'" placeholde="开始时间"></datepicker>
+                <datepicker language="zh" id="endDate" class="form-control mb-2" :format="'yyyy-MM-dd'" placeholde="结束时间"></datepicker>
               </div>
             </div>
             <div class="col-auto">

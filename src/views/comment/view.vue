@@ -19,6 +19,8 @@
         <th>内容</th>
         <th>时间</th>
         <th>发贴人</th>
+        <th>回复</th>
+        <th>点赞</th>
         <th>操作</th>
       </tr>
       </thead>
@@ -28,8 +30,9 @@
         <td>{{item.content}}</td>
         <td>{{item.createTime | timeAgo }}</td>
         <td>{{item.creatorName }}</td>
+        <td><button type="button" class="btn btn-link" @click="viewComment(item)">{{item.answerCount }}</button></td>
+        <td>{{item.thumbsUpCount }}</td>
         <td>
-          <button type="button" class="btn btn-link" @click="viewComment(item)">查看</button>
           <button type="button" class="btn btn-link" @click="deleteComment(item.id)">删除</button>
         </td>
       </tr>
