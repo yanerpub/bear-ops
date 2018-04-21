@@ -15,7 +15,7 @@
           <div class="form-group row">
             <label for="industry" class="col-sm-2 col-form-label">行业</label>
             <div class="col-sm-10">
-              <select id="industry" class="form-control">
+              <select id="industry" class="form-control" v-model="ce.industryId">
                 <option v-for="op in industries" :value="op.id">{{op.name}}</option>
               </select>
             </div>

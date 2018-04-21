@@ -55,7 +55,7 @@
           <span v-show="item.studentCount <= 0">0</span>
         </td>
         <td>{{item.stateName}}</td>
-        <td>查看个人简历todo</td>
+        <td>个人简历todo</td>
         <td>
           <button type="button" class="btn btn-link" @click="lockTeacher(item)" v-show="item.stateCode == 1">禁用</button>
           <button type="button" class="btn btn-link" @click="unlockTeacher(item)" v-show="item.stateCode == 0">激活</button>

@@ -3,11 +3,6 @@
     <div class="card">
       <div class="card-body">
         <form class="form-inline">
-          <div class="form-group row">
-            <label for="queryName">名称</label>
-            <input type="text" id="queryName" v-model="query.name" class="form-control mx-sm-4">
-          </div>
-          <button type="button" class="btn btn-primary mr-2" @click="queryData">查询</button>
           <router-link class="btn btn-primary" role="button" to="/teacher/" aria-pressed="true">返回</router-link>
         </form>
       </div>

@@ -50,7 +50,7 @@
         <td>{{item.id}}</td>
         <td>{{item.name}}</td>
         <td>{{item.creatorName}}</td>
-        <td>是todo</td>
+        <td>是</td>
         <td>{{item.applyStateName}}</td>
         <td>
           <router-link :to="{ name: 'caseView', params: { id: item.id }}">查看</router-link>
