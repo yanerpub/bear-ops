@@ -30,13 +30,13 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">上传数据</label>
           <div class="col-sm-10">
-            <a :href="ce.attachmentUrl" class="form-control-plaintext" target="_blank">{{ce.attachmentName}}</a>
+            <a :href="'/ops/attachment?path=' + ce.attachment" class="form-control-plaintext" target="_blank">案例附件</a>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">案例封面</label>
           <div class="col-sm-10">
-            <a :href="ce.coverUrl" class="form-control-plaintext" target="_blank">{{ce.coverName}}</a>
+            <a :href="'/ops/attachment?path=' + ce.cover" class="form-control-plaintext" target="_blank">案例封面</a>
           </div>
         </div>
         <div class="form-group row" v-show="ce.applyStateCode != 1">
@@ -138,12 +138,6 @@
       queryData() {
         fetchCase(this.$route.params.id, (body) => {
           this.ce = body._data.case
-          var attachment = JSON.parse(this.ce.attachment)
-          this.ce.attachmentName = attachment[0].originalName
-          this.ce.attachmentUrl = attachment[0].url
-          var cover = JSON.parse(this.ce.cover)
-          this.ce.coverName = cover[0].originalName
-          this.ce.coverUrl = cover[0].url
           this.stat = body._data.stat
         });
       },
