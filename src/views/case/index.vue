@@ -96,7 +96,7 @@
     name: 'case-list-view',
     data() {
       return {
-        query: {pageNow: 1, pageSize: 3, stateCode: ''},
+        query: {pageNow: 1, pageSize: 10, stateCode: ''},
         list: [],
         count: 0
       }
