@@ -129,6 +129,26 @@
                   </tr>
                   </tbody>
                 </table>
+                <nav>
+                  <ul class="pagination">
+                    <li class="page-item">
+                      <a class="page-link" @click="prevPage()" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">{{query.pageNow}}</a></li>
+                    <li class="page-item">
+                      <a class="page-link" @click="nextPage()" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                      </a>
+                    </li>
+                    <li class="page-item">
+                      <span class="page-link">共{{totalPage}}页</span>
+                    </li>
+                  </ul>
+                </nav>
               </div>
             </div>
           </div>
@@ -157,7 +177,24 @@
     components: {
       Datepicker
     },
+    computed: {
+      totalPage () {
+        return parseInt(this.count / this.query.pageSize) + 1
+      }
+    },
     methods: {
+      prevPage () {
+        if (this.query.pageNow > 1) {
+          this.query.pageNow = this.query.pageNow - 1;
+          this.queryData();
+        }
+      },
+      nextPage () {
+        if (this.query.pageNow < this.totalPage) {
+          this.query.pageNow = this.query.pageNow + 1;
+          this.queryData();
+        }
+      },
       addData() {
         this.notice.publishTime = $('#publishTime').val()
         this.notice.expireTime = $('#expireTime').val()

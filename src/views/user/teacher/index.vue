@@ -67,14 +67,14 @@
     <nav>
       <ul class="pagination">
         <li class="page-item">
-          <a class="page-link" href="#" aria-label="Previous">
+          <a class="page-link" @click="prevPage()" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
             <span class="sr-only">Previous</span>
           </a>
         </li>
         <li class="page-item active"><a class="page-link" href="#">{{query.pageNow}}</a></li>
         <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next">
+          <a class="page-link" @click="nextPage()" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
             <span class="sr-only">Next</span>
           </a>
@@ -108,6 +108,18 @@
       }
     },
     methods: {
+      prevPage () {
+        if (this.query.pageNow > 1) {
+          this.query.pageNow = this.query.pageNow - 1;
+          this.queryData();
+        }
+      },
+      nextPage () {
+        if (this.query.pageNow < this.totalPage) {
+          this.query.pageNow = this.query.pageNow + 1;
+          this.queryData();
+        }
+      },
       queryData () {
         listTeacher(this.query, (body) => {
           this.list = body._data.list

@@ -129,11 +129,6 @@
     created() {
       this.queryData()
     },
-    computed: {
-      totalPage() {
-        return parseInt(this.count / this.query.pageSize) + 1
-      }
-    },
     methods: {
       queryData() {
         fetchCase(this.$route.params.id, (body) => {
