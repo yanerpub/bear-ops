@@ -32,7 +32,6 @@
         <th>手机</th>
         <th>学校</th>
         <th>申请时间</th>
-        <th>个人简历</th>
         <th>状态</th>
       </tr>
       </thead>
@@ -43,7 +42,6 @@
         <td>{{item.mobile}}</td>
         <td>{{item.schoolName}}</td>
         <td>{{item.createTime | timeAgo}}</td>
-        <td>个人简历todo</td>
         <td>
           <span v-show="item.stateCode != 1">{{item.stateName}}</span>
           <button type="button" class="btn btn-link" @click="toApproveApply(item)" v-show="item.stateCode == 1">同意</button>
