@@ -93,6 +93,7 @@
                   <input class="form-control" type="text" id="mobile" v-model="apply.password" required>
                 </div>
               </div>
+              <p>提示：用户名和密码将以短信的形式发送用户的手机！</p>
             </form>
           </div>
           <div class="modal-footer">
